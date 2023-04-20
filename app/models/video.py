@@ -44,7 +44,7 @@ class Video(db.Model):
     def preview_to_dict(self):
         return {
             'id': self.id,
-            'url': self.url,
+            'user_id': self.user_id,
             'thumbnail': self.thumbnail,
             'title': self.title,
             'views': self.views,

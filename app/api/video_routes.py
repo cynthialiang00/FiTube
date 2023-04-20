@@ -11,7 +11,17 @@ video_routes = Blueprint('videos', __name__)
 def get_all_videos():
     # returns all videos with only preview information
     videos = Video.query.all()
-    return {'all_videos': [video.preview_to_dict() for video in videos]}
+    video_data = []
+    
+    for video in videos:
+        data = video.preview_to_dict()
+        data['User']={
+            'username': video.user.username,
+            'avatar': video.user.avatar
+        }
+        video_data.append(data)
+
+    return {'all_videos': video_data}
 
 @video_routes.route('/<int:id>')
 def get_video(id):
