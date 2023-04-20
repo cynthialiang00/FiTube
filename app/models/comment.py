@@ -15,8 +15,8 @@ class Comment(db.Model):
                          nullable=True)
 
     content = db.Column(db.Text, nullable=False)
-    likes = db.Column(db.Integer, nullable=True)
-    dislikes = db.Column(db.Integer, nullable=True)
+    likes = db.Column(db.Integer, default=0)
+    dislikes = db.Column(db.Integer, default=0)
 
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now())

@@ -18,8 +18,8 @@ class Video(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
     views = db.Column(db.Integer, default=1)
-    likes = db.Column(db.Integer, nullable=True)
-    dislikes = db.Column(db.Integer, nullable=True)
+    likes = db.Column(db.Integer, default=0)
+    dislikes = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now())
 
