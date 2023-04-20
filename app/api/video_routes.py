@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, Video, User
 from app.s3_helpers import (
-    upload_file_to_s3, remove_file_from_s3, get_unique_filename, allowed_file)
+    upload_video_to_s3, upload_thumb_to_s3, remove_video_from_s3, get_unique_filename, allowed_file)
 
 video_routes = Blueprint('videos', __name__)
 
@@ -46,8 +46,8 @@ def upload_video():
     
     video.filename = get_unique_filename(video.filename)
     thumbnail.filename = get_unique_filename(thumbnail.filename)
-    upload_video = upload_file_to_s3(video)
-    upload_thumbnail = upload_file_to_s3(thumbnail)
+    upload_video = upload_video_to_s3(video)
+    upload_thumbnail = upload_thumb_to_s3(thumbnail)
 
     if "url" not in upload_video or "url" not in upload_thumbnail:
         # if the dictionary doesn't have a url key
@@ -103,7 +103,7 @@ def put_video():
             return {"errors": ["video: file type not permitted"]}, 400
         
         video.filename = get_unique_filename(video.filename)
-        upload_video = upload_file_to_s3(video)
+        upload_video = upload_video_to_s3(video)
 
         if "url" not in upload_video:
             return {'errors': ['Failed to upload to AWS']}, 400
@@ -122,7 +122,7 @@ def put_video():
             return {"errors": ["thumbnail: file type not permitted"]}, 400
         
         thumbnail.filename = get_unique_filename(thumbnail.filename)
-        upload_thumbnail = upload_file_to_s3(thumbnail)
+        upload_thumbnail = upload_thumb_to_s3(thumbnail)
 
         if "url" not in upload_thumbnail:
             return {'errors': ['Failed to upload to AWS']}, 400
@@ -151,8 +151,8 @@ def delete_video(id):
     if current_user.id != video.user_id:
         return {'errors': ['Unauthorized']}, 403
     
-    remove_video = remove_file_from_s3(video.url)
-    remove_thumbnail = remove_file_from_s3(video.thumbnail)
+    remove_video = remove_video_from_s3(video.url)
+    remove_thumbnail = remove_video_from_s3(video.thumbnail)
 
     if not remove_video or not remove_thumbnail:
         return {'errors': ['Failed to delete files from AWS']}, 400

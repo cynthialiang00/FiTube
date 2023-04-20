@@ -25,12 +25,12 @@ def get_unique_filename(filename):
     return f"{unique_filename}.{ext}"
 
 
-def upload_file_to_s3(file, acl="public-read"):
+def upload_video_to_s3(file, acl="public-read"):
     try:
         s3.upload_fileobj(
             file,
             BUCKET_NAME,
-            file.filename,
+            'videos/' + file.filename,
             ExtraArgs={
                 "ACL": acl,
                 "ContentType": file.content_type
@@ -42,8 +42,38 @@ def upload_file_to_s3(file, acl="public-read"):
 
     return {"url": f"{S3_LOCATION}{file.filename}"}
 
+def upload_thumb_to_s3(file, acl="public-read"):
+    try:
+        s3.upload_fileobj(
+            file,
+            BUCKET_NAME,
+            'thumbnails/' + file.filename,
+            ExtraArgs={
+                "ACL": acl,
+                "ContentType": file.content_type
+            }
+        )
+    except Exception as e:
+        # in case the our s3 upload fails
+        return {"errors": str(e)}
 
-def remove_file_from_s3(image_url):
+    return {"url": f"{S3_LOCATION}{file.filename}"}
+
+def remove_video_from_s3(image_url):
+    # AWS needs the image file name, not the URL, 
+    # so we split that out of the URL
+    key = image_url.rsplit("/", 1)[1]
+    print(key)
+    try:
+        s3.delete_object(
+        Bucket=BUCKET_NAME,
+        Key=key
+        )
+    except Exception as e:
+        return { "errors": str(e) }
+    return True
+
+def remove_thumb_from_s3(image_url):
     # AWS needs the image file name, not the URL, 
     # so we split that out of the URL
     key = image_url.rsplit("/", 1)[1]
