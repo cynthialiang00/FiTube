@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 
 import HomePage from "./components/Home";
+import UploadVideoModal from "./components/Navigation/UploadVideo";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/home">
+          <Route exact path="/">
             <HomePage />
           </Route>
           <Route path="/login" >
@@ -29,7 +30,9 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          
+          <Route path="/upload">
+            <UploadVideoModal />
+          </Route>
         </Switch>
       )}
     </>

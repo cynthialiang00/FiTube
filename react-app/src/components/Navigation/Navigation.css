@@ -5,3 +5,89 @@
 .hidden {
   display: none;
 }
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  background-color: inherit;
+  border-bottom: 1px solid #282828;
+}
+
+.nav-logo-container {
+    display: inline;
+    margin-left: 25px;
+}
+
+#nav-logo {
+  margin-top: 10px;
+}
+
+.drawer-hideshow {
+  background-color: inherit;
+  color: #f1f1f1;
+  border: none;
+  border-radius: 50px;
+  margin-right: 25px;
+
+}
+
+
+.drawer-hideshow:hover {
+  background-color: rgb(113, 113, 113, 0.15);
+}
+
+.nav-utils {
+  margin-right: 25px;
+  list-style-type: none;
+}
+
+.nav-create-btn {
+  border: none;
+  padding-right: 10px;
+  background-color: inherit;
+  border-radius: 50px;
+}
+
+.nav-create-btn:hover {
+  background-color: rgb(113, 113, 113, 0.15);
+}
+
+.nav-utils > li {
+  display: inline;
+  padding: 10px;
+}
+.nav-avatar-btn {
+  background-color: inherit;
+  padding: 0px;
+  padding-top: 2px;
+  border: none;
+  color: #f1f1f1;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 41px;
+  right: 20px;
+  list-style-type: none;
+  color: #f1f1f1
+}
+
+
+.profile-dropdown > button {
+  border: none;
+  background-color: #282828;
+  color: #f1f1f1;
+}
+
+.profile-dropdown > li {
+  border: none;
+  background-color: #282828;
+}
+
+.profile-dropdown>li >button{
+  border: none;
+  background-color: #282828;
+  color: #f1f1f1;
+}

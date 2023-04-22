@@ -39,19 +39,25 @@ def get_video(id):
 @video_routes.route('/', methods=['POST'])
 @login_required
 def upload_video():
+    print(request)
+    print(request.files)
     if "video" not in request.files:
+        print("video file required")
         return {"errors": ["video file required"]}, 400
     
     if "thumbnail" not in request.files:
+        print("thumbnail is required")
         return {"errors": ["thumbnail is required"]}, 400
     
     video = request.files["video"]
     thumbnail = request.files["thumbnail"]
 
     if not allowed_file(video.filename):
+        print("video: file type not permitted")
         return {"errors": ["video: file type not permitted"]}, 400
     
     if not allowed_file(thumbnail.filename):
+        print("thumbnail: file type not permitted")
         return {"errors": ["thumbnail: file type not permitted"]}, 400
     
     video.filename = get_unique_filename(video.filename)
@@ -59,10 +65,17 @@ def upload_video():
     upload_video = upload_video_to_s3(video)
     upload_thumbnail = upload_thumb_to_s3(thumbnail)
 
+    print('UPLOAD_VIDEO')
+    print(upload_video)
+
+    print('UPLOAD THUMBNAIL')
+    print(upload_thumbnail)
+
     if "url" not in upload_video or "url" not in upload_thumbnail:
         # if the dictionary doesn't have a url key
         # it means that there was an error when we tried to upload
         # so we send back that error message
+            print('Failed to upload to AWS')
             return {'errors': ['Failed to upload to AWS']}, 400
     
     url = upload_video["url"]
@@ -70,12 +83,18 @@ def upload_video():
 
     this_user = User.query.get(current_user.id)
 
-    new_video = Video(url=url, thumbnail=thumbnail, title=request["title"], description=request["description"], user=this_user)
- 
+    # print(request.form.get('title'))
+    # print(request.form.get('description'))
+    new_video = Video(url=url, thumbnail=thumbnail, title=request.form.get('title'), description=request.form.get('description'), user=this_user)
     db.session.add(new_video)
     db.session.commit()
+    new_data = new_video.preview_to_dict()
+    new_data['User']={
+            'username': new_video.user.username,
+            'avatar': new_video.user.avatar
+            }
+    return new_data, 201
 
-    return {'message': 'successfully uploaded video'}, 201
     # if form.validate_on_submit():
           
     #     video = form.data["video"]

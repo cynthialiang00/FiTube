@@ -40,7 +40,7 @@ def upload_video_to_s3(file, acl="public-read"):
         # in case the our s3 upload fails
         return {"errors": str(e)}
 
-    return {"url": f"{S3_LOCATION}{file.filename}"}
+    return {"url": f"{S3_LOCATION}{'videos/'+file.filename}"}
 
 def upload_thumb_to_s3(file, acl="public-read"):
     try:
@@ -57,7 +57,7 @@ def upload_thumb_to_s3(file, acl="public-read"):
         # in case the our s3 upload fails
         return {"errors": str(e)}
 
-    return {"url": f"{S3_LOCATION}{file.filename}"}
+    return {"url": f"{S3_LOCATION}{'thumbnails/'+file.filename}"}
 
 def remove_video_from_s3(image_url):
     # AWS needs the image file name, not the URL, 

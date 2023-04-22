@@ -1,6 +1,7 @@
 // constants
 const GET_ALL_VIDEOS = "videos/GET_ALL_VIDEOS";
 const GET_ONE_VIDEO = "videos/GET_ONE_VIDEO";
+const POST_VIDEO = "videos/POST_VIDEO";
 
 const getAllVideos = (data) => ({
     type: GET_ALL_VIDEOS,
@@ -9,6 +10,12 @@ const getAllVideos = (data) => ({
 
 const getOneVideo = (data) => ({
     type: GET_ONE_VIDEO,
+    payload: data
+});
+
+
+const postVideo = (data) => ({
+    type: POST_VIDEO,
     payload: data
 });
 
@@ -42,6 +49,25 @@ export const thunkGetOneVideo = (videoId) => async (dispatch) => {
     }
 };
 
+export const thunkPostVideo = (video) => async (dispatch) => {
+    console.log('thunk body:', video)
+    const response = await fetch(`/api/videos/`, {
+        method: 'POST',
+        body: video
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+
+        if (data.errors) {
+            return data;
+        }
+
+        dispatch(postVideo(data));
+        return data;
+    }
+};
+
 
 
 export default function videoReducer(state = initialState, action) {
@@ -58,6 +84,11 @@ export default function videoReducer(state = initialState, action) {
             action.payload.one_video.forEach((video) => {
                 newState.one_video[video.id] = video
             });
+            return newState;
+        case POST_VIDEO:
+            newState = {...state};
+            newState.all_videos = {...state.all_videos};
+            newState.all_videos[action.payload.id] = action.payload;
             return newState;
         
         default:

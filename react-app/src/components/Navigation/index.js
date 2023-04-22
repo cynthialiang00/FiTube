@@ -4,20 +4,45 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 
+// import ytlogo from './yt_icon_rgb.png';
+import ytlogo from './Youtube-cropped.svg';
+
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
 
 	return (
-		<ul>
-			<li>
-				<NavLink exact to="/">Home</NavLink>
-			</li>
-			{isLoaded && (
+		<nav className='nav-container'>
+			<div className='nav-logo-container'>
+				<button className='drawer-hideshow'>
+					<i className="fas fa-bars" style={{ fontSize: "20px", color: "#f1f1f1" }}></i>
+				</button>
+				
+				<img id='nav-logo' src={ytlogo} alt="fitube logo" style={{width: "100px", height: "30px"}}></img>
+			</div>
+			<div className='nav-search'>
+			</div>
+			<ul className='nav-utils'>
+				<li>
+					<button className='nav-create-btn'>
+						<i className="fa-solid fa-video" style={{ fontSize: "20px", color: "#f1f1f1" }}></i>
+					</button>
+				</li>
 				<li>
 					<ProfileButton user={sessionUser} />
 				</li>
-			)}
-		</ul>
+
+			</ul>
+		</nav>
+		// <ul>
+		// 	<li>
+		// 		<NavLink exact to="/">Home</NavLink>
+		// 	</li>
+		// 	{isLoaded && (
+		// 		<li>
+		// 			<ProfileButton user={sessionUser} />
+		// 		</li>
+		// 	)}
+		// </ul>
 	);
 }
 
