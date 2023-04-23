@@ -50,3 +50,15 @@ class Video(db.Model):
             'views': self.views,
             'created_at': self.created_at
         }
+
+    def user_to_dict(self):
+        return {
+            'id': self.id,
+            'thumbnail': self.thumbnail,
+            'title': self.title,
+            'description': self.description,
+            'views': self.views,
+            'likes': self.likes,
+            'dislikes': self.dislikes,
+            'created_at': self.created_at
+        }

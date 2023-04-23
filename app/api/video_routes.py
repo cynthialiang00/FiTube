@@ -23,6 +23,22 @@ def get_all_videos():
 
     return {'all_videos': video_data}
 
+@video_routes.route('/user')
+@login_required
+def get_all_user_videos():
+    # returns all videos owned by the user
+    videos = Video.query.filter(Video.user_id==current_user.id).all()
+    if not videos:
+        return {'errors': ['User has no videos']}, 404
+    
+    user_videos_data = []
+    for video in videos:
+        data = video.user_to_dict()
+        data['comments_num'] = len(video.comments)
+        user_videos_data.append(data)
+
+    return{'user_videos': user_videos_data}, 200
+
 @video_routes.route('/<int:id>')
 def get_video(id):
     # returns detailed information about a video

@@ -1,0 +1,49 @@
+.manage-content{
+    padding: 0;
+    border: 0;
+    margin: 0 auto;
+    width: 95%;
+    color: #f1f1f1;
+}
+
+.manage-content > div > h2 {
+    font-size: 25px;
+}
+.manage-columns {
+    display: flex;
+    border-bottom: 1px solid #aaaaaa;
+}
+
+.manage-columns > div {
+    font-size: 12px;
+    color: #aaaaaa;
+    padding-bottom: 15px;
+}
+.manage-video {
+    width: 40%;
+    overflow: hidden;
+}
+
+.manage-edit {
+    width: 10%;
+}
+
+.manage-delete {
+    width: 10%;
+}
+
+.manage-date {
+    width: 10%;
+}
+
+.manage-views {
+    width: 10%;
+}
+
+.manage-comments {
+    width: 10%;
+}
+
+.manage-likes {
+    width: 10%;
+}

@@ -6,8 +6,10 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 
+
 import HomePage from "./components/Home";
 import UploadVideoModal from "./components/Navigation/UploadVideo";
+import ManageVideos from "./components/ManageVideos";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +34,9 @@ function App() {
           </Route>
           <Route path="/upload">
             <UploadVideoModal />
+          </Route>
+          <Route path="/manage">
+            <ManageVideos />
           </Route>
         </Switch>
       )}
