@@ -164,9 +164,9 @@ export default function videoReducer(state = initialState, action) {
         case EDIT_VIDEO:
             newState = { ...state };
             newState.all_videos = { ...state.all_videos };
-            newState.all_videos[action.payload.id] = action.payload;
+            newState.all_videos[action.payload.edit_all_videos.id] = action.payload.edit_all_videos;
             newState.user_videos = {...state.user_videos};
-            newState.user_videos[action.payload.id] = action.payload;
+            newState.user_videos[action.payload.edit_user_videos.id] = action.payload.edit_user_videos;
             return newState;
         case DELETE_VIDEO:
             newState = { ...state }

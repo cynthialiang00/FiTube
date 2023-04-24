@@ -11,10 +11,10 @@ const EditVideoModal = ({vdo, videoId}) => {
     const history = useHistory();
     const { closeModal } = useModal();
 
-    const [video, setVideo] = useState(vdo.url);
+    const [video, setVideo] = useState(null);
     const [videoIsLoading, setVideoIsLoading] = useState(false);
 
-    const [thumbnail, setThumbnail] = useState(vdo.thumbnail);
+    const [thumbnail, setThumbnail] = useState(null);
     const [thumbnailIsLoading, setThumbnailIsLoading] = useState(false);
 
     const [title, setTitle] = useState(vdo.title);
@@ -38,12 +38,15 @@ const EditVideoModal = ({vdo, videoId}) => {
 
         const formData = new FormData();
 
-        formData.append("video", video);
-        formData.append("thumbnail", thumbnail);
-        formData.append("title", title);
-        formData.append("description", description);
-        console.log('submit formdata:', formData.get("video"))
+        if (video !== null) formData.append("video", video);
+        if (thumbnail !== null) formData.append("thumbnail", thumbnail);
+        if (title !== vdo.title) formData.append("title", title);
+        if (description !== vdo.description) formData.append("description", description);
 
+        console.log(formData.get('video'));
+        console.log(formData.get('thumbnail'));
+        console.log(formData.get('title'));
+        console.log(formData.get('description'));
         setVideoIsLoading(true);
         setThumbnailIsLoading(true);
 
@@ -55,7 +58,7 @@ const EditVideoModal = ({vdo, videoId}) => {
         if (createdInfo.errors) return alert(`Oops, something went wrong with uploading. Please try again.`);
 
         if (!Object.values(errors).length && !createdInfo.errors) {
-            history.push('/');
+            history.push('/manage');
             closeModal();
         }
 
