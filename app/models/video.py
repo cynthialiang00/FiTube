@@ -35,7 +35,9 @@ class Video(db.Model):
             'title': self.title,
             'description': self.description,
             'views': self.views,
-            'created_at': self.created_at
+            'created_at': self.created_at,
+            'likes_num': len([reaction for reaction in self.reactions if reaction.reaction=="like"]),
+            'dislikes_num': len([reaction for reaction in self.reactions if reaction.reaction=="dislike"])
         }
     
     def preview_to_dict(self):
@@ -45,7 +47,10 @@ class Video(db.Model):
             'thumbnail': self.thumbnail,
             'title': self.title,
             'views': self.views,
-            'created_at': self.created_at
+            'created_at': self.created_at,
+            'User': {'username': self.user.username,
+                     'avatar': self.user.avatar
+                     }
         }
 
     def user_to_dict(self):
@@ -55,5 +60,8 @@ class Video(db.Model):
             'title': self.title,
             'description': self.description,
             'views': self.views,
-            'created_at': self.created_at
+            'created_at': self.created_at,
+            'comments_num': len(self.comments),
+            'likes_num': len([reaction for reaction in self.reactions if reaction.reaction=="like"]),
+            'dislikes_num': len([reaction for reaction in self.reactions if reaction.reaction=="dislike"])
         }
