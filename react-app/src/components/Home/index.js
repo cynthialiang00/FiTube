@@ -24,7 +24,7 @@ function HomePage() {
                             <img className="spot-image" src={`${video.thumbnail}`} alt={`Preview of ${video.title}`}></img>
                             <div className="spot-description">
                                 <div className="spot-info">
-                                    <div className="spot-title">{`${video.title}`}</div>
+                                    <div className="spot-title">{video.title}</div>
                                     <div className="spot-price">
                                         <div>
                                             {`${video.User.username}`}

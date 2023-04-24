@@ -1,6 +1,7 @@
 // constants
 const GET_ALL_VIDEOS = "videos/GET_ALL_VIDEOS";
 const GET_ONE_VIDEO = "videos/GET_ONE_VIDEO";
+const GET_USER_VIDEOS = "videos/GET_USER_VIDEOS";
 const POST_VIDEO = "videos/POST_VIDEO";
 
 const getAllVideos = (data) => ({
@@ -13,13 +14,17 @@ const getOneVideo = (data) => ({
     payload: data
 });
 
+const getUserVideos = (data) => ({
+    type: GET_USER_VIDEOS,
+    payload: data
+});
 
 const postVideo = (data) => ({
     type: POST_VIDEO,
     payload: data
 });
 
-const initialState = { all_videos: {},  one_video: {}};
+const initialState = { all_videos: {},  one_video: {}, user_videos:{}};
 
 export const thunkGetAllVideos = () => async (dispatch) => {
     const response = await fetch("/api/videos/");
@@ -46,6 +51,20 @@ export const thunkGetOneVideo = (videoId) => async (dispatch) => {
         }
 
         dispatch(getOneVideo(data));
+    }
+};
+
+export const thunkGetUserVideos = () => async (dispatch) => {
+    const response = await fetch("/api/videos/user");
+
+    if (response.ok) {
+        const data = await response.json();
+
+        if (data.errors) {
+            return data;
+        }
+
+        dispatch(getUserVideos(data));
     }
 };
 
@@ -83,6 +102,12 @@ export default function videoReducer(state = initialState, action) {
             newState = { ...state, one_video: {} };
             action.payload.one_video.forEach((video) => {
                 newState.one_video[video.id] = video
+            });
+            return newState;
+        case GET_USER_VIDEOS:
+            newState = { ...state, user_videos: {} };
+            action.payload.user_videos.forEach((video) => {
+                newState.user_videos[video.id] = video
             });
             return newState;
         case POST_VIDEO:

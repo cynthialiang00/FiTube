@@ -17,14 +17,13 @@ class Video(db.Model):
     thumbnail = db.Column(db.Text, nullable=False)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
-    views = db.Column(db.Integer, default=1)
-    likes = db.Column(db.Integer, default=0)
-    dislikes = db.Column(db.Integer, default=0)
+    views = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now())
 
     user = db.relationship("User", back_populates="video")
-    comments = db.relationship("Comment", back_populates="video")
+    comments = db.relationship("Comment", back_populates="video", cascade="all, delete, delete-orphan")
+    reactions = db.relationship("VideoReaction", back_populates="video", cascade="all, delete, delete-orphan")
 
 
     def to_dict(self):
@@ -36,8 +35,6 @@ class Video(db.Model):
             'title': self.title,
             'description': self.description,
             'views': self.views,
-            'likes': self.likes,
-            'dislikes': self.dislikes,
             'created_at': self.created_at
         }
     
@@ -58,7 +55,5 @@ class Video(db.Model):
             'title': self.title,
             'description': self.description,
             'views': self.views,
-            'likes': self.likes,
-            'dislikes': self.dislikes,
             'created_at': self.created_at
         }

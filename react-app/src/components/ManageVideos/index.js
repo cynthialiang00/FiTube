@@ -2,17 +2,26 @@ import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { thunkGetUserVideos } from "../../store/videos";
 import './ManageVideos.css'
 
 function ManageVideos() {
+    const dispatch = useDispatch();
+    const userVideos = useSelector((state) => state.videos.user_videos);
+
+    useEffect(() => {
+        dispatch(thunkGetUserVideos());
+    }, [dispatch]);
+
+    const userVideosArr = Object.values(userVideos);
 
     return (
         <div className="manage-content">
             <div>
                 <h2>Channel content</h2>
             </div>
-            <div className="manage-columns">
-                <div className="manage-video">Video</div>
+            <div className="manage-columns-labels">
+                <div className="manage-video-label">Video</div>
                 <div className="manage-edit">Edit</div>
                 <div className="manage-delete">Delete</div>
                 <div className="manage-date">Date</div>
@@ -20,6 +29,37 @@ function ManageVideos() {
                 <div className="manage-comments">Comments</div>
                 <div className="manage-likes">Likes (vs. dislikes)</div>
             </div>
+            {userVideosArr.map((video) => (
+                <div key={video.id} className="manage-columns">
+                    <div className="manage-video">
+                        <img className="manage-video-img" src={video.thumbnail} alt="video thumbnail"></img>
+                        {video.title.length > 46 ? 
+                            <div className="manage-video-title">{`${video.title.slice(0,46)}...`}</div>
+                        :
+                            <div className="manage-video-title">{video.title}</div>
+                        }
+                        {video.description.length > 98 ?
+                            <div className="manage-video-desc">{`${video.description.slice(0,98)}...`}</div>
+                        :
+                            <div className="manage-video-desc">{video.description}</div>
+                        }
+                        
+                    </div>
+                    <div className="manage-edit">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                    </div>
+                    <div className="manage-delete">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </div>
+                    <div className="manage-date">
+                        <div>{video.created_at}</div>
+                        <div>Uploaded</div>
+                    </div>
+                    <div className="manage-views">{video.views}</div>
+                    <div className="manage-comments">{video.comments_num}</div>
+                    <div className="manage-likes">{video.likes}</div>
+                </div>
+            ))}
         </div>
     )
 }

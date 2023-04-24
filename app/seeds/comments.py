@@ -33,7 +33,7 @@ def seed_comments(users, videos):
     db.session.add(comment_2)
     db.session.add(comment_3)
     db.session.commit()
-
+    return [comment_1, comment_2, comment_3]
 
 
 
