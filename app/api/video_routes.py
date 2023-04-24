@@ -2,7 +2,7 @@ from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, Video, User, VideoReaction
 from app.s3_helpers import (
-    upload_video_to_s3, upload_thumb_to_s3, remove_video_from_s3, get_unique_filename, allowed_file)
+    upload_video_to_s3, upload_thumb_to_s3, remove_video_from_s3, get_unique_filename, allowed_video_file, allowed_thumbnail_file)
 
 video_routes = Blueprint('videos', __name__)
 
@@ -51,13 +51,13 @@ def upload_video():
     video = request.files["video"]
     thumbnail = request.files["thumbnail"]
 
-    if not allowed_file(video.filename):
+    if not allowed_video_file(video.filename):
         print("video: file type not permitted")
-        return {"errors": ["video: file type not permitted"]}, 400
+        return {"errors": ["video: file type must be mp4"]}, 400
     
-    if not allowed_file(thumbnail.filename):
+    if not allowed_thumbnail_file(thumbnail.filename):
         print("thumbnail: file type not permitted")
-        return {"errors": ["thumbnail: file type not permitted"]}, 400
+        return {"errors": ["thumbnail: file type must be pdf, png, jpg, jpeg, or gif"]}, 400
     
     video.filename = get_unique_filename(video.filename)
     thumbnail.filename = get_unique_filename(thumbnail.filename)
@@ -87,12 +87,7 @@ def upload_video():
     new_video = Video(url=url, thumbnail=thumbnail, title=request.form.get('title'), description=request.form.get('description'), user=this_user)
     db.session.add(new_video)
     db.session.commit()
-    new_data = new_video.preview_to_dict()
-    new_data['User']={
-            'username': new_video.user.username,
-            'avatar': new_video.user.avatar
-            }
-    return new_data, 201
+    return new_video.preview_to_dict(), 201
 
     # if form.validate_on_submit():
           
@@ -127,8 +122,8 @@ def put_video():
     if request.files["video"]:
         print("EDIT: VIDEO")
         video = request.files["video"]
-        if not allowed_file(video.filename):
-            return {"errors": ["video: file type not permitted"]}, 400
+        if not allowed_video_file(video.filename):
+            return {"errors": ["video: file type must be mp4"]}, 400
         
         video.filename = get_unique_filename(video.filename)
         upload_video = upload_video_to_s3(video)
@@ -140,14 +135,11 @@ def put_video():
 
         edit_video(url=url)
 
-
-
-
     if request.files["thumbnail"]:
         print("EDIT:THUMBNAIL")
         thumbnail = request.files["thumbnail"]
-        if not allowed_file(thumbnail.filename):
-            return {"errors": ["thumbnail: file type not permitted"]}, 400
+        if not allowed_thumbnail_file(thumbnail.filename):
+            return {"errors": ["thumbnail: file type must be pdf, png, jpg, jpeg, or gif"]}, 400
         
         thumbnail.filename = get_unique_filename(thumbnail.filename)
         upload_thumbnail = upload_thumb_to_s3(thumbnail)
@@ -159,6 +151,13 @@ def put_video():
 
         edit_video(thumbnail=thumbnail)
 
+    if request.form.get('title'):
+        print("EDIT: TITLE")
+        edit_video(title=request.form.get('title'))
+    
+    if request.form.get('description'):
+        print("EDIT: DESCRIPTION")
+        edit_video(title=request.form.get('description'))
 
     db.session.commit()
     
