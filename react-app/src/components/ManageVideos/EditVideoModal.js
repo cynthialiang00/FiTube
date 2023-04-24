@@ -2,35 +2,33 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { thunkPostVideo } from "../../store/videos";
+import { thunkEditVideo } from "../../store/videos";
 import './ModalForm.css'
 
-const EditVideoModal = () => {
+const EditVideoModal = ({vdo, videoId}) => {
 
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal();
 
-    const [video, setVideo] = useState(null);
+    const [video, setVideo] = useState(vdo.url);
     const [videoIsLoading, setVideoIsLoading] = useState(false);
 
-    const [thumbnail, setThumbnail] = useState(null);
+    const [thumbnail, setThumbnail] = useState(vdo.thumbnail);
     const [thumbnailIsLoading, setThumbnailIsLoading] = useState(false);
 
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
+    const [title, setTitle] = useState(vdo.title);
+    const [description, setDescription] = useState(vdo.description);
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
         setErrors({});
         const err = {};
-        if (!video) err["video"] = "Video file is required.";
-        if (!thumbnail) err["thumbnail"] = "Thumbnail file is required.";
         if (!title.length) err["title"] = "Title field must not be empty";
         if (title.length > 70) err["title"] = "Titlecan’t be longer than 70 characters."
         if (description.length > 1000) err["description"] = "Description can't be longer than 1000 characters "
         setErrors(err)
-    }, [video, thumbnail, title, description]);
+    }, [title, description]);
 
 
     const handleSubmit = async (e) => {
@@ -49,7 +47,7 @@ const EditVideoModal = () => {
         setVideoIsLoading(true);
         setThumbnailIsLoading(true);
 
-        const created = dispatch(thunkPostVideo(formData));
+        const created = dispatch(thunkEditVideo(formData));
         const createdInfo = await created;
         setVideoIsLoading(false);
         setThumbnailIsLoading(false);

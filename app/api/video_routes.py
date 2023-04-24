@@ -131,6 +131,10 @@ def put_video():
         if "url" not in upload_video:
             return {'errors': ['Failed to upload to AWS']}, 400
         
+        remove_existing_video = remove_from_s3(edit_video.url)
+        if not remove_existing_video:
+            return {'errors': ['Failed to delete video from AWS']}, 400
+      
         url = upload_video["url"]
 
         edit_video(url=url)
@@ -147,6 +151,10 @@ def put_video():
         if "url" not in upload_thumbnail:
             return {'errors': ['Failed to upload to AWS']}, 400
         
+        remove_existing_thumb = remove_from_s3(edit_video.thumbnail)
+        if not remove_existing_thumb:
+            return {'errors': ['Failed to delete thumbnail from AWS']}, 400
+        
         thumbnail = upload_thumbnail["url"]
 
         edit_video(thumbnail=thumbnail)
@@ -160,13 +168,8 @@ def put_video():
         edit_video(title=request.form.get('description'))
 
     db.session.commit()
-    
-    more_videos = Video.query.filter(Video.id != id).all()
 
-    video_data = edit_video.to_dict()
-    video_data['More'] = {vdo.id: vdo.preview_to_dict() for vdo in more_videos}
-
-    return {'one_video': [video_data]}, 200
+    return {'edit_all_videos': edit_video.preview_to_dict(), 'edit_user_videos': edit_video.user_to_dict()}, 200
 
 @video_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
