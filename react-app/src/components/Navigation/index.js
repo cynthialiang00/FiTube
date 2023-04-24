@@ -2,6 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import OpenModalButton from '../OpenModalButton';
+import UploadVideoModal from './UploadVideo';
 import './Navigation.css';
 
 // import ytlogo from './yt_icon_rgb.png';
@@ -23,9 +25,14 @@ function Navigation({ isLoaded }){
 			</div>
 			<ul className='nav-utils'>
 				<li>
-					<button className='nav-create-btn'>
+					<OpenModalButton 
+						buttonText={<i className="fa-solid fa-video" style={{ fontSize: "20px", color: "#f1f1f1" }}></i>}
+						modalComponent={<UploadVideoModal />}
+						className={'nav-create-btn'}
+					/>
+					{/* <button className='nav-create-btn'>
 						<i className="fa-solid fa-video" style={{ fontSize: "20px", color: "#f1f1f1" }}></i>
-					</button>
+					</button> */}
 				</li>
 				<li>
 					<ProfileButton user={sessionUser} />

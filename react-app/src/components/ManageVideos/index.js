@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { thunkGetUserVideos } from "../../store/videos";
+import OpenModalButton from "../OpenModalButton";
+import DeleteVideoModal from "./DeleteVideoModal";
 import './ManageVideos.css'
 
 function ManageVideos() {
@@ -46,10 +48,15 @@ function ManageVideos() {
                         
                     </div>
                     <div className="manage-edit">
-                        <i class="fa-regular fa-pen-to-square"></i>
+                        <i className="fa-regular fa-pen-to-square"></i>
                     </div>
                     <div className="manage-delete">
-                        <i class="fa-solid fa-trash-can"></i>
+                        <OpenModalButton 
+                            buttonText={<i className="fa-solid fa-trash-can" style={{color: '#aaaaaa'}}></i>}
+                            className={"manage-delete"}
+                            modalComponent={<DeleteVideoModal videoId={video.id}/>}
+                        />
+                        {/* <i className="fa-solid fa-trash-can"></i> */}
                     </div>
                     <div className="manage-date">
                         <div>{video.created_at}</div>
@@ -57,7 +64,7 @@ function ManageVideos() {
                     </div>
                     <div className="manage-views">{video.views}</div>
                     <div className="manage-comments">{video.comments_num}</div>
-                    <div className="manage-likes">{video.likes}</div>
+                    <div className="manage-likes">{video.likes_num}</div>
                 </div>
             ))}
         </div>

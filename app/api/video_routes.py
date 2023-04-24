@@ -188,3 +188,10 @@ def delete_video(id):
     db.session.commit()
     return {'message': 'successfully deleted'}, 200
 
+# @video_routes.route('/delete-test')
+# def delete_test():
+#     # AWS needs the image file name, not the URL, 
+#     # so we split that out of the URL
+#     # print(type(image_url))
+#     remove_from_s3("https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/5327b391b98141e7b8f6c3b986e4aba4.jpeg")
+#     return {"testing": "delete aws"}

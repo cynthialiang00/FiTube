@@ -69,7 +69,11 @@ def upload_thumb_to_s3(file, acl="public-read"):
 def remove_from_s3(image_url):
     # AWS needs the image file name, not the URL, 
     # so we split that out of the URL
-    key = image_url.rsplit("/", 1)[1]
+    folder = image_url.rsplit("/", 2)[1] + '/'
+    file = image_url.rsplit("/", 1)[1]
+    # print(folder)
+    # print(file)
+    key=folder+file
     print(key)
     try:
         s3.delete_object(
@@ -79,3 +83,4 @@ def remove_from_s3(image_url):
     except Exception as e:
         return { "errors": str(e) }
     return True
+

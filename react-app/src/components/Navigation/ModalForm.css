@@ -10,8 +10,12 @@
     transition: all 0.1s ease-in-out;
     pointer-events: none;
     padding-bottom: 200px;
-    color: #1d1c1d;
+    border-radius: 10px;
+}
 
+.edit-modal-container * {
+    background-color: rgba(0, 0, 0, 0);
+    color: #f1f1f1;
 }
 
 .edit-modal-container {
@@ -20,7 +24,7 @@
     flex-direction: column;
     width: 80vw;
     max-width: 580px;
-    background-color: #F8F7F9;
+    border-radius: 10px;
 
 }
 
@@ -28,14 +32,12 @@
     align-self: center;
     padding: 12px 10px 20px 10px;
     width: 100%;
-    background-color: white;
 
 }
 
 .edit-modal-title {
     font-weight: 1000;
     font-size: 20px;
-    color: #1d1c1d;
     margin-left: 4%;
 }
 
@@ -50,18 +52,16 @@
     align-self: center;
     width: 90%;
     border-radius: 12px;
-    border: 1px solid #E2E3E2;
+    /* border: 1px solid #E2E3E2; */
     padding: 5px 10px;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: white;
 
 }
 
 .edit-modal-form label {
     font-weight: bold;
     margin-top: 20px;
-    background-color: white;
 }
 
 .edit-modal-form input {
@@ -70,16 +70,12 @@
     padding: 5px 10px;
     border-radius: 7px;
     border: 1px solid #7b7b7b50;
-    background-color: white;
     box-sizing: border-box;
     font-size: 15px;
     font-weight: 300;
     font-family: 'Open Sans', sans-serif;
 }
 
-.edit-modal-created-div {
-    border-top: 1px solid #E2E3E2;
-}
 
 .edit-modal-created-div>label {
     margin-top: 10px;
@@ -97,7 +93,6 @@
 }
 
 .edit-modal-border {
-    border-top: 1px solid #E2E3E2;
     margin-bottom: 10px;
 }
 
@@ -127,8 +122,7 @@
 }
 
 .edit-modal-close-btn:hover {
-    background-color: #efefef;
-    color: #494949;
+    background-color: #181818;
 }
 
 .edit-modal-form>button {
@@ -145,22 +139,22 @@
     cursor: not-allowed;
     color: #1d1c1d;
     padding: 8px 16px;
-    background-color: #E2E3E2;
-    border-color: #E2E3E2;
+    background-color: #282828;
+    border-color: #383838;
 }
 
 .decorated-button-delete-channel:not(:disabled) {
     border-radius: 8px;
     cursor: pointer;
-    color: #fff;
+    color: #181818;
     padding: 8px 16px;
-    background-color: #631965;
-    border-color: #631965;
+    background-color: #f1f1f1;
+    border-color:#f1f1f1;
 }
 
 .decorated-button-delete-channel:not(:disabled):hover {
-    background-color: #350d36;
-    border-color: #350d36;
+    background-color: red;
+    border-color: #f1f1f1;
 }
 
 .decorated-button-edit-channel {
@@ -174,17 +168,17 @@
     cursor: not-allowed;
     color: #1d1c1d;
     padding: 8px 16px;
-    background-color: #E2E3E2;
-    border-color: #E2E3E2;
+    background-color: #282828;
+    border-color: #383838;
 }
 
 .decorated-button-edit-channel:not(:disabled) {
     border-radius: 8px;
     cursor: pointer;
-    color: #fff;
+    color: #181818;
     padding: 8px 16px;
-    background-color: #631965;
-    border-color: #631965;
+    background-color:#f1f1f1;
+    border-color: #f1f1f1;
 }
 
 

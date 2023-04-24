@@ -9,6 +9,7 @@ const UploadVideoModal = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const { closeModal } = useModal();
 
     const [video, setVideo] = useState(null);
     const [videoIsLoading, setVideoIsLoading] = useState(false);
@@ -53,10 +54,11 @@ const UploadVideoModal = () => {
         setVideoIsLoading(false);
         setThumbnailIsLoading(false);
 
-        if (createdInfo.errors) return alert(`Oops, something went wrong with creating the channel. Please try again.`);
+        if (createdInfo.errors) return alert(`Oops, something went wrong with uploading. Please try again.`);
 
         if (!Object.values(errors).length && !createdInfo.errors) {
-            history.push('/')
+            history.push('/');
+            closeModal();
         }
 
     };
@@ -72,13 +74,13 @@ const UploadVideoModal = () => {
     }
 
     return (
-
+        <div className='edit-model'>
         <div className="edit-modal-container">
             <div className='edit-modal-header'>
                 <div>&nbsp;</div>
                 <div style={{ paddingLeft: "7px" }} className='edit-modal-title'>{`Upload Your Video`}</div>
 
-                <button className="edit-modal-close-btn">
+                <button className="edit-modal-close-btn" onClick={() => closeModal()}>
                     <i className="fa-solid fa-x"></i>
                 </button>
             </div>
@@ -94,11 +96,14 @@ const UploadVideoModal = () => {
                             </li>
                         ))}
                     </ul>
+                    <label style={{ paddingLeft: "7px" }}> Video File </label>
                     <input
                         type="file"
                         accept="video/*"
                         onChange={updateVideo}
                     />
+                    <label style={{ paddingLeft: "7px" }}> Thumbnail </label>
+
                     <input
                         type="file"
                         accept="image/*"
@@ -139,6 +144,7 @@ const UploadVideoModal = () => {
 
 
             </form>
+        </div>
         </div>
     )
 

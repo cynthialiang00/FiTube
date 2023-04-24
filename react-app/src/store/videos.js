@@ -3,6 +3,8 @@ const GET_ALL_VIDEOS = "videos/GET_ALL_VIDEOS";
 const GET_ONE_VIDEO = "videos/GET_ONE_VIDEO";
 const GET_USER_VIDEOS = "videos/GET_USER_VIDEOS";
 const POST_VIDEO = "videos/POST_VIDEO";
+const EDIT_VIDEO = "videos/EDIT_VIDEO";
+const DELETE_VIDEO = "videos/DELETE_VIDEO";
 
 const getAllVideos = (data) => ({
     type: GET_ALL_VIDEOS,
@@ -23,6 +25,16 @@ const postVideo = (data) => ({
     type: POST_VIDEO,
     payload: data
 });
+
+const editVideo = (data) => ({
+    type: EDIT_VIDEO,
+    payload: data
+})
+
+const deleteVideo = (id) => ({
+    type: DELETE_VIDEO,
+    id
+})
 
 const initialState = { all_videos: {},  one_video: {}, user_videos:{}};
 
@@ -69,7 +81,6 @@ export const thunkGetUserVideos = () => async (dispatch) => {
 };
 
 export const thunkPostVideo = (video) => async (dispatch) => {
-    console.log('thunk body:', video)
     const response = await fetch(`/api/videos/`, {
         method: 'POST',
         body: video
@@ -83,6 +94,41 @@ export const thunkPostVideo = (video) => async (dispatch) => {
         }
 
         dispatch(postVideo(data));
+        return data;
+    }
+};
+
+export const thunkEditVideo = (id, video) => async (dispatch) => {
+    const response = await fetch(`/api/videos/${id}`, {
+        method: 'PUT',
+        body: video
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+
+        if (data.errors) {
+            return data;
+        }
+
+        dispatch(editVideo(data));
+        return data;
+    }
+};
+
+export const thunkDeleteVideo = (id) => async (dispatch) => {
+    const response = await fetch(`/api/videos/${id}`, {
+        method: 'DELETE',
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+
+        if (data.errors) {
+            return data;
+        }
+
+        dispatch(deleteVideo(id));
         return data;
     }
 };
@@ -115,7 +161,22 @@ export default function videoReducer(state = initialState, action) {
             newState.all_videos = {...state.all_videos};
             newState.all_videos[action.payload.id] = action.payload;
             return newState;
-        
+        case EDIT_VIDEO:
+            newState = { ...state };
+            newState.all_videos = { ...state.all_videos };
+            newState.all_videos[action.payload.id] = action.payload;
+            newState.user_videos = {...state.user_videos};
+            newState.user_videos[action.payload.id] = action.payload;
+            return newState;
+        case DELETE_VIDEO:
+            newState = { ...state }
+            newState.all_videos = { ...state.all_videos };
+            delete newState.all_videos[action.id];
+            newState.user_videos = { ...state.user_videos };
+            delete newState.user_videos[action.id];
+            // newState.one_video = { ...state.one_video };
+            // delete newState.one_video[action.id];
+            return newState;
         default:
             return state;
     }
