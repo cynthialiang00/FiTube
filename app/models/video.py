@@ -17,14 +17,13 @@ class Video(db.Model):
     thumbnail = db.Column(db.Text, nullable=False)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
-    views = db.Column(db.Integer, default=1)
-    likes = db.Column(db.Integer, default=0)
-    dislikes = db.Column(db.Integer, default=0)
+    views = db.Column(db.Integer, default=0)
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now())
 
     user = db.relationship("User", back_populates="video")
-    comments = db.relationship("Comment", back_populates="video")
+    comments = db.relationship("Comment", back_populates="video", cascade="all, delete, delete-orphan")
+    reactions = db.relationship("VideoReaction", back_populates="video", cascade="all, delete, delete-orphan")
 
 
     def to_dict(self):
@@ -36,17 +35,33 @@ class Video(db.Model):
             'title': self.title,
             'description': self.description,
             'views': self.views,
-            'likes': self.likes,
-            'dislikes': self.dislikes,
-            'created_at': self.created_at
+            'created_at': self.created_at,
+            'likes_num': len([reaction for reaction in self.reactions if reaction.reaction=="like"]),
+            'dislikes_num': len([reaction for reaction in self.reactions if reaction.reaction=="dislike"])
         }
     
     def preview_to_dict(self):
         return {
             'id': self.id,
-            'url': self.url,
+            'user_id': self.user_id,
             'thumbnail': self.thumbnail,
             'title': self.title,
             'views': self.views,
-            'created_at': self.created_at
+            'created_at': self.created_at,
+            'User': {'username': self.user.username,
+                     'avatar': self.user.avatar
+                     }
+        }
+
+    def user_to_dict(self):
+        return {
+            'id': self.id,
+            'thumbnail': self.thumbnail,
+            'title': self.title,
+            'description': self.description,
+            'views': self.views,
+            'created_at': self.created_at,
+            'comments_num': len(self.comments),
+            'likes_num': len([reaction for reaction in self.reactions if reaction.reaction=="like"]),
+            'dislikes_num': len([reaction for reaction in self.reactions if reaction.reaction=="dislike"])
         }

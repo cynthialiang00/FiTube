@@ -17,6 +17,8 @@ class User(db.Model, UserMixin):
 
     video = db.relationship("Video", back_populates="user")
     comments = db.relationship("Comment", back_populates="user")
+    vid_reactions = db.relationship("VideoReaction", back_populates="user")
+    cmt_reactions = db.relationship("CommentReaction", back_populates="user")
 
     @property
     def password(self):

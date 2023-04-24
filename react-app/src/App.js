@@ -6,6 +6,11 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 
+
+import HomePage from "./components/Home";
+import UploadVideoModal from "./components/Navigation/UploadVideo";
+import ManageVideos from "./components/ManageVideos";
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -18,11 +23,20 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
           <Route path="/login" >
             <LoginFormPage />
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path="/upload">
+            <UploadVideoModal />
+          </Route>
+          <Route path="/manage">
+            <ManageVideos />
           </Route>
         </Switch>
       )}

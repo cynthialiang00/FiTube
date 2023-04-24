@@ -5,7 +5,8 @@ import uuid
 
 BUCKET_NAME = os.environ.get("S3_BUCKET")
 S3_LOCATION = f"https://{BUCKET_NAME}.s3.amazonaws.com/"
-ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif", "mp4"}
+ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif"}
+ALLOWED_EXTENSIONS_VIDEO = {"mp4"}
 
 s3 = boto3.client(
    "s3",
@@ -13,7 +14,13 @@ s3 = boto3.client(
    aws_secret_access_key=os.environ.get("S3_SECRET")
 )
 
-def allowed_file(filename):
+def allowed_video_file(filename):
+    print(filename)
+    print("." in filename)
+    return "." in filename and \
+           filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS_VIDEO
+
+def allowed_thumbnail_file(filename):
     print(filename)
     print("." in filename)
     return "." in filename and \
@@ -25,12 +32,12 @@ def get_unique_filename(filename):
     return f"{unique_filename}.{ext}"
 
 
-def upload_file_to_s3(file, acl="public-read"):
+def upload_video_to_s3(file, acl="public-read"):
     try:
         s3.upload_fileobj(
             file,
             BUCKET_NAME,
-            file.filename,
+            'videos/' + file.filename,
             ExtraArgs={
                 "ACL": acl,
                 "ContentType": file.content_type
@@ -40,13 +47,33 @@ def upload_file_to_s3(file, acl="public-read"):
         # in case the our s3 upload fails
         return {"errors": str(e)}
 
-    return {"url": f"{S3_LOCATION}{file.filename}"}
+    return {"url": f"{S3_LOCATION}{'videos/'+file.filename}"}
 
+def upload_thumb_to_s3(file, acl="public-read"):
+    try:
+        s3.upload_fileobj(
+            file,
+            BUCKET_NAME,
+            'thumbnails/' + file.filename,
+            ExtraArgs={
+                "ACL": acl,
+                "ContentType": file.content_type
+            }
+        )
+    except Exception as e:
+        # in case the our s3 upload fails
+        return {"errors": str(e)}
 
-def remove_file_from_s3(image_url):
+    return {"url": f"{S3_LOCATION}{'thumbnails/'+file.filename}"}
+
+def remove_from_s3(image_url):
     # AWS needs the image file name, not the URL, 
     # so we split that out of the URL
-    key = image_url.rsplit("/", 1)[1]
+    folder = image_url.rsplit("/", 2)[1] + '/'
+    file = image_url.rsplit("/", 1)[1]
+    # print(folder)
+    # print(file)
+    key=folder+file
     print(key)
     try:
         s3.delete_object(
@@ -56,3 +83,4 @@ def remove_file_from_s3(image_url):
     except Exception as e:
         return { "errors": str(e) }
     return True
+

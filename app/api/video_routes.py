@@ -1,8 +1,8 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, Video, User
+from app.models import db, Video, User, VideoReaction
 from app.s3_helpers import (
-    upload_file_to_s3, remove_file_from_s3, get_unique_filename, allowed_file)
+    upload_video_to_s3, upload_thumb_to_s3, remove_from_s3, get_unique_filename, allowed_video_file, allowed_thumbnail_file)
 
 video_routes = Blueprint('videos', __name__)
 
@@ -12,6 +12,15 @@ def get_all_videos():
     # returns all videos with only preview information
     videos = Video.query.all()
     return {'all_videos': [video.preview_to_dict() for video in videos]}
+
+@video_routes.route('/user')
+@login_required
+def get_all_user_videos():
+    # returns all videos owned by the user
+    videos = Video.query.filter(Video.user_id==current_user.id).all()
+    if not videos:
+        return {'errors': ['User has no videos']}, 404
+    return{'user_videos': [video.user_to_dict() for video in videos]}, 200
 
 @video_routes.route('/<int:id>')
 def get_video(id):
@@ -29,30 +38,43 @@ def get_video(id):
 @video_routes.route('/', methods=['POST'])
 @login_required
 def upload_video():
+    print(request)
+    print(request.files)
     if "video" not in request.files:
+        print("video file required")
         return {"errors": ["video file required"]}, 400
     
     if "thumbnail" not in request.files:
+        print("thumbnail is required")
         return {"errors": ["thumbnail is required"]}, 400
     
     video = request.files["video"]
     thumbnail = request.files["thumbnail"]
 
-    if not allowed_file(video.filename):
-        return {"errors": ["video: file type not permitted"]}, 400
+    if not allowed_video_file(video.filename):
+        print("video: file type not permitted")
+        return {"errors": ["video: file type must be mp4"]}, 400
     
-    if not allowed_file(thumbnail.filename):
-        return {"errors": ["thumbnail: file type not permitted"]}, 400
+    if not allowed_thumbnail_file(thumbnail.filename):
+        print("thumbnail: file type not permitted")
+        return {"errors": ["thumbnail: file type must be pdf, png, jpg, jpeg, or gif"]}, 400
     
     video.filename = get_unique_filename(video.filename)
     thumbnail.filename = get_unique_filename(thumbnail.filename)
-    upload_video = upload_file_to_s3(video)
-    upload_thumbnail = upload_file_to_s3(thumbnail)
+    upload_video = upload_video_to_s3(video)
+    upload_thumbnail = upload_thumb_to_s3(thumbnail)
+
+    print('UPLOAD_VIDEO')
+    print(upload_video)
+
+    print('UPLOAD THUMBNAIL')
+    print(upload_thumbnail)
 
     if "url" not in upload_video or "url" not in upload_thumbnail:
         # if the dictionary doesn't have a url key
         # it means that there was an error when we tried to upload
         # so we send back that error message
+            print('Failed to upload to AWS')
             return {'errors': ['Failed to upload to AWS']}, 400
     
     url = upload_video["url"]
@@ -60,12 +82,13 @@ def upload_video():
 
     this_user = User.query.get(current_user.id)
 
-    new_video = Video(url=url, thumbnail=thumbnail, title=request["title"], description=request["description"], user=this_user)
- 
+    # print(request.form.get('title'))
+    # print(request.form.get('description'))
+    new_video = Video(url=url, thumbnail=thumbnail, title=request.form.get('title'), description=request.form.get('description'), user=this_user)
     db.session.add(new_video)
     db.session.commit()
+    return new_video.preview_to_dict(), 201
 
-    return {'message': 'successfully uploaded video'}, 201
     # if form.validate_on_submit():
           
     #     video = form.data["video"]
@@ -99,11 +122,11 @@ def put_video():
     if request.files["video"]:
         print("EDIT: VIDEO")
         video = request.files["video"]
-        if not allowed_file(video.filename):
-            return {"errors": ["video: file type not permitted"]}, 400
+        if not allowed_video_file(video.filename):
+            return {"errors": ["video: file type must be mp4"]}, 400
         
         video.filename = get_unique_filename(video.filename)
-        upload_video = upload_file_to_s3(video)
+        upload_video = upload_video_to_s3(video)
 
         if "url" not in upload_video:
             return {'errors': ['Failed to upload to AWS']}, 400
@@ -112,17 +135,14 @@ def put_video():
 
         edit_video(url=url)
 
-
-
-
     if request.files["thumbnail"]:
         print("EDIT:THUMBNAIL")
         thumbnail = request.files["thumbnail"]
-        if not allowed_file(thumbnail.filename):
-            return {"errors": ["thumbnail: file type not permitted"]}, 400
+        if not allowed_thumbnail_file(thumbnail.filename):
+            return {"errors": ["thumbnail: file type must be pdf, png, jpg, jpeg, or gif"]}, 400
         
         thumbnail.filename = get_unique_filename(thumbnail.filename)
-        upload_thumbnail = upload_file_to_s3(thumbnail)
+        upload_thumbnail = upload_thumb_to_s3(thumbnail)
 
         if "url" not in upload_thumbnail:
             return {'errors': ['Failed to upload to AWS']}, 400
@@ -131,6 +151,13 @@ def put_video():
 
         edit_video(thumbnail=thumbnail)
 
+    if request.form.get('title'):
+        print("EDIT: TITLE")
+        edit_video(title=request.form.get('title'))
+    
+    if request.form.get('description'):
+        print("EDIT: DESCRIPTION")
+        edit_video(title=request.form.get('description'))
 
     db.session.commit()
     
@@ -151,8 +178,8 @@ def delete_video(id):
     if current_user.id != video.user_id:
         return {'errors': ['Unauthorized']}, 403
     
-    remove_video = remove_file_from_s3(video.url)
-    remove_thumbnail = remove_file_from_s3(video.thumbnail)
+    remove_video = remove_from_s3(video.url)
+    remove_thumbnail = remove_from_s3(video.thumbnail)
 
     if not remove_video or not remove_thumbnail:
         return {'errors': ['Failed to delete files from AWS']}, 400
@@ -161,3 +188,10 @@ def delete_video(id):
     db.session.commit()
     return {'message': 'successfully deleted'}, 200
 
+# @video_routes.route('/delete-test')
+# def delete_test():
+#     # AWS needs the image file name, not the URL, 
+#     # so we split that out of the URL
+#     # print(type(image_url))
+#     remove_from_s3("https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/5327b391b98141e7b8f6c3b986e4aba4.jpeg")
+#     return {"testing": "delete aws"}

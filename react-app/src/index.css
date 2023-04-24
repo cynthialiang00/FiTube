@@ -1,1 +1,23 @@
 /* TODO Add site wide styles */
+* {
+    background-color: #282828;
+}
+
+
+button { 
+    cursor:pointer;
+}
+
+.edit-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    opacity: 0;
+    transition: all 0.1s ease-in-out;
+    pointer-events: none;
+    padding-bottom: 200px;
+    border-radius: 10px;
+}
