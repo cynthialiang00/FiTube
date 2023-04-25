@@ -1,5 +1,5 @@
 // constants
-const GET_ALL_CMTS = "videos/GET_ALL_CMTS";
+const GET_ALL_CMTS = "comments/GET_ALL_CMTS";
 
 
 const getAllComments = (data) => ({

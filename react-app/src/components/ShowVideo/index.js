@@ -17,16 +17,18 @@ const ShowVideo = () => {
     useEffect(() => {
         dispatch(thunkGetOneVideo(videoId));
         dispatch(thunkGetAllComments(videoId));
-        
     }, [dispatch, videoId]);
+
 
     if (Object.values(video).length) recommended = Object.values(video.More);
 
-    if (!video) return (<h1>404: Video not found</h1>);
+    
     console.log(video)
     console.log(recommended)
     console.log(comments)
+    if (!video) return (<h1>404: Video not found</h1>);
     return (
+        
         <div className="video-page">
             <div className="video-page-left"></div>
             <div className="video-content">
@@ -39,8 +41,8 @@ const ShowVideo = () => {
                 <div id="video-title">{video.title}</div>
                 <div className="video-utils">
                     <div className="video-owner-box">
-                        {/* <img id="video-owner-img" src={video.User.avatar} alt="owner user avatar"></img>
-                        <div id="video-owner-name">{video.User.username}</div> */}
+                        <img id="video-owner-img" src={Object.values(video).length && video.User.avatar} alt="owner user avatar"></img>
+                        <div id="video-owner-name">{Object.values(video).length  && video.User.username}</div>
                     </div>
                     <div className="video-likes-box"></div>
                     <div className="video-description-box">
