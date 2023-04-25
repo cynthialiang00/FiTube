@@ -133,6 +133,7 @@
 .edit-page-decorated-button[disabled=disabled], .edit-page-decorated-button:disabled {
     color: #0d0d0d;
     background-color: #606060;
+    cursor: not-allowed;
 }
 
 .edit-page-utils-video {
@@ -158,4 +159,8 @@
 
 .edit-page-utils-video * {
     background-color: #181818;
+}
+
+.edit-errors {
+    color: red;
 }
