@@ -1,6 +1,6 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
-from app.models import db, Video, User, VideoReaction
+from app.models import db, Video, User, VideoReaction, Comment
 from app.s3_helpers import (
     upload_video_to_s3, upload_thumb_to_s3, remove_from_s3, get_unique_filename, allowed_video_file, allowed_thumbnail_file)
 
@@ -178,3 +178,30 @@ def delete_video(id):
 #     # print(type(image_url))
 #     remove_from_s3("https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/5327b391b98141e7b8f6c3b986e4aba4.jpeg")
 #     return {"testing": "delete aws"}
+
+# COMMENTS RELATED ROUTES
+@video_routes.route('/<int:id>/comments')
+def get_comment_videos(id):
+    # gets all comments for a video by id
+    video = Video.query.get(id)
+    comments = video.comments
+    return{'video_comments': [comment.to_dict() for comment in comments]}
+
+@video_routes.route('/<int:id>/comments', methods=['POST'])
+@login_required
+def create_comment_for_video(id):
+    # creates a comment for a video
+    video = Video.query.get(id)
+    if not video:
+        return {'errors': ['Resource not found']}, 404
+    
+    user = User.query.get(current_user.id)
+    if not user:
+        return {'errors': ['Must be registered for the site']}, 404
+    
+    req = request.get_json()
+
+    new_comment = Comment(content=req["content"], user=user, video=video)
+    db.session.add(new_comment)
+    db.session.commit()
+    return new_comment.to_dict(), 201

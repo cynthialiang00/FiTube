@@ -1,0 +1,35 @@
+.video-page {
+    display: flex;
+    flex-direction: row;
+}
+
+
+.video-page-left {
+    width: 11.5%;
+}
+
+.video-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    border: 0;
+    height: 100%;
+    margin-top: 0%;
+    padding-left: 1.7%;
+    width: 48%;
+    color: #f1f1f1;
+}
+
+.video-content * {
+    color:#f1f1f1;
+}
+
+.video-more {
+    margin-top: 2%;
+    width: 29%;
+}
+
+video-page-right {
+    width: 11.5%;
+}
