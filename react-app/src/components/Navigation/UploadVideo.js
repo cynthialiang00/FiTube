@@ -21,11 +21,15 @@ const UploadVideoModal = () => {
     const [description, setDescription] = useState("");
     const [errors, setErrors] = useState({});
 
+    const allowedFileTypes = 'pngjpgjpeg';
+
     useEffect(() => {
         setErrors({});
         const err = {};
         if (!video) err["video"] = "Video file is required.";
         if (!thumbnail) err["thumbnail"] = "Thumbnail file is required.";
+        if (video && getFileType(video.name) !== "mp4") err["videoType"] = "Video must be .mp4";
+        if (thumbnail && !allowedFileTypes.includes(getFileType(thumbnail.name))) err["thumbnailType"] = "Thumbnail must be .png, .jpg, or .jpeg";
         if (!title.length) err["title"] = "Title field must not be empty";
         if (title.length > 70) err["title"] = "Titlecan’t be longer than 70 characters."
         if (description.length > 1000) err["description"] = "Description can't be longer than 1000 characters "
@@ -62,6 +66,10 @@ const UploadVideoModal = () => {
         }
 
     };
+
+    const getFileType = (filename) => {
+        return filename.split('.').pop()
+    }
 
     const updateVideo = (e) => {
         const file = e.target.files[0];
