@@ -10,6 +10,7 @@ import Navigation from "./components/Navigation";
 import HomePage from "./components/Home";
 import UploadVideoModal from "./components/Navigation/UploadVideo";
 import ManageVideos from "./components/ManageVideos";
+import EditVideoPage from "./components/EditVideo";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,9 +36,13 @@ function App() {
           <Route path="/upload">
             <UploadVideoModal />
           </Route>
+          <Route path="/manage/edit/:videoId">
+            <EditVideoPage />
+          </Route>
           <Route path="/manage">
             <ManageVideos />
           </Route>
+          
         </Switch>
       )}
     </>
