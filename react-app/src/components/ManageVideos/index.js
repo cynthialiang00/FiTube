@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { thunkGetUserVideos } from "../../store/videos";
 import OpenModalButton from "../OpenModalButton";
 import DeleteVideoModal from "./DeleteVideoModal";
@@ -9,6 +9,7 @@ import './ManageVideos.css'
 
 function ManageVideos() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const userVideos = useSelector((state) => state.videos.user_videos);
 
     useEffect(() => {
@@ -47,9 +48,9 @@ function ManageVideos() {
                         }
                         
                     </div>
-                    <div className="manage-edit">
+                    <NavLink className="manage-edit" to={`/manage/edit/${video.id}`}>
                         <i className="fa-regular fa-pen-to-square"></i>
-                    </div>
+                    </NavLink>
                     <div className="manage-delete">
                         <OpenModalButton 
                             buttonText={<i className="fa-solid fa-trash-can" style={{color: '#aaaaaa'}}></i>}

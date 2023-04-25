@@ -110,7 +110,7 @@ def upload_video():
 
 @video_routes.route('/<int:id>', methods=['PUT'])
 @login_required
-def put_video():
+def put_video(id):
     
     edit_video = Video.query.get(id)
 
@@ -119,27 +119,7 @@ def put_video():
     if current_user.id != edit_video.user_id:
         return {'errors': ['Unauthorized']}, 403
 
-    if request.files["video"]:
-        print("EDIT: VIDEO")
-        video = request.files["video"]
-        if not allowed_video_file(video.filename):
-            return {"errors": ["video: file type must be mp4"]}, 400
-        
-        video.filename = get_unique_filename(video.filename)
-        upload_video = upload_video_to_s3(video)
-
-        if "url" not in upload_video:
-            return {'errors': ['Failed to upload to AWS']}, 400
-        
-        remove_existing_video = remove_from_s3(edit_video.url)
-        if not remove_existing_video:
-            return {'errors': ['Failed to delete video from AWS']}, 400
-      
-        url = upload_video["url"]
-
-        edit_video(url=url)
-
-    if request.files["thumbnail"]:
+    if "thumbnail" in request.files:
         print("EDIT:THUMBNAIL")
         thumbnail = request.files["thumbnail"]
         if not allowed_thumbnail_file(thumbnail.filename):
@@ -157,15 +137,15 @@ def put_video():
         
         thumbnail = upload_thumbnail["url"]
 
-        edit_video(thumbnail=thumbnail)
+        edit_video.thumbnail=thumbnail
 
     if request.form.get('title'):
         print("EDIT: TITLE")
-        edit_video(title=request.form.get('title'))
+        edit_video.title=request.form.get('title')
     
     if request.form.get('description'):
         print("EDIT: DESCRIPTION")
-        edit_video(title=request.form.get('description'))
+        edit_video.description=request.form.get('description')
 
     db.session.commit()
 
