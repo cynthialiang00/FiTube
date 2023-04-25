@@ -66,6 +66,7 @@ def upload_thumb_to_s3(file, acl="public-read"):
 
     return {"url": f"{S3_LOCATION}{'thumbnails/'+file.filename}"}
 
+
 def remove_from_s3(image_url):
     # AWS needs the image file name, not the URL, 
     # so we split that out of the URL
