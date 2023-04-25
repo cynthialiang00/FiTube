@@ -1,0 +1,37 @@
+.video-card {
+    display: grid;
+    grid-template-columns: 168px 224px;
+    grid-column-gap: 10px;
+    grid-row-gap: 5px;
+}
+
+.video-img {
+    width: 168px;
+    height: 94px;
+    border-radius: 8px;
+    grid-column: 1;
+}
+
+.video-title {
+    width: 220px;
+    grid-column: 2;
+    color: #f1f1f1;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.video-owner {
+    margin-top: -50px;
+    width: 220px;
+    grid-column: 2;
+    color: #aaaaaa;
+    font-size: 12px;
+}
+
+.video-views {
+    margin-top: -35px;
+    width: 220px;
+    grid-column: 2;
+    color: #aaaaaa;
+    font-size: 12px;
+}
