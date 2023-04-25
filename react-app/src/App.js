@@ -11,6 +11,7 @@ import HomePage from "./components/Home";
 import UploadVideoModal from "./components/Navigation/UploadVideo";
 import ManageVideos from "./components/ManageVideos";
 import EditVideoPage from "./components/EditVideo";
+import ShowVideo from "./components/ShowVideo";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <HomePage />
+          </Route>
+          <Route path="/videos/:videoId">
+            <ShowVideo />
           </Route>
           <Route path="/login" >
             <LoginFormPage />

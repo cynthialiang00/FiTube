@@ -31,5 +31,9 @@ class Comment(db.Model):
             'video_id': self.video_id,
             'content': self.content,
             'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'updated_at': self.updated_at,
+            'User': {
+                'username': self.user.username,
+                'avatar': self.user.avatar
+            }
         }

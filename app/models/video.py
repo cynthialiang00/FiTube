@@ -37,7 +37,10 @@ class Video(db.Model):
             'views': self.views,
             'created_at': self.created_at,
             'likes_num': len([reaction for reaction in self.reactions if reaction.reaction=="like"]),
-            'dislikes_num': len([reaction for reaction in self.reactions if reaction.reaction=="dislike"])
+            'dislikes_num': len([reaction for reaction in self.reactions if reaction.reaction=="dislike"]),
+            'User': {'username': self.user.username,
+                     'avatar': self.user.avatar
+                     }
         }
     
     def preview_to_dict(self):

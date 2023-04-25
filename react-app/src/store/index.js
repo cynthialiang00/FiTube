@@ -2,10 +2,12 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import reducer from './session'
 import videoReducer from './videos';
+import commentReducer from './comments';
 
 const rootReducer = combineReducers({
   session: reducer,
-  videos: videoReducer
+  videos: videoReducer,
+  comments: commentReducer
 });
 
 
