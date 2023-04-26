@@ -3,12 +3,12 @@ from flask_login import login_required, current_user
 from app.models import db, User, Comment, CommentReaction
 from datetime import datetime
 
-comment_routes = Blueprint('videos', __name__)
+comment_routes = Blueprint('comments', __name__)
 
 
 @comment_routes.route('/<int:id>', methods=['PUT'])
 @login_required
-def edit_comment():
+def edit_comment(id):
     comment = Comment.query.get(id)
     if not comment:
         return {'errors': ['Resource not found']}, 404
@@ -21,12 +21,13 @@ def edit_comment():
 
     comment.content = req["content"]
     comment.updated_at = current_timestamp
+    db.session.commit()
 
     return comment.to_dict()
 
 @comment_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
-def delete_comment():
+def delete_comment(id):
     comment = Comment.query.get(id)
     if not comment:
         return {'errors': ['Resource not found']}, 404

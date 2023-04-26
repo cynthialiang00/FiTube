@@ -112,3 +112,9 @@
 .video-more > a {
     text-decoration: none;
 }
+
+/* Comments section */
+.video-comments {
+    margin-top: 15px;
+}
+

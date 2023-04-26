@@ -8,26 +8,29 @@ import './ShowVideo.css';
 import { thunkGetAllComments } from "../../store/comments";
 import CommentCard from "./CommentCard";
 import VideoCard from "./VideoCard";
+import CreateComment from "./CreateComment";
 
 const ShowVideo = () => {
     const { videoId } = useParams();
     const dispatch = useDispatch();
-    let recommended;
+    
     const video = useSelector((state) => state.videos.one_video);
     const comments = useSelector((state) => state.comments);
+    const sessionUser = useSelector(state => state.session.user);
+
+    let recommended;
+
 
     useEffect(() => {
         dispatch(thunkGetOneVideo(videoId));
         dispatch(thunkGetAllComments(videoId));
     }, [dispatch, videoId]);
 
-
     if (Object.values(video).length) recommended = Object.values(video.More);
-
     const commentsArr = Object.values(comments)
-    console.log("video:", video)
-    console.log("more: ", recommended)
-    console.log("commentsArr: ", commentsArr)
+    // console.log("video:", video)
+    // console.log("more: ", recommended)
+    // console.log("commentsArr: ", commentsArr)
 
     if (!video) return (<h1>404: Video not found</h1>);
     return (
@@ -57,16 +60,45 @@ const ShowVideo = () => {
                     <span id="video-date">{Object.values(video).length && video.created_at}</span>
                     <div id="video-description">{Object.values(video).length && video.description}</div>
                 </div>
+                {/* COMMENTS SECTION*/}
+                { commentsArr.length ?
+                    <div className="video-comment-count">
+                        {`${commentsArr.length} Comments`}
+                    </div>
+                    :
+                    <div className="video-comment-count">
+                        No Comments
+                    </div>
+                }
+                {sessionUser ?
+                    <CreateComment 
+                        user={sessionUser}
+                        videoId={videoId}
+                    />
+                    :
+                    <div className="unlogged-video-post-comment">Log In to post a comment</div>
+                }
+                <div className="video-comments">
+                    {commentsArr.length ?
+                        (commentsArr.length &&
+                            commentsArr.map((cmt) => (
+                                    <CommentCard
+                                        user={sessionUser}
+                                        img={cmt.User.avatar}
+                                        name={cmt.User.username}
+                                        date={cmt.created_at}
+                                        text={cmt.content}
+                                    />
+                            ))
+
+                        )
+                        :
+                        null
+                    }
+                </div>
                 
             </div>
-            <div className="video-comments">
-                {/* <CommentCard
-                    img={commentsArr.length && commentsArr[0].User.avatar}
-                    name={commentsArr.length && commentsArr[0].User.username}
-                    date={commentsArr.length && commentsArr[0].created_at}
-                    text={commentsArr.length && commentsArr[0].content}
-                /> */}
-            </div>
+            
             <div className="video-more">
                 {Object.values(video).length &&
                   recommended.map((rec) => (

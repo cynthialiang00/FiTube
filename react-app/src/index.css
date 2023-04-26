@@ -8,6 +8,10 @@ button {
     cursor:pointer;
 }
 
+button:disabled {
+    cursor: not-allowed;
+}
+
 .edit-modal {
     position: fixed;
     left: 0;

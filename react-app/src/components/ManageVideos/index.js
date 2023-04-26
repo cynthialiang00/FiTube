@@ -19,6 +19,7 @@ function ManageVideos() {
     const userVideosArr = Object.values(userVideos);
 
     return (
+        userVideosArr.length ? (
         <div className="manage-content">
             <div>
                 <h2>Channel content</h2>
@@ -32,7 +33,7 @@ function ManageVideos() {
                 <div className="manage-comments">Comments</div>
                 <div className="manage-likes">Likes (vs. dislikes)</div>
             </div>
-            {userVideosArr.map((video) => (
+            {userVideosArr.length && userVideosArr.map((video) => (
                 <div key={video.id} className="manage-columns">
                     <div className="manage-video">
                         <img className="manage-video-img" src={video.thumbnail} alt="video thumbnail"></img>
@@ -69,6 +70,26 @@ function ManageVideos() {
                 </div>
             ))}
         </div>
+        )
+        :
+        (
+                <div className="manage-content">
+                    <div>
+                        <h2>Channel content</h2>
+                    </div>
+                    <div className="manage-columns-labels">
+                        <div className="manage-video-label">Video</div>
+                        <div className="manage-edit">Edit</div>
+                        <div className="manage-delete">Delete</div>
+                        <div className="manage-date">Date</div>
+                        <div className="manage-views">Views</div>
+                        <div className="manage-comments">Comments</div>
+                        <div className="manage-likes">Likes (vs. dislikes)</div>
+                    </div>
+                    <div>Upload a video to manage your videos.</div>
+                </div>
+        )
+
     )
 }
 
