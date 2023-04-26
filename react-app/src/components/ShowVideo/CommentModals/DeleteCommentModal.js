@@ -24,7 +24,10 @@ const DeleteCommentModal = ({ commentId }) => {
             <div className="edit-modal-container">
                 <div className='edit-modal-header'>
                     <div>&nbsp;</div>
-                    <div style={{ paddingLeft: "7px" }} className='edit-modal-title'>Delete This Video?</div>
+                    <div style={{ paddingLeft: "7px" }} className='edit-modal-title'>
+                        Delete This Comment?
+                        (THIS MODAL WILL BE STYLED MORE BEFORE CAPSTONE IS DUE)
+                    </div>
 
                     <button className="edit-modal-close-btn" onClick={() => closeModal()}>
                         <i className="fa-solid fa-x"></i>

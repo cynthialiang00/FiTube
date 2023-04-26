@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton';
@@ -11,15 +11,16 @@ import ytlogo from './Youtube-cropped.svg';
 
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
-
+	const history = useHistory();
 	return (
 		<nav className='nav-container'>
 			<div className='nav-logo-container'>
 				<button className='drawer-hideshow'>
 					<i className="fas fa-bars" style={{ fontSize: "20px", color: "#f1f1f1" }}></i>
 				</button>
-				
-				<img id='nav-logo' src={ytlogo} alt="fitube logo" style={{width: "100px", height: "30px"}}></img>
+				<NavLink exact to="/">
+					<img id='nav-logo' src={ytlogo} alt="fitube logo" style={{ width: "100px", height: "30px" }}></img>
+				</NavLink>
 			</div>
 			<div className='nav-search'>
 			</div>
