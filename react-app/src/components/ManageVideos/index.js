@@ -12,12 +12,15 @@ function ManageVideos() {
     const history = useHistory();
     const userVideos = useSelector((state) => state.videos.user_videos);
 
+    const user = useSelector(state => state.session.user);
+
     useEffect(() => {
         dispatch(thunkGetUserVideos());
     }, [dispatch]);
 
     const userVideosArr = Object.values(userVideos);
 
+    if(!user) return (<h1 style={{color: "#f1f1f1"}}>Please log in to access your videos.</h1>)
     return (
         userVideosArr.length ? (
         <div className="manage-content">
@@ -78,13 +81,6 @@ function ManageVideos() {
                         <h2>Channel content</h2>
                     </div>
                     <div className="manage-columns-labels">
-                        <div className="manage-video-label">Video</div>
-                        <div className="manage-edit">Edit</div>
-                        <div className="manage-delete">Delete</div>
-                        <div className="manage-date">Date</div>
-                        <div className="manage-views">Views</div>
-                        <div className="manage-comments">Comments</div>
-                        <div className="manage-likes">Likes (vs. dislikes)</div>
                     </div>
                     <div>Upload a video to manage your videos.</div>
                 </div>

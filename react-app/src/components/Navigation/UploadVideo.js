@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkPostVideo } from "../../store/videos";
 import './ModalForm.css'
 
 const UploadVideoModal = () => {
+    const user = useSelector(state => state.session.user);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -81,6 +82,7 @@ const UploadVideoModal = () => {
         setThumbnail(file);
     }
 
+    if(!user) return (<h1 style={{color: "#f1f1f1"}}>Please log in to upload a video</h1>);
     return (
         <div className='edit-model'>
         <div className="edit-modal-container">

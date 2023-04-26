@@ -27,14 +27,14 @@ const ShowVideo = () => {
     }, [dispatch, videoId]);
 
     if (Object.values(video).length) recommended = Object.values(video.More);
-    const commentsArr = Object.values(comments)
+    const commentsArr = Object.values(comments).reverse();
     // console.log("video:", video)
     // console.log("more: ", recommended)
     // console.log("commentsArr: ", commentsArr)
+    
+    if(!Object.values(video).length) return(<h1 style={{color: "#f1f1f1"}}>404: Video Not Found</h1>)
 
-    if (!video) return (<h1>404: Video not found</h1>);
-    return (
-        
+    return(
         <div className="video-page">
             <div className="video-page-left"></div>
             <div className="video-content">
@@ -82,7 +82,7 @@ const ShowVideo = () => {
                     {commentsArr.length ?
                         (commentsArr.length &&
                             commentsArr.map((cmt) => (
-                                    <CommentCard
+                                    <CommentCard key={cmt.id}
                                         user={sessionUser}
                                         img={cmt.User.avatar}
                                         name={cmt.User.username}
@@ -103,7 +103,7 @@ const ShowVideo = () => {
                 {Object.values(video).length &&
                   recommended.map((rec) => (
                     <NavLink key={rec.id} exact to={`/videos/${rec.id}`}>
-                        <VideoCard 
+                        <VideoCard key={rec.id}
                             thumb={rec.thumbnail}
                             title={rec.title.length > 50 ? `${rec.title.slice(0,50)}...`: rec.title}
                             owner={rec.User.username}
@@ -117,7 +117,6 @@ const ShowVideo = () => {
             {/* <div className="video-page-right"></div> */}
         </div>
     )
-
 };
 
 export default ShowVideo;

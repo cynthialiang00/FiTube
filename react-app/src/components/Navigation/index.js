@@ -26,7 +26,7 @@ function Navigation({ isLoaded }){
 			<ul className='nav-utils'>
 				<li>
 					<OpenModalButton 
-						buttonText={<i className="fa-solid fa-video" style={{ fontSize: "20px", color: "#f1f1f1" }}></i>}
+						buttonText={<><i className="fa-solid fa-video" style={{ fontSize: "15px", color: "#f1f1f1" }}>{` Upload`}</i></>}
 						modalComponent={<UploadVideoModal />}
 						className={'nav-create-btn'}
 					/>
