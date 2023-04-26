@@ -97,6 +97,7 @@
     border: 1px solid #181818;
     border-radius: 10px;
     background-color: #181818;
+    overflow: hidden;
 }
 
 .video-description-box > span {
