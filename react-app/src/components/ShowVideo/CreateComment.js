@@ -10,6 +10,7 @@ const CreateComment = ({user, videoId}) => {
     const dispatch = useDispatch();
 
     const [commentContent, setCommentContent] = useState("");
+    const [showCharCount, setShowCharCount] = useState(false);
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
@@ -31,6 +32,7 @@ const CreateComment = ({user, videoId}) => {
         const newCommentInfo = await newComment;
 
         if (newCommentInfo.errors) return alert(`${newCommentInfo.errors[0]}`);
+        setCommentContent("");
     }
 
     const handleCancel = (e) => {
@@ -43,6 +45,12 @@ const CreateComment = ({user, videoId}) => {
             <div className='post-comment-card'>
                 <img className="post-comment-img" src={user.avatar} alt={`${user.name}'s avatar`}></img>
                 <textarea 
+                    onFocus={(e) => {
+                        setShowCharCount(true);
+                    }}
+                    onBlur={(e) => {
+                        setShowCharCount(false);
+                    }}
                     style={{resize: "none"}}
                     className="comment-field"
                     placeholder="Add a comment..."
@@ -50,11 +58,19 @@ const CreateComment = ({user, videoId}) => {
                     onChange={(e) => setCommentContent(e.target.value)}
                 >
                 </textarea>
-                {Object.values(errors).length ? 
-                    <p className="comment-characters-invalid">{commentContent.length}/250</p>
-                :
-                    <p className="comment-characters">{commentContent.length}/250</p>
+                {showCharCount ? 
+                    (
+                        
+                            Object.values(errors).length ?
+                                <p className="comment-characters-invalid">{commentContent.length}/250</p>
+                                :
+                                <p className="comment-characters">{commentContent.length}/250</p>
+                        
+                    )
+                    :
+                    null
                 }
+                
                 <button
                     className="comment-cancel-button"
                     onClick={handleCancel}
