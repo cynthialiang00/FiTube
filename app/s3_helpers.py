@@ -5,7 +5,7 @@ import uuid
 
 BUCKET_NAME = os.environ.get("S3_BUCKET")
 S3_LOCATION = f"https://{BUCKET_NAME}.s3.amazonaws.com/"
-ALLOWED_EXTENSIONS = {"pdf", "png", "jpg", "jpeg", "gif"}
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 ALLOWED_EXTENSIONS_VIDEO = {"mp4"}
 
 s3 = boto3.client(
@@ -65,6 +65,7 @@ def upload_thumb_to_s3(file, acl="public-read"):
         return {"errors": str(e)}
 
     return {"url": f"{S3_LOCATION}{'thumbnails/'+file.filename}"}
+
 
 def remove_from_s3(image_url):
     # AWS needs the image file name, not the URL, 

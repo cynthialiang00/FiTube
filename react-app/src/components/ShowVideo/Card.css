@@ -1,0 +1,228 @@
+.video-card {
+    display: grid;
+    grid-template-columns: 168px 224px;
+    grid-column-gap: 10px;
+    grid-row-gap: 5px;
+}
+
+.video-img {
+    width: 168px;
+    height: 94px;
+    border-radius: 8px;
+    grid-column: 1;
+}
+
+.video-title {
+    width: 220px;
+    grid-column: 2;
+    color: #f1f1f1;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.video-owner {
+    margin-top: -50px;
+    width: 220px;
+    grid-column: 2;
+    color: #aaaaaa;
+    font-size: 12px;
+}
+
+.video-views {
+    margin-top: -35px;
+    width: 220px;
+    grid-column: 2;
+    color: #aaaaaa;
+    font-size: 12px;
+}
+
+/* COMMENTS CARD */
+
+.each-comment-container {
+    width: 676px;
+    height: 90px;
+    max-height: 130px;
+}
+.comment-card {
+    display: grid;
+    grid-template-columns: 56px 620px;
+    grid-template-rows: 20px auto-fit(minmax(40px, 125px));
+}
+
+.comment-hover {
+    display: grid;
+    grid-template-columns: 56px 620px;
+    grid-template-rows: 20px auto-fit(minmax(40px, 125px));
+}
+
+
+.comment-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    grid-column: 1;
+    grid-row: 1/3;
+}
+
+.comment-name {
+    grid-column: 2;
+    grid-row: 1;
+    color: #f1f1f1;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+.comment-name > span {
+    color: #aaaaaa;
+    font-size: 12px;
+    font-weight: normal;
+    margin-left: 10px;
+}
+
+.comment-text {
+    margin-top: 5px;
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 14px;
+    color: #f1f1f1;
+    min-height: 40px;
+    max-height: 120px;
+    max-width: 580px;
+    overflow: hidden;
+}
+
+/* COMMENT DROPDOWN */
+.comment-drop{
+    position: relative;
+    bottom: 50px;
+    left: 660px;
+    border:none;
+    background-color: #181818;
+    padding: 0;
+}
+
+.comment-dropdown {
+    position: relative;
+    bottom: 50px;
+    left: 620px;
+    list-style-type: none;
+    color: #f1f1f1;
+    border-radius: 10px;
+    background-color: #181818;
+    padding: 13px 8px 8px;
+    max-width: 80px;
+    min-height: 30px;
+    max-height: 50px;
+
+    
+}
+.comment-dropdown * {
+    background-color: #181818;
+}
+.comment-dropdown > li {
+    list-style: none;
+    font-size: 13px;
+}
+
+.comment-dropdown>li>button {
+    border: none;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none;
+    width: 0;
+    height: 0;
+}
+/* COMMENT STATISTICS*/
+.video-comment-count {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #f1f1f1;
+    font-size: 16px;
+}
+
+/* POST COMMENT SECTION */
+.video-post-comment {
+    margin-top: 20px;
+    width: 676px;
+    height: 70px;
+}
+
+.unlogged-video-post-comment {
+    margin-top: 20px;
+    width: 676px;
+    border-bottom: 1px solid #aaaaaa;
+    height: 30px;
+    margin-bottom: 30px;
+}
+
+.post-comment-card {
+    display: grid;
+    grid-template-columns: 56px 400px 110px 110px;
+    grid-template-rows: 20px auto-fit(minmax(40px, 125px));
+}
+
+.post-comment-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    grid-column: 1;
+    grid-row: 1/3;
+}
+.comment-field {
+    grid-column: 2/5;
+    grid-row: 1;
+    height: 20px;
+    border: none;
+    border-bottom: 1px solid #aaaaaa;
+    outline: none;
+    color: #f1f1f1;
+}
+
+.comment-characters {
+    grid-row: 2;
+    font-size: 12px;
+}
+
+.comment-characters-invalid {
+    grid-row: 2;
+    font-size: 12px;
+    color: red;
+}
+
+.comment-cancel-button {
+    grid-column: 3;
+    grid-row: 2;
+    border-radius: 20px;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comment-post-button {
+    grid-column: 4;
+    grid-row: 2;
+    border-radius: 20px;
+    border: none;
+    padding: 0;
+    margin-top: 5px;
+    height: 30px;
+    width: 90px;
+    background-color: #3ea6ff;
+}
+
+.comment-post-button:disabled {
+    grid-column: 4;
+    grid-row: 2;
+    border-radius: 20px;
+    border: none;
+    padding: 0;
+    margin-top: 5px;
+    height: 30px;
+    width: 90px;
+    color: #0d0d0d;
+    background-color: #aaaaaa;
+}

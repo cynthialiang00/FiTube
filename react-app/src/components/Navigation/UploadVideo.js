@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkPostVideo } from "../../store/videos";
 import './ModalForm.css'
 
 const UploadVideoModal = () => {
+    const user = useSelector(state => state.session.user);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -21,11 +22,15 @@ const UploadVideoModal = () => {
     const [description, setDescription] = useState("");
     const [errors, setErrors] = useState({});
 
+    const allowedFileTypes = 'pngjpgjpeg';
+
     useEffect(() => {
         setErrors({});
         const err = {};
         if (!video) err["video"] = "Video file is required.";
         if (!thumbnail) err["thumbnail"] = "Thumbnail file is required.";
+        if (video && getFileType(video.name) !== "mp4") err["videoType"] = "Video must be .mp4";
+        if (thumbnail && !allowedFileTypes.includes(getFileType(thumbnail.name))) err["thumbnailType"] = "Thumbnail must be .png, .jpg, or .jpeg";
         if (!title.length) err["title"] = "Title field must not be empty";
         if (title.length > 70) err["title"] = "Titlecan’t be longer than 70 characters."
         if (description.length > 1000) err["description"] = "Description can't be longer than 1000 characters "
@@ -63,6 +68,10 @@ const UploadVideoModal = () => {
 
     };
 
+    const getFileType = (filename) => {
+        return filename.split('.').pop()
+    }
+
     const updateVideo = (e) => {
         const file = e.target.files[0];
         setVideo(file);
@@ -73,6 +82,7 @@ const UploadVideoModal = () => {
         setThumbnail(file);
     }
 
+    if(!user) return (<h1 style={{color: "#f1f1f1"}}>Please log in to upload a video</h1>);
     return (
         <div className='edit-model'>
         <div className="edit-modal-container">

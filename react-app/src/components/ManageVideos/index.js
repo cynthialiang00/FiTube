@@ -12,13 +12,17 @@ function ManageVideos() {
     const history = useHistory();
     const userVideos = useSelector((state) => state.videos.user_videos);
 
+    const user = useSelector(state => state.session.user);
+
     useEffect(() => {
         dispatch(thunkGetUserVideos());
     }, [dispatch]);
 
     const userVideosArr = Object.values(userVideos);
 
+    if(!user) return (<h1 style={{color: "#f1f1f1"}}>Please log in to access your videos.</h1>)
     return (
+        userVideosArr.length ? (
         <div className="manage-content">
             <div>
                 <h2>Channel content</h2>
@@ -32,7 +36,7 @@ function ManageVideos() {
                 <div className="manage-comments">Comments</div>
                 <div className="manage-likes">Likes (vs. dislikes)</div>
             </div>
-            {userVideosArr.map((video) => (
+            {userVideosArr.length && userVideosArr.map((video) => (
                 <div key={video.id} className="manage-columns">
                     <div className="manage-video">
                         <img className="manage-video-img" src={video.thumbnail} alt="video thumbnail"></img>
@@ -69,6 +73,19 @@ function ManageVideos() {
                 </div>
             ))}
         </div>
+        )
+        :
+        (
+                <div className="manage-content">
+                    <div>
+                        <h2>Channel content</h2>
+                    </div>
+                    <div className="manage-columns-labels">
+                    </div>
+                    <div>Upload a video to manage your videos.</div>
+                </div>
+        )
+
     )
 }
 
