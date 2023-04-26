@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { thunkGetOneVideo } from "../../store/videos";
 import { useSelector } from "react-redux";
 import ReactPlayer from 'react-player'
+import { useEditCommentContext } from "../../context/EditContext";
 import './ShowVideo.css';
 import { thunkGetAllComments } from "../../store/comments";
 import CommentCard from "./CommentCard";
@@ -13,13 +14,17 @@ import CreateComment from "./CreateComment";
 const ShowVideo = () => {
     const { videoId } = useParams();
     const dispatch = useDispatch();
-    
+
+    const { isEditComment, editCommentId} = useEditCommentContext();
+
     const video = useSelector((state) => state.videos.one_video);
     const comments = useSelector((state) => state.comments);
     const sessionUser = useSelector(state => state.session.user);
 
     let recommended;
 
+    console.log("EDITING? ",isEditComment)
+    console.log("EDIT ID ", editCommentId)
 
     useEffect(() => {
         dispatch(thunkGetOneVideo(videoId));
@@ -31,7 +36,7 @@ const ShowVideo = () => {
     // console.log("video:", video)
     // console.log("more: ", recommended)
     // console.log("commentsArr: ", commentsArr)
-    
+
     if(!Object.values(video).length) return(<h1 style={{color: "#f1f1f1"}}>404: Video Not Found</h1>)
 
     return(
@@ -88,6 +93,7 @@ const ShowVideo = () => {
                                         name={cmt.User.username}
                                         date={cmt.created_at}
                                         text={cmt.content}
+                                        commentId={cmt.id}
                                     />
                             ))
 
