@@ -4,32 +4,31 @@
 
 
 .spots-content {
-    margin-top: 5%;
     width: 100%;
 }
 
 .spots-grid {
     display: grid;
+    margin-top: 2%;
     margin-left: 5.3%;
     margin-right: 5.3%;
     margin-bottom: 0%;
     border: 0;
     padding: 0;
-    margin-top: 2%;
-    grid-gap: 1px;
+    grid-column-gap: 20px;
 }
 
 .spot-container {
-    /* min-width: 240px; */
-    max-width: 95%;
-    height: 92.5%;
-    /* min-height: 168px;
-    max-height: 168px; */
+    max-width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0;
 }
 
 .spot-link {
     text-decoration: none;
     color: #1e1c1c;
+    width: 100%;
 }
 
 .button-link {
@@ -38,25 +37,40 @@
 }
 
 .spot-image {
-    width: 100%;
+    width: 95%;
     height: 62%;
     object-fit: cover;
     border-radius: 10px;
     padding: 0;
-    margin: 0;
     border: 0;
+    margin-bottom: -15px;
 }
+
 
 .spot-description {
     display: grid;
-    grid-template-columns: 12% 88%;
+    width: 95%;
+    height: 40%;
+    grid-template-columns: 15% 85%;
     grid-template-rows: 90% 20%;
+    margin-right: 20px;
+    margin-bottom: 25px;
+    padding: 0;
+    border-radius: 10px;
+    /* background-color: rgba(251, 187, 173, 0.9); */
+}
+
+.spot-description * {
+    background-color: rgba(251, 187, 173, 0);
+    border-radius: 10px;
+    margin-top: 7px;
 }
 
 .spot-owner {
     grid-column: 1;
     grid-row: 1;
 }
+
 .spot-owner-avatar {
     padding-top: 10px;
     border-radius: 100%;
@@ -70,35 +84,35 @@
     padding-right: 24px;
     padding-top: 10px;
     margin-bottom: 10px;
+
 }
+
 .spot-title {
     font-weight: bold;
     font-size: 16px;
-    color: #f1f1f1;
+    color: #fbbbad;
     width: 97%;
 }
 
 .spot-price {
     font-size: 14px;
-    color: #AAAAAA;
+    color: #f1f1f1;
 }
 
-.spot-price > div {
+.spot-price>div {
     margin-top: 5px;
 }
 
 
 @media (max-width: 1199px) {
     .spots-grid {
-        grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
 }
 
 
-
-
 @media (min-width: 1200px) {
     .spots-grid {
-        grid-template-columns: repeat(auto-fill, minmax(337px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     }
 }
