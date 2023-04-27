@@ -88,13 +88,13 @@ const CommentCard = ({user,img, name, date, text, commentId}) => {
                         <>
                             <li>
                                 <button onClick={settingEdit}>
-                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <i className="fa-solid fa-pen-to-square"></i>
                                     {` EDIT`}
                                 </button>
                             </li>
                             <li>
                                 <OpenModalButton
-                                    buttonText={<><i class="fa-regular fa-trash-can"></i>{` DELETE`}</>}
+                                    buttonText={<><i className="fa-regular fa-trash-can"></i>{` DELETE`}</>}
                                     modalComponent={<DeleteCommentModal commentId={commentId}/>}
                                 />
                                 {/* <button>
@@ -107,7 +107,7 @@ const CommentCard = ({user,img, name, date, text, commentId}) => {
                         </>
                     ) : (
                         <>
-                                <li> <i class="fa-regular fa-flag"></i> {` REPORT`}</li>
+                                <li> <i className="fa-regular fa-flag"></i> {` REPORT`}</li>
                         </>
                     )}
                 </ul>)
