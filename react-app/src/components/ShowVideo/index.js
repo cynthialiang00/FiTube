@@ -106,6 +106,9 @@ const ShowVideo = () => {
             </div>
             
             <div className="video-more">
+                <div className="video-more-banner">
+                    <img src="https://liang-capstone-bucket.s3.amazonaws.com/avatars/rooftopgirlblue_50.jpeg" alt="banner"></img>
+                </div>
                 {Object.values(video).length &&
                   recommended.map((rec) => (
                     <NavLink key={rec.id} exact to={`/videos/${rec.id}`}>
@@ -120,7 +123,7 @@ const ShowVideo = () => {
                   ))
                 }
             </div>
-            {/* <div className="video-page-right"></div> */}
+            <div className="video-page-right"></div>
         </div>
     )
 };

@@ -89,7 +89,7 @@
     min-height: 40px;
     max-height: 120px;
     max-width: 580px;
-    overflow: hidden;
+    overflow-wrap: break-word;
 }
 
 /* COMMENT DROPDOWN */
