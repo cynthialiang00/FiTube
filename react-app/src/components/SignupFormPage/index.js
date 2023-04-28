@@ -13,15 +13,14 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [hasSubmit, setHasSubmit] = useState(false);
   const [errors, setErrors] = useState({});
+  const [backendErrors ,setBackendErrors] = useState([]);
 
   useEffect(() => {
     const err = {};
-    if(!username.length) err["username"] = "Username is required.";
     if(username.length < 3) err["username"] = "Username must be at least 3 characters.";
     if(username.length > 20) err["username"] = "Username cannot exceed 20 characters.";
     if(!email.length) err["email"] = "Email is required.";
     if(email.length > 20) err["email"] = "Email cannot exceed 20 characters.";
-    if(!password.length) err["password"] = "Password is required.";
     if(password.length < 4) err["password"] = "Password must be at least 4 characters.";
     if (password.length > 20) err["password"] = "Password cannot exceed 20 characters.";
     if (password !== confirmPassword) err["password"] = "Confirm Password field must be the same as the Password field";
@@ -35,9 +34,8 @@ function SignupFormPage() {
         const data = await dispatch(signUp(username, email, password));
         if (data) {
           console.log("DATA", data)
-          setErrors(data)
+          setBackendErrors(data)
         }
-        setHasSubmit(false);
     }
   };
 
@@ -51,8 +49,19 @@ function SignupFormPage() {
           <div id="sign-up">Create an account</div>
           <div>to continue to FiTube</div>
         </div>
+        {hasSubmit && backendErrors.length ? 
+          (<ul>
+            {
+              backendErrors.map((err, idx) => (
+                <li key={idx} className="errors">{err}</li>
+              ))
+            }
 
-        {hasSubmit & Object.values(errors) && Object.values(errors).length ?
+          </ul>)
+          :
+          null
+        }
+        {hasSubmit && Object.values(errors) && Object.values(errors).length ?
             (<ul>
               {
                 Object.values(errors).map((err, idx) =>(
