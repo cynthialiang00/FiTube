@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, NavLink } from "react-router-dom";
 import './LoginForm.css';
 
 function LoginFormPage() {
@@ -13,43 +13,78 @@ function LoginFormPage() {
 
   if (sessionUser) return <Redirect to="/" />;
 
+  const demoHandler = async (e) => {
+    e.preventDefault();
+    setEmail("demo@aa.io");
+    setPassword("password");
+    const data = await dispatch(login(email, password));
+    if (data) {
+      setErrors(["Invalid credentials"]);
+    }
+    return;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
     if (data) {
-      setErrors(data);
+      setErrors(["Invalid credentials"]);
     }
   };
 
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Log In</button>
-      </form>
+      <div className="login-form-container">
+        <div className="login-form-title">
+          <div id="sign-in">Sign in</div>
+          <div>to continue to FiTube</div>
+        </div>
+        
+
+        <form className="login-form">
+          <ul>
+            {errors.map((error, idx) => (
+              <li key={idx} className="errors">{error}</li>
+            ))}
+          </ul>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          
+        </form>
+
+        <div className="login-demo">
+          Don't have an account? Log in as a
+          <button
+            onClick={demoHandler}
+          >
+            Demo User
+          </button>
+        </div>
+        
+        <div className="login-buttons">
+          <NavLink to="/signup">Create an account</NavLink>
+          <button 
+            className="login-submit" 
+            type="submit" 
+            onClick={handleSubmit}
+          >Log In
+          </button>
+        </div>
+
+        
+      </div>
     </>
   );
 }

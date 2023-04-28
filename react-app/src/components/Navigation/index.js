@@ -31,9 +31,6 @@ function Navigation({ isLoaded }){
 						modalComponent={<UploadVideoModal />}
 						className={'nav-create-btn'}
 					/>
-					{/* <button className='nav-create-btn'>
-						<i className="fa-solid fa-video" style={{ fontSize: "20px", color: "#f1f1f1" }}></i>
-					</button> */}
 				</li>
 				<li>
 					<ProfileButton user={sessionUser} />
