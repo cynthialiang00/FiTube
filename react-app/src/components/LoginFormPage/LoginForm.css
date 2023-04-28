@@ -55,6 +55,10 @@
     border: 1px solid #aaaaaa;
 }
 
+.login-form>input:focus {
+    border: 1px solid #aaaaaa;
+}
+
 .login-demo {
     width: 70%;
     margin-left: 5%;

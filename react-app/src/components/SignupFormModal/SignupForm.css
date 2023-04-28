@@ -1,0 +1,129 @@
+.signup-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 10vh;
+    max-width: 448px;
+    max-height: 600px;
+    border: 1px solid #aaaaaa;
+    border-radius: 10px;
+}
+
+.signup-form-container * {
+    color: #f1f1f1;
+}
+
+.signup-form-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10%;
+    margin-bottom: 5%;
+}
+
+#sign-up {
+    font-size: 36px;
+    padding: 15px;
+}
+
+#sign-up div {
+    font-size: 16px;
+}
+
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    margin-left: 10%;
+    margin-right: 10%;
+
+}
+
+.signup-form>input {
+    width: 95%;
+    outline: none;
+    border: 1px solid #585858;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 40px;
+    font-size: 14px;
+}
+
+.signup-form>input:hover {
+    border: 1px solid #aaaaaa;
+}
+
+.signup-form>input:focus {
+    border: 1px solid #aaaaaa;
+}
+
+.signup-password {
+    display: flex;
+    flex-direction: row;
+    width: 102%;
+}
+.signup-password *{
+    width: 45%;
+    outline: none;
+    border: 1px solid #585858;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 40px;
+    font-size: 14px;
+}
+
+
+.signup-password >input:hover {
+    border: 1px solid #aaaaaa;
+}
+
+.signup-password>input:focus {
+    border: 1px solid #aaaaaa;
+}
+
+
+#signup-confirm {
+    margin-left: 2%;
+}
+
+
+
+.signup-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 10%;
+
+}
+
+.signup-submit {
+    width: 25%;
+    border: 1px solid #383838;
+    border-radius: 3px;
+    padding: 10px;
+    color: white;
+    font-size: 14px;
+    background-color: #3ea6ff;
+    margin: 0;
+}
+
+.signup-buttons>a {
+    color: #3ea6ff;
+    text-decoration: none;
+}
+
+
+.errors {
+    color: red;
+    font-size: 12px;
+}
+
+.login-form>ul {
+    list-style: none;
+    margin-left: 17%;
+}
