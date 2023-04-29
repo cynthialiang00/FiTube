@@ -17,10 +17,6 @@ function LoginFormPage() {
     e.preventDefault();
     setEmail("demo@aa.io");
     setPassword("password");
-    const data = await dispatch(login(email, password));
-    if (data) {
-      setErrors(["Invalid credentials"]);
-    }
     return;
   }
 
