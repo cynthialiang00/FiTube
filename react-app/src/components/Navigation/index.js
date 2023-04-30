@@ -15,9 +15,6 @@ function Navigation({ isLoaded }){
 	return (
 		<nav className='nav-container'>
 			<div className='nav-logo-container'>
-				<button className='drawer-hideshow'>
-					<i className="fas fa-bars" style={{ fontSize: "20px", color: "#f1f1f1" }}></i>
-				</button>
 				<NavLink exact to="/">
 					<img id='nav-logo' src={ytlogo} alt="fitube logo" style={{ width: "100px", height: "30px" }}></img>
 				</NavLink>
