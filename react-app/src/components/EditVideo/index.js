@@ -83,8 +83,8 @@ const EditVideoPage = ({user}) => {
         const file = e.target.files[0];
         setThumbnail(file);
     }
-    if (!user) return( <h1> You must log in to edit a video. </h1>);
-    if (user && user.id !== video.user_id) return ( <h1> You are not allowed to access this resource. </h1>);
+    if (!user) return (<h1> You must <NavLink to="/login">log in</NavLink> to access this resource. </h1>);
+    if (user && user.id !== video.user_id) return ( <h1> You are not allowed to access this resource. Redirecting...</h1>);
     return (
         <div className="edit-page">
             <div className="edit-page-left"></div>

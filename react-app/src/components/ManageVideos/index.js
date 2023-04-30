@@ -1,18 +1,16 @@
 import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { thunkGetUserVideos } from "../../store/videos";
 import OpenModalButton from "../OpenModalButton";
 import DeleteVideoModal from "./DeleteVideoModal";
 import './ManageVideos.css'
 
-function ManageVideos() {
+function ManageVideos({user}) {
     const dispatch = useDispatch();
-    const history = useHistory();
     const userVideos = useSelector((state) => state.videos.user_videos);
 
-    const user = useSelector(state => state.session.user);
 
     useEffect(() => {
         dispatch(thunkGetUserVideos());
@@ -20,7 +18,7 @@ function ManageVideos() {
 
     const userVideosArr = Object.values(userVideos);
 
-    if(!user) return (<h1 style={{color: "#f1f1f1"}}>Please log in to access your videos.</h1>)
+    if (!user) return (<h1> You must <NavLink to="/login">log in</NavLink> to access this resource. </h1>)
     return (
         userVideosArr.length ? (
         <div className="manage-content">

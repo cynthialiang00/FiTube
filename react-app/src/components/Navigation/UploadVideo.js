@@ -5,8 +5,7 @@ import { useModal } from "../../context/Modal";
 import { thunkPostVideo } from "../../store/videos";
 import './ModalForm.css'
 
-const UploadVideoModal = () => {
-    const user = useSelector(state => state.session.user);
+const UploadVideoModal = ({user}) => {
 
     const dispatch = useDispatch();
     const history = useHistory();
