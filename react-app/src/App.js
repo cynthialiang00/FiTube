@@ -40,14 +40,11 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/upload">
-            <UploadVideoModal/>
-          </Route>
           <Route path="/manage/edit/:videoId">
-            <EditVideoPage />
+            <EditVideoPage user={sessionUser}/>
           </Route>
           <Route path="/manage">
-            <ManageVideos/>
+            <ManageVideos user={sessionUser}/>
           </Route>
           
         </Switch>

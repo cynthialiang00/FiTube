@@ -1,0 +1,65 @@
+
+.delete-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 576px;
+    background-color: #383838;
+    border-radius: 25px;
+}
+
+.delete-modal * {
+    background-color: #383838;
+    color: #f1f1f1;
+    padding-bottom: 0;
+    margin-bottom: 10px;
+    border-radius: 100%;
+    margin-left: 3%;
+}
+
+.delete-modal-header > h2 {
+    font-weight: normal;
+}
+
+.delete-modal-body {
+    margin-top: -2%;
+}
+
+.delete-modal-btns {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+    margin-left: 60%;
+}
+
+.delete-modal-btns * {
+    border: none;
+    color: #aaaaaa;
+    font-size: 14px;
+    padding: 3px;
+}
+
+#delete-modal-cancel:hover {
+    color: #3ea6ff;
+}
+
+#delete-modal-delete:hover{
+    color: #3ea6ff;
+}
+
+.delete-modal-close-btn {
+    position: absolute;
+    top: 7%;
+    right: 5%;
+    background-color: inherit;
+    border: none;
+    transform: scale(1.1, 1);
+    color: #aaaaaa;
+    padding: 6px;
+    padding-bottom: 0;
+    border-radius: 6px;
+}
+
+.delete-modal-close-btn:hover {
+    background-color: #181818;
+}

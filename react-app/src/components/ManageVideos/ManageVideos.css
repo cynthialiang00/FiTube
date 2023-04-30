@@ -53,11 +53,12 @@
 }
 
 .manage-video-img {
-    border-radius: 5px;
+    border-radius: 3px;
     width: 80%;
     height: 100%;
     grid-column: 1;
     grid-row: 1/3;
+    object-fit: cover;
 }
 
 .manage-video-title {
@@ -80,6 +81,7 @@
 .manage-edit {
     text-align: center;
     width: 10%;
+    color: #aaaaaa;
 }
 
 .manage-delete {

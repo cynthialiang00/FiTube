@@ -107,7 +107,12 @@ const CommentCard = ({user,img, name, date, text, commentId}) => {
                         </>
                     ) : (
                         <>
-                                <li> <i className="fa-regular fa-flag"></i> {` REPORT`}</li>
+                                <li> 
+                                    <button onClick={() => alert("Feature coming soon!")}>
+                                        <i className="fa-regular fa-flag"></i> {` REPORT`}
+                                    </button>
+                                    
+                                </li>
                         </>
                     )}
                 </ul>)

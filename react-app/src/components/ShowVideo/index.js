@@ -16,6 +16,7 @@ const ShowVideo = () => {
     const dispatch = useDispatch();
 
     const { isEditComment, editCommentId} = useEditCommentContext();
+    const [showMore, setShowMore] = useState(false);
 
     const video = useSelector((state) => state.videos.one_video);
     const comments = useSelector((state) => state.comments);
@@ -23,8 +24,8 @@ const ShowVideo = () => {
 
     let recommended;
 
-    console.log("EDITING? ",isEditComment)
-    console.log("EDIT ID ", editCommentId)
+    // console.log("EDITING? ",isEditComment)
+    // console.log("EDIT ID ", editCommentId)
 
     useEffect(() => {
         dispatch(thunkGetOneVideo(videoId));
@@ -48,23 +49,39 @@ const ShowVideo = () => {
                         width="100%"
                         height="100%"
                         controls={true}
+                        playing={true}
                         url={video.url}
                     />
                 </div>
                 
-                <div id="video-title">{Object.values(video).length && video.title}</div>
+                <div id="video-title">{video.title}</div>
                 <div className="video-utils">
                     <div className="video-owner-box">
-                        <img id="video-owner-img" src={Object.values(video).length && video.User.avatar} alt="owner user avatar"></img>
-                        <div id="video-owner-name">{Object.values(video).length  && video.User.username}</div>
+                        <img id="video-owner-img" src={video.User.avatar} alt="owner user avatar"></img>
+                        <div id="video-owner-name">{video.User.username}</div>
                     </div>
-                    <div className="video-likes-box"></div>
                 </div>
-                <div className="video-description-box">
-                    <span id="video-views">{Object.values(video).length && video.views} views</span>
-                    <span id="video-date">{Object.values(video).length && video.created_at}</span>
-                    <div id="video-description">{Object.values(video).length && video.description}</div>
-                </div>
+
+                {video.description.length > 290 ?
+                    (<div className="video-description-box">
+                        <span id="video-views">{video.views} views</span>
+                        <span id="video-date">{video.created_at}</span>
+                        {showMore ?
+                            <div id="video-description">{video.description}</div>
+                            :
+                            <div id="video-description">{video.description.substring(0, 290)}</div>
+                        }
+                        <button id="show-hide-btn" onClick={() => setShowMore(!showMore)}>{showMore ? "Show less" : "Show more"}</button>
+
+                    </div>)
+                :
+                    (<div className="video-description-box">
+                        <span id="video-views">{video.views} views</span>
+                        <span id="video-date">{video.created_at}</span>
+                        <div id="video-description">{video.description}</div>
+                    </div>)
+                }
+                
                 {/* COMMENTS SECTION*/}
                 { commentsArr.length ?
                     <div className="video-comment-count">

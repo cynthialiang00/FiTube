@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { thunkDeleteComment } from "../../../store/comments";
-import '../../Navigation/ModalForm.css'
+import '../../ManageVideos/DeleteVideo.css';
 
 const DeleteCommentModal = ({ commentId }) => {
 
@@ -20,36 +20,34 @@ const DeleteCommentModal = ({ commentId }) => {
 
 
     return (
-        <div className='edit-model'>
-            <div className="edit-modal-container">
-                <div className='edit-modal-header'>
-                    <div>&nbsp;</div>
-                    <div style={{ paddingLeft: "7px" }} className='edit-modal-title'>
-                        Delete This Comment?
-                        (THIS MODAL WILL BE STYLED MORE BEFORE CAPSTONE IS DUE)
-                    </div>
+        <div className='delete-modal'>
+            <div className='delete-modal-header'>
+                <h2>Permanently delete this comment?</h2>
 
-                    <button className="edit-modal-close-btn" onClick={() => closeModal()}>
-                        <i className="fa-solid fa-x"></i>
-                    </button>
-                </div>
+                <button className="delete-modal-close-btn" onClick={() => closeModal()}>
+                    <i className="fa-solid fa-x"></i>
+                </button>
+            </div>
 
-                <div className="edit-modal-form-box">
-                    <button
-                        className="decorated-button-edit-channel"
-                        onClick={handleDelete}
-                    >
-                        Delete this Comment
-                    </button>
-                    <button
-                        className="decorated-button-edit-channel"
-                        onClick={() => closeModal()}
-                    >
-                        Nevermind
-                    </button>
-                </div>
+            <div className='delete-modal-body'>
+                <p>Deleting is permanent and can't be undone.</p>
+            </div>
 
+            <div className="delete-modal-btns">
 
+                <button
+                    id="delete-modal-cancel"
+                    onClick={() => closeModal()}
+                >
+                    CANCEL
+                </button>
+
+                <button
+                    id="delete-modal-delete"
+                    onClick={handleDelete}
+                >
+                    DELETE FOREVER
+                </button>
             </div>
         </div>
     )

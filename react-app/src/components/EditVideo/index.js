@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import ReactPlayer from 'react-player'
 import './EditPage.css';
 
-const EditVideoPage = () => {
+const EditVideoPage = ({user}) => {
     const { videoId } = useParams()
     const dispatch = useDispatch();
     const history = useHistory();
@@ -83,13 +83,15 @@ const EditVideoPage = () => {
         const file = e.target.files[0];
         setThumbnail(file);
     }
-
+    if (!user) return (<h1> You must <NavLink to="/login">log in</NavLink> to access this resource. </h1>);
+    if (user && user.id !== video.user_id) return ( <h1> You are not allowed to access this resource. Redirecting...</h1>);
     return (
         <div className="edit-page">
             <div className="edit-page-left"></div>
             <div className="edit-page-content">
-                <h1>Video Details</h1>
+                
                 <form className="edit-page-form">
+                    <h1>Video Details</h1>
                     <div className="edit-page-form-box">
                         <label style={{ paddingLeft: "7px" }} htmlFor="title"> Title </label>
                         <input
@@ -124,30 +126,31 @@ const EditVideoPage = () => {
                     />
                 </form>
 
-
-            </div>
-            <div className="edit-page-utils">
-                <div className="edit-page-utils-header">
-                    <button 
-                        className="edit-page-decorated-button"
-                        disabled={(title === video.title && description === video.description && !thumbnail) 
-                            || Object.values(errors).length || hasSubmit}
-                        onClick={handleSubmit}
-                    >
-                        SAVE
-                    </button>
+                
+                <div className="edit-page-utils">
+                    <div className="edit-page-utils-header">
+                        <button
+                            className="edit-page-decorated-button"
+                            disabled={(title === video.title && description === video.description && !thumbnail)
+                                || Object.values(errors).length || hasSubmit}
+                            onClick={handleSubmit}
+                        >
+                            SAVE
+                        </button>
+                    </div>
+                    <div className="edit-page-utils-video">
+                        <ReactPlayer
+                            height="70%"
+                            width="100%"
+                            controls={true}
+                            url={video.url}
+                        />
+                        <p>Video Link</p>
+                        <NavLink to={`/videos/${video.id}`}>fitube.onrender.com/videos/{`${video.id}`}</NavLink>
+                    </div>
                 </div>
-                <div className="edit-page-utils-video">
-                    <ReactPlayer 
-                        height="198px"
-                        width="352px"
-                        controls={true}
-                        url={video.url}
-                    />
-                    <p>Video Link</p>
-                    <NavLink to="/">Link goes here</NavLink>
-                </div>
             </div>
+            
             <div className="edit-page-right"></div>
 
         </div>

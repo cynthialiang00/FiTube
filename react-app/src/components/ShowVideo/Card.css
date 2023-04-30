@@ -162,7 +162,7 @@
 .post-comment-card {
     display: grid;
     grid-template-columns: 56px 400px 110px 110px;
-    grid-template-rows: 20px auto-fit(minmax(40px, 125px));
+    grid-template-rows: 20px auto-fit(minmax(50px, 125px));
 }
 
 .post-comment-img {
@@ -199,7 +199,9 @@
     border-radius: 20px;
     border: none;
     padding: 0;
-    margin: 0;
+    margin-top: 5px;
+    height: 30px;
+    width: 90px;
 }
 
 .comment-post-button {

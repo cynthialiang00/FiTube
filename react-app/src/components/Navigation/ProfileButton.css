@@ -1,0 +1,95 @@
+.profile-dropdown {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50px;
+    right: 30px;
+    list-style-type: none;
+    color: #f1f1f1;
+    border-radius: 10px;
+    background-color: #181818;
+    padding: 0;
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 100px;
+    max-height: 500px;
+}
+.profile-dropdown * {
+    background-color: #181818;
+    margin: 5px auto;
+}
+
+.profile-user {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    width: 70%;
+    background-color: #181818;
+    border-bottom: 1px solid #383838;
+}
+
+.profile-user > img {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background-color: #181818;
+    object-fit: cover;
+}
+
+.profile-user > div {
+    grid-column: 2;
+    margin-left: 15%;
+}
+
+#profile-email {
+    font-size: 14px;
+    color: #aaaaaa;
+}
+
+.profile-dropdown > li > a {
+    text-decoration: none;
+    color: #aaaaaa;
+    font-size: 16px;
+}
+
+.profile-dropdown>li>a:hover {
+    text-decoration: none;
+    color: #f1f1f1;
+    font-size: 16px;
+}
+
+.profile-dropdown>li>button {
+    border: none;
+    color: #aaaaaa;
+    font-size: 16px;
+}
+
+.profile-dropdown>li>button:hover {
+    border: none;
+    color: #f1f1f1;
+    font-size: 16px;
+}
+
+
+.profile-dropdown > a {
+    margin: 0 auto;
+    margin-top: 15px;
+    padding-bottom: 5px;
+    text-decoration: none;
+    text-align: center;
+    color: #aaaaaa;
+    width: 70%;
+    border-bottom: 1px solid #383838;
+}
+
+.profile-dropdown>a:hover {
+    text-decoration: none;
+    color: #f1f1f1;
+    border-bottom: 1px solid #aaaaaa;
+}
+
+.hidden {
+    display: none;
+    width: 0;
+    height: 0;
+}
