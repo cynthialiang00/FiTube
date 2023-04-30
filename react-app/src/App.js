@@ -44,7 +44,7 @@ function App() {
             <UploadVideoModal/>
           </Route>
           <Route path="/manage/edit/:videoId">
-            <EditVideoPage />
+            <EditVideoPage user={sessionUser}/>
           </Route>
           <Route path="/manage">
             <ManageVideos/>

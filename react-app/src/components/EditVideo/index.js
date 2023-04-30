@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import ReactPlayer from 'react-player'
 import './EditPage.css';
 
-const EditVideoPage = () => {
+const EditVideoPage = ({user}) => {
     const { videoId } = useParams()
     const dispatch = useDispatch();
     const history = useHistory();
@@ -83,7 +83,8 @@ const EditVideoPage = () => {
         const file = e.target.files[0];
         setThumbnail(file);
     }
-
+    if (!user) return( <h1> You must log in to edit a video. </h1>);
+    if (user && user.id !== video.user_id) return ( <h1> You are not allowed to access this resource. </h1>);
     return (
         <div className="edit-page">
             <div className="edit-page-left"></div>

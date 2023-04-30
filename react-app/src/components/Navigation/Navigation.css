@@ -61,33 +61,15 @@
 .nav-avatar-btn {
   background-color: inherit;
   padding: 0px;
-  padding-top: 2px;
   border: none;
+  width: 32px;
+  height: 32px;
   color: #f1f1f1;
 }
 
-.profile-dropdown {
-  position: absolute;
-  top: 41px;
-  right: 20px;
-  list-style-type: none;
-  color: #f1f1f1
-}
-
-
-.profile-dropdown > button {
-  border: none;
-  background-color: #282828;
-  color: #f1f1f1;
-}
-
-.profile-dropdown > li {
-  border: none;
-  background-color: #282828;
-}
-
-.profile-dropdown>li >button{
-  border: none;
-  background-color: #282828;
-  color: #f1f1f1;
+.nav-avatar-btn > img {
+  object-fit: cover;
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
 }
