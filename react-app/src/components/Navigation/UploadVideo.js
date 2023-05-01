@@ -32,7 +32,7 @@ const UploadVideoModal = () => {
         if (video && getFileType(video.name) !== "mp4") err["videoType"] = "Video must be .mp4";
         if (thumbnail && !allowedFileTypes.includes(getFileType(thumbnail.name))) err["thumbnailType"] = "Thumbnail must be .png, .jpg, or .jpeg";
         if (!title.length) err["title"] = "Title field must not be empty";
-        if (title.length > 70) err["title"] = "Titlecan’t be longer than 70 characters."
+        if (title.length > 70) err["title"] = "Title can’t be longer than 70 characters."
         if (description.length > 1000) err["description"] = "Description can't be longer than 1000 characters "
         setErrors(err)
     }, [video, thumbnail, title, description]);
@@ -130,7 +130,7 @@ const UploadVideoModal = () => {
                     <div className="edit-modal-border"></div>
                     <label style={{ paddingLeft: "7px" }} htmlFor="description"> Video Description (Optional) </label>
                     <input
-                        type="text"
+                        type="textarea"
                         id="description"
                         placeholder="Add a video description!"
                         value={description}
