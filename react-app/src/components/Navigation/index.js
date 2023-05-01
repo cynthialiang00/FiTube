@@ -11,7 +11,6 @@ import ytlogo from './fitubelogo.svg';
 
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
-	const history = useHistory();
 	return (
 		<nav className='nav-container'>
 			<div className='nav-logo-container'>
