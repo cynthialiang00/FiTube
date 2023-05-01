@@ -12,6 +12,7 @@ import UploadVideoModal from "./components/Navigation/UploadVideo";
 import ManageVideos from "./components/ManageVideos";
 import EditVideoPage from "./components/EditVideo";
 import ShowVideo from "./components/ShowVideo";
+import SplashPage from "./components/SplashPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,9 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/">
+            <SplashPage />
+          </Route>
+          <Route exact path="/videos">
             <HomePage />
           </Route>
           <Route path="/videos/:videoId">

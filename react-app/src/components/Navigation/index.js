@@ -15,7 +15,7 @@ function Navigation({ isLoaded }){
 	return (
 		<nav className='nav-container'>
 			<div className='nav-logo-container'>
-				<NavLink exact to="/">
+				<NavLink exact to="/videos">
 					<img id='nav-logo' src={ytlogo} alt="fitube logo" style={{ width: "100px", height: "30px" }}></img>
 				</NavLink>
 			</div>

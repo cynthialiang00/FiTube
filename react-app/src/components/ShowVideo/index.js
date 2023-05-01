@@ -48,7 +48,7 @@ const ShowVideo = () => {
                     alt="not allowed"
                 >
                 </img>
-                <div> 404: Resource not found. Click <NavLink to="/">here</NavLink> to go to the home page.</div>
+                <div> 404: Resource not found. Click <NavLink to="/videos">here</NavLink> to go to the home page.</div>
 
             </div>
         </>
@@ -112,7 +112,7 @@ const ShowVideo = () => {
                         videoId={videoId}
                     />
                     :
-                    <div className="unlogged-video-post-comment">Log In to post a comment</div>
+                    <div className="unlogged-video-post-comment"><NavLink to="/login">Log In</NavLink> to post a comment</div>
                 }
                 <div className="video-comments">
                     {commentsArr.length ?
