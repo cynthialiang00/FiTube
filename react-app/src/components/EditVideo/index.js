@@ -106,7 +106,7 @@ const EditVideoPage = ({user}) => {
                     alt="not allowed"
                 >
                 </img>
-                <div>You are not allowed to access this resource. </div>
+                <div>You are not allowed to access this resource. Click <NavLink to="/manage">here</NavLink> to manage videos</div>
 
             </div>
         </>

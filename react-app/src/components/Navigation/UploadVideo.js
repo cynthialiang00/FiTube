@@ -64,7 +64,7 @@ const UploadVideoModal = () => {
         if (createdInfo.errors) return alert(`Oops, something went wrong with uploading. Please try again.`);
 
         if (!Object.values(errors).length && !createdInfo.errors) {
-            history.push('/');
+            history.push('/videos');
             closeModal();
         }
 
