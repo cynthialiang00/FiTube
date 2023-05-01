@@ -24,12 +24,14 @@ function ManageVideos({user}) {
 
     if (!user) return (
         <div className="manage-content">
-            <img className="manage-login-photo"
-                src={noLoginImg}
-                alt="not logged in"
-            >
-            </img>
-            <div className="manage-no-login"> You must <NavLink to="/login">log in</NavLink> to access this resource. </div>
+            <div className="manage-no-login"> 
+                <img className="manage-login-photo"
+                    src={noLoginImg}
+                    alt="not logged in"
+                >
+                </img>
+                <div>You must <NavLink to="/login">log in</NavLink> to access this resource. </div>
+            </div>
 
         </div>
     );
