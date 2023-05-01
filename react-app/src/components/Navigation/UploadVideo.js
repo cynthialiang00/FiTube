@@ -84,7 +84,6 @@ const UploadVideoModal = () => {
 
     if(!user) return (<h1 style={{color: "#f1f1f1"}}>Please log in to upload a video</h1>);
     return (
-        <div className='edit-model'>
         <div className="edit-modal-container">
             <div className='edit-modal-header'>
                 <div>&nbsp;</div>
@@ -94,7 +93,6 @@ const UploadVideoModal = () => {
                     <i className="fa-solid fa-x"></i>
                 </button>
             </div>
-            <div className='edit-modal-tabs-menu'></div>
 
             <form onSubmit={handleSubmit} className="edit-modal-form">
 
@@ -127,7 +125,7 @@ const UploadVideoModal = () => {
                         placeholder="Add a video title"
                         onChange={(e) => setTitle(e.target.value)}
                     ></input>
-                    <div className="edit-modal-border"></div>
+
                     <label style={{ paddingLeft: "7px" }} htmlFor="description"> Video Description (Optional) </label>
                     <input
                         type="textarea"
@@ -154,7 +152,6 @@ const UploadVideoModal = () => {
 
 
             </form>
-        </div>
         </div>
     )
 
