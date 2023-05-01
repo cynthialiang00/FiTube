@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkPostVideo } from "../../store/videos";
-import './UploadForm.css'
+import './UploadForm.css';
+
+import noLoginImg from './emoji-tongue.svg';
 
 const UploadVideoModal = () => {
     const user = useSelector(state => state.session.user);
@@ -82,7 +84,16 @@ const UploadVideoModal = () => {
         setThumbnail(file);
     }
 
-    if(!user) return (<h1 style={{color: "#f1f1f1"}}>Please log in to upload a video</h1>);
+    if(!user) return (
+        <div className="edit-modal-container">
+            <img className="edit-modal-login-photo" 
+                src={noLoginImg} 
+                alt="not logged in"
+            >
+            </img>
+            <div className="edit-modal-no-login">Please <NavLink to="/login" onClick={() => closeModal()}>log in</NavLink> to upload a video</div>
+        </div>
+    );
     return (
         <div className="edit-modal-container">
             <div className='edit-modal-header'>

@@ -154,3 +154,21 @@
 .edit-errors {
     color: red;
 }
+
+.edit-modal-login-photo {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    color: #f1f1f1;
+    margin-top: 10%;
+    margin-bottom: 5%;
+}
+.edit-modal-no-login {
+    margin: 0 auto;
+    margin-bottom: 10%;
+}
+
+.edit-modal-no-login > a {
+    color: #3ea6ff;
+    text-decoration: none;
+}
