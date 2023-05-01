@@ -42,7 +42,7 @@ const UploadVideoModal = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('submitted');
+        // console.log('submitted');
         if (Object.values(errors).length) return alert(`Oops, something went wrong with uploading the video. Please try again.`);
 
         const formData = new FormData();
@@ -51,7 +51,7 @@ const UploadVideoModal = () => {
         formData.append("thumbnail", thumbnail);
         formData.append("title", title);
         formData.append("description", description);
-        console.log('submit formdata:', formData.get("video"))
+        // console.log('submit formdata:', formData.get("video"))
 
         setVideoIsLoading(true);
         setThumbnailIsLoading(true);

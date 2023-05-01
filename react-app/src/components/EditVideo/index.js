@@ -45,13 +45,13 @@ const EditVideoPage = ({user}) => {
         
     }, [title, description])
 
-    console.log("VIDEO", video)
+    // console.log("VIDEO", video)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setHasSubmit(true);
-        console.log('submitted');
-        console.log("ERRORS", errors);
+        // console.log('submitted');
+        // console.log("ERRORS", errors);
 
         if (Object.values(errors).length) return alert(`Oops, something went wrong with uploading the video. Please try again.`);
 
@@ -64,9 +64,9 @@ const EditVideoPage = ({user}) => {
         if (title !== null) formData.append("title", title);
         if (description !== null) formData.append("description", description);
 
-        console.log(formData.get('thumbnail'));
-        console.log(formData.get('title'));
-        console.log(formData.get('description'));
+        // console.log(formData.get('thumbnail'));
+        // console.log(formData.get('title'));
+        // console.log(formData.get('description'));
         
 
         const edited = dispatch(thunkEditVideo(videoId, formData));
