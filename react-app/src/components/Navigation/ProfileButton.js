@@ -54,8 +54,20 @@ function ProfileButton({ user }) {
               <img src={user.avatar} alt="user avatar"></img>
               <div>
 
-                <div id="profile-username">{user.username}</div>
-                <div id="profile-email">{user.email}</div>
+                <div id="profile-username">
+                  {user.username.length > 15 ? 
+                  `${user.username.substring(0,15)}...`
+                  :
+                    user.username
+                  }
+                </div>
+                <div id="profile-email">
+                  {user.email.length > 15 ?
+                    `${user.email.substring(0, 15)}...`
+                    :
+                    user.email
+                  }
+                </div>
                 
               </div>
             </li>

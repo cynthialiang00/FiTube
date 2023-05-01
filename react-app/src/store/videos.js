@@ -152,6 +152,8 @@ export default function videoReducer(state = initialState, action) {
             return newState;
         case GET_USER_VIDEOS:
             newState = { ...state, user_videos: {} };
+            newState.all_videos = {...state.all_videos};
+            newState.user_videos = {};
             action.payload.user_videos.forEach((video) => {
                 newState.user_videos[video.id] = video
             });

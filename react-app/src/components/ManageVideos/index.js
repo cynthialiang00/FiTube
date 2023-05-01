@@ -11,13 +11,14 @@ import './ManageVideos.css'
 import noLoginImg from '../Navigation/emoji-tongue.svg';
 import noVideoImg from './upload-cloud.svg';
 
-function ManageVideos({user}) {
+function ManageVideos() {
     const dispatch = useDispatch();
     const userVideos = useSelector((state) => state.videos.user_videos);
+    const user = useSelector(state => state.session.user);
 
 
     useEffect(() => {
-        dispatch(thunkGetUserVideos());
+       dispatch(thunkGetUserVideos())
     }, [dispatch]);
 
     const userVideosArr = Object.values(userVideos);
@@ -35,6 +36,34 @@ function ManageVideos({user}) {
 
         </div>
     );
+
+    if(!Object.values(userVideos).length) {
+        return (
+            <div className="manage-content">
+                <div>
+                    <h2>Channel content</h2>
+                </div>
+
+                <div className="upload-no-video">
+                    <img className="manage-no-video-photo"
+                        src={noVideoImg}
+                        alt="need to upload"
+                    >
+                    </img>
+                    <div>
+                        <OpenModalButton
+                            buttonText={"Upload a video"}
+                            className={"upload-button"}
+                            modalComponent={<UploadVideoModal />}
+                        />
+                        to manage your videos.
+                    </div>
+
+                </div>
+            </div>
+        )
+    };
+
     return (
         userVideosArr.length ? (
         <div className="manage-content">

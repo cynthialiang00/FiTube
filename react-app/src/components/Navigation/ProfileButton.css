@@ -22,13 +22,14 @@
 .profile-user {
     display: grid;
     grid-template-columns: 40px 1fr;
-    width: 70%;
+    width: 100%;
     background-color: #181818;
     border-bottom: 1px solid #383838;
 }
 
 .profile-user > img {
     grid-column: 1;
+    margin-left: 15px;
     width: 40px;
     height: 40px;
     border-radius: 100%;
