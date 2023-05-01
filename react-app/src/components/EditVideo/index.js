@@ -6,6 +6,9 @@ import { useSelector } from "react-redux";
 import ReactPlayer from 'react-player'
 import './EditPage.css';
 
+import forbiddenImg from '../Forbidden/forbidden.svg';
+import noLoginImg from '../Navigation/emoji-tongue.svg';
+
 const EditVideoPage = ({user}) => {
     const { videoId } = useParams()
     const dispatch = useDispatch();
@@ -83,8 +86,31 @@ const EditVideoPage = ({user}) => {
         const file = e.target.files[0];
         setThumbnail(file);
     }
-    if (!user) return (<h1> You must <NavLink to="/login">log in</NavLink> to access this resource. </h1>);
-    if (user && user.id !== video.user_id) return ( <h1> You are not allowed to access this resource. Redirecting...</h1>);
+    if (!user) return (
+        <>
+            <div className="edit-not-allowed">
+                <img className="edit-not-allowed-photo"
+                    src={noLoginImg}
+                    alt="not logged in"
+                >
+                </img>
+                <div>You must <NavLink to="/login">log in</NavLink> to access this resource. </div>
+            </div>
+        </>
+    );
+    if (user && user.id !== video.user_id) return ( 
+        <>
+            <div className="edit-not-allowed">
+                <img className="edit-not-allowed-photo"
+                    src={forbiddenImg}
+                    alt="not allowed"
+                >
+                </img>
+                <div>You are not allowed to access this resource. </div>
+
+            </div>
+        </>
+    );
     return (
         <div className="edit-page">
             <div className="edit-page-left"></div>

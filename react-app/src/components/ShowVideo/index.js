@@ -11,6 +11,8 @@ import CommentCard from "./CommentCard";
 import VideoCard from "./VideoCard";
 import CreateComment from "./CreateComment";
 
+import notFoundImg from '../Forbidden/404.svg';
+
 const ShowVideo = () => {
     const { videoId } = useParams();
     const dispatch = useDispatch();
@@ -38,7 +40,19 @@ const ShowVideo = () => {
     // console.log("more: ", recommended)
     // console.log("commentsArr: ", commentsArr)
 
-    if(!Object.values(video).length) return(<h1 style={{color: "#f1f1f1"}}>404: Video Not Found</h1>)
+    if(!Object.values(video).length) return(
+        <>
+            <div className="video-not-found">
+                <img className="video-not-found-photo"
+                    src={notFoundImg}
+                    alt="not allowed"
+                >
+                </img>
+                <div> 404: Resource not found. Click <NavLink to="/">here</NavLink> to go to the home page.</div>
+
+            </div>
+        </>
+    );
 
     return(
         <div className="video-page">

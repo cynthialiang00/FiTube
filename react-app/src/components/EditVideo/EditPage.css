@@ -158,3 +158,31 @@
 .edit-errors {
     color: red;
 }
+
+/* FORBIDDEN */
+
+.edit-not-allowed {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #f1f1f1;
+}
+
+.edit-not-allowed-photo {
+    opacity: .75;
+    width: 100px;
+    height: 100px;
+    margin-top: 10%;
+    margin-bottom: 2.5%;
+}
+
+.edit-not-allowed > div {
+    color: #f1f1f1;
+}
+
+.edit-not-allowed > div > a {
+    color: #3ea6ff;
+    text-decoration: none;
+}
