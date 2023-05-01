@@ -19,7 +19,7 @@ def get_all_user_videos():
     # returns all videos owned by the user
     videos = Video.query.filter(Video.user_id==current_user.id).all()
     if not videos:
-        return {'errors': ['User has no videos']}, 404
+        return {'user_videos': []}, 200
     return{'user_videos': [video.user_to_dict() for video in videos]}, 200
 
 @video_routes.route('/<int:id>')
