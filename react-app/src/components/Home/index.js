@@ -5,11 +5,14 @@ import { thunkGetAllVideos } from "../../store/videos";
 import { NavLink } from "react-router-dom";
 import './home.css';
 
+
+
 import notFoundImg from '../Forbidden/404.svg';
 
 function HomePage() {
     const dispatch = useDispatch();
     const allVideos = useSelector((state) => state.videos.all_videos);
+    const moment = require('moment');
 
     useEffect(() => {
         dispatch(thunkGetAllVideos());
@@ -51,7 +54,7 @@ function HomePage() {
                                             {`${video.User.username}`}
                                         </div>
                                         <div>
-                                            {`Coming soon · ${video.created_at}`}
+                                            {`Coming soon · ${moment(video.created_at).fromNow()}`}
                                         </div>
                                     </div>
                                 </div>

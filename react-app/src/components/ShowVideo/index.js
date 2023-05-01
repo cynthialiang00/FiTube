@@ -16,6 +16,7 @@ import notFoundImg from '../Forbidden/404.svg';
 const ShowVideo = () => {
     const { videoId } = useParams();
     const dispatch = useDispatch();
+    const moment = require('moment');
 
     const { isEditComment, editCommentId} = useEditCommentContext();
     const [showMore, setShowMore] = useState(false);
@@ -79,7 +80,7 @@ const ShowVideo = () => {
                 {video.description.length > 290 ?
                     (<div className="video-description-box">
                         <span id="video-views">Coming soon...</span>
-                        <span id="video-date">{video.created_at}</span>
+                        <span id="video-date">{`${moment(video.created_at).fromNow()}`}</span>
                         {showMore ?
                             <div id="video-description">{video.description}</div>
                             :
@@ -91,7 +92,7 @@ const ShowVideo = () => {
                 :
                     (<div className="video-description-box">
                         <span id="video-views">Coming soon...</span>
-                        <span id="video-date">{video.created_at}</span>
+                        <span id="video-date">{`${moment(video.created_at).fromNow()}`}</span>
                         <div id="video-description">{video.description}</div>
                     </div>)
                 }
@@ -148,7 +149,7 @@ const ShowVideo = () => {
                             title={rec.title.length > 50 ? `${rec.title.slice(0,50)}...`: rec.title}
                             owner={rec.User.username}
                             views={rec.views}
-                            date={rec.created_at.slice(0,16)}
+                            date={moment(rec.created_at).fromNow()}
                         />
                     </NavLink>
                   ))
