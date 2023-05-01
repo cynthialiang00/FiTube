@@ -64,7 +64,7 @@ const ShowVideo = () => {
 
                 {video.description.length > 290 ?
                     (<div className="video-description-box">
-                        <span id="video-views">{video.views} views</span>
+                        <span id="video-views">Coming soon...</span>
                         <span id="video-date">{video.created_at}</span>
                         {showMore ?
                             <div id="video-description">{video.description}</div>
@@ -76,7 +76,7 @@ const ShowVideo = () => {
                     </div>)
                 :
                     (<div className="video-description-box">
-                        <span id="video-views">{video.views} views</span>
+                        <span id="video-views">Coming soon...</span>
                         <span id="video-date">{video.created_at}</span>
                         <div id="video-description">{video.description}</div>
                     </div>)

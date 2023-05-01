@@ -30,7 +30,7 @@ function HomePage() {
                                             {`${video.User.username}`}
                                         </div>
                                         <div>
-                                            {`${video.views} views · ${video.created_at}`}
+                                            {`Coming soon · ${video.created_at}`}
                                         </div>
                                     </div>
                                 </div>
