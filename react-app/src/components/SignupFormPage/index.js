@@ -41,7 +41,7 @@ function SignupFormPage() {
 
   // console.log(errors)
 
-  if (sessionUser) return <Redirect to="/" />;
+  if (sessionUser) return <Redirect to="/videos" />;
   return (
     <>
       <div className="signup-form-container">

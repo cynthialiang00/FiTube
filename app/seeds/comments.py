@@ -29,11 +29,74 @@ def seed_comments(users, videos):
         video=video_3
     )
 
+    comment_4 = Comment(
+        content="""Wow, this article really opened my eyes to a different perspective on the issue. Thank you for sharing your insights!""",
+        user=bobbie,
+        video=videos[3]
+    )
+
+    comment_5 = Comment(
+        content="""I can't believe how delicious this meal is. You're an amazing cook!""",
+        user=demo,
+        video=videos[4]
+    )
+
+    comment_6 = Comment(
+        content="""I totally agree with you. The current state of affairs is concerning, and I hope we can work towards a solution.""",
+        user=marnie,
+        video=videos[5]
+    )
+
+    comment_7 = Comment(
+        content="""That joke was hilarious! You always know how to make me laugh.""",
+        user=marnie,
+        video=videos[6]
+    )
+
+    comment_8 = Comment(
+        content="""I'm sorry to hear that you're going through a tough time. If you ever need someone to talk to, I'm here for you.""",
+        user=bobbie,
+        video=videos[7]
+    )
+
+    comment_9 = Comment(
+        content="""Congratulations on your achievement! You worked so hard for this and deserve all the success.""",
+        user=demo,
+        video=videos[8]
+    )
+
+    comment_10 = Comment(
+        content="""I love how passionate you are about your hobbies. It's inspiring to see someone pursue their passions with such dedication.""",
+        user=bobbie,
+        video=videos[9]
+    )
+
+    comment_11 = Comment(
+        content="""Your artwork is absolutely stunning. I can see the amount of effort and creativity you put into each piece.""",
+        user=marnie,
+        video=videos[9]
+    )
+
+    comment_12 = Comment(
+        content="""I appreciate your honesty and vulnerability. It takes a lot of courage to open up like that.""",
+        user=bobbie,
+        video=videos[10]
+    )
+
     db.session.add(comment_1)
     db.session.add(comment_2)
     db.session.add(comment_3)
+    db.session.add(comment_4)
+    db.session.add(comment_5)
+    db.session.add(comment_6)
+    db.session.add(comment_7)
+    db.session.add(comment_8)
+    db.session.add(comment_9)
+    db.session.add(comment_10)
+    db.session.add(comment_11)
+    db.session.add(comment_12)
     db.session.commit()
-    return [comment_1, comment_2, comment_3]
+    return [comment_1, comment_2, comment_3, comment_4, comment_5, comment_6, comment_7, comment_8, comment_9, comment_10, comment_11, comment_12]
 
 
 
