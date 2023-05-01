@@ -11,9 +11,12 @@ import CommentCard from "./CommentCard";
 import VideoCard from "./VideoCard";
 import CreateComment from "./CreateComment";
 
+import notFoundImg from '../Forbidden/404.svg';
+
 const ShowVideo = () => {
     const { videoId } = useParams();
     const dispatch = useDispatch();
+    const moment = require('moment');
 
     const { isEditComment, editCommentId} = useEditCommentContext();
     const [showMore, setShowMore] = useState(false);
@@ -38,7 +41,19 @@ const ShowVideo = () => {
     // console.log("more: ", recommended)
     // console.log("commentsArr: ", commentsArr)
 
-    if(!Object.values(video).length) return(<h1 style={{color: "#f1f1f1"}}>404: Video Not Found</h1>)
+    if(!Object.values(video).length) return(
+        <>
+            <div className="video-not-found">
+                <img className="video-not-found-photo"
+                    src={notFoundImg}
+                    alt="not allowed"
+                >
+                </img>
+                <div> 404: Resource not found. Click <NavLink to="/videos">here</NavLink> to go to the home page.</div>
+
+            </div>
+        </>
+    );
 
     return(
         <div className="video-page">
@@ -64,8 +79,8 @@ const ShowVideo = () => {
 
                 {video.description.length > 290 ?
                     (<div className="video-description-box">
-                        <span id="video-views">{video.views} views</span>
-                        <span id="video-date">{video.created_at}</span>
+                        <span id="video-views">Coming soon...</span>
+                        <span id="video-date">{`${moment(video.created_at).fromNow()}`}</span>
                         {showMore ?
                             <div id="video-description">{video.description}</div>
                             :
@@ -76,8 +91,8 @@ const ShowVideo = () => {
                     </div>)
                 :
                     (<div className="video-description-box">
-                        <span id="video-views">{video.views} views</span>
-                        <span id="video-date">{video.created_at}</span>
+                        <span id="video-views">Coming soon...</span>
+                        <span id="video-date">{`${moment(video.created_at).fromNow()}`}</span>
                         <div id="video-description">{video.description}</div>
                     </div>)
                 }
@@ -98,7 +113,7 @@ const ShowVideo = () => {
                         videoId={videoId}
                     />
                     :
-                    <div className="unlogged-video-post-comment">Log In to post a comment</div>
+                    <div className="unlogged-video-post-comment"><NavLink to="/login">Log In</NavLink> to post a comment</div>
                 }
                 <div className="video-comments">
                     {commentsArr.length ?
@@ -134,7 +149,7 @@ const ShowVideo = () => {
                             title={rec.title.length > 50 ? `${rec.title.slice(0,50)}...`: rec.title}
                             owner={rec.User.username}
                             views={rec.views}
-                            date={rec.created_at.slice(0,16)}
+                            date={moment(rec.created_at).fromNow()}
                         />
                     </NavLink>
                   ))

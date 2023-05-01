@@ -33,15 +33,15 @@ function SignupFormPage() {
     if (password === confirmPassword && !Object.values(errors).length) {
         const data = await dispatch(signUp(username, email, password));
         if (data) {
-          console.log("DATA", data)
+          // console.log("DATA", data)
           setBackendErrors(data)
         }
     }
   };
 
-  console.log(errors)
+  // console.log(errors)
 
-  if (sessionUser) return <Redirect to="/" />;
+  if (sessionUser) return <Redirect to="/videos" />;
   return (
     <>
       <div className="signup-form-container">

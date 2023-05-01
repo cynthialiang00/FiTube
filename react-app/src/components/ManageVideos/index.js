@@ -5,7 +5,11 @@ import { NavLink } from "react-router-dom";
 import { thunkGetUserVideos } from "../../store/videos";
 import OpenModalButton from "../OpenModalButton";
 import DeleteVideoModal from "./DeleteVideoModal";
+import UploadVideoModal from "../Navigation/UploadVideo";
 import './ManageVideos.css'
+
+import noLoginImg from '../Navigation/emoji-tongue.svg';
+import noVideoImg from './upload-cloud.svg';
 
 function ManageVideos({user}) {
     const dispatch = useDispatch();
@@ -18,7 +22,19 @@ function ManageVideos({user}) {
 
     const userVideosArr = Object.values(userVideos);
 
-    if (!user) return (<h1> You must <NavLink to="/login">log in</NavLink> to access this resource. </h1>)
+    if (!user) return (
+        <div className="manage-content">
+            <div className="manage-no-login"> 
+                <img className="manage-login-photo"
+                    src={noLoginImg}
+                    alt="not logged in"
+                >
+                </img>
+                <div>You must <NavLink to="/login">log in</NavLink> to access this resource. </div>
+            </div>
+
+        </div>
+    );
     return (
         userVideosArr.length ? (
         <div className="manage-content">
@@ -59,7 +75,6 @@ function ManageVideos({user}) {
                             className={"manage-delete"}
                             modalComponent={<DeleteVideoModal videoId={video.id}/>}
                         />
-                        {/* <i className="fa-solid fa-trash-can"></i> */}
                     </div>
                     <div className="manage-date">
                         <div>{video.created_at}</div>
@@ -78,9 +93,23 @@ function ManageVideos({user}) {
                     <div>
                         <h2>Channel content</h2>
                     </div>
-                    <div className="manage-columns-labels">
+                    
+                    <div className="upload-no-video">
+                        <img className="manage-no-video-photo"
+                            src={noVideoImg}
+                            alt="need to upload"
+                        >
+                        </img>
+                        <div>
+                            <OpenModalButton
+                                buttonText={"Upload a video"}
+                                className={"upload-button"}
+                                modalComponent={<UploadVideoModal />}
+                            />
+                            to manage your videos.
+                        </div>
+                        
                     </div>
-                    <div>Upload a video to manage your videos.</div>
                 </div>
         )
 

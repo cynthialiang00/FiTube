@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkPostVideo } from "../../store/videos";
-import './ModalForm.css'
+import './UploadForm.css';
+
+import noLoginImg from './emoji-tongue.svg';
 
 const UploadVideoModal = () => {
     const user = useSelector(state => state.session.user);
@@ -32,7 +34,7 @@ const UploadVideoModal = () => {
         if (video && getFileType(video.name) !== "mp4") err["videoType"] = "Video must be .mp4";
         if (thumbnail && !allowedFileTypes.includes(getFileType(thumbnail.name))) err["thumbnailType"] = "Thumbnail must be .png, .jpg, or .jpeg";
         if (!title.length) err["title"] = "Title field must not be empty";
-        if (title.length > 70) err["title"] = "Titlecan’t be longer than 70 characters."
+        if (title.length > 70) err["title"] = "Title can’t be longer than 70 characters."
         if (description.length > 1000) err["description"] = "Description can't be longer than 1000 characters "
         setErrors(err)
     }, [video, thumbnail, title, description]);
@@ -40,7 +42,7 @@ const UploadVideoModal = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('submitted');
+        // console.log('submitted');
         if (Object.values(errors).length) return alert(`Oops, something went wrong with uploading the video. Please try again.`);
 
         const formData = new FormData();
@@ -49,7 +51,7 @@ const UploadVideoModal = () => {
         formData.append("thumbnail", thumbnail);
         formData.append("title", title);
         formData.append("description", description);
-        console.log('submit formdata:', formData.get("video"))
+        // console.log('submit formdata:', formData.get("video"))
 
         setVideoIsLoading(true);
         setThumbnailIsLoading(true);
@@ -82,9 +84,17 @@ const UploadVideoModal = () => {
         setThumbnail(file);
     }
 
-    if(!user) return (<h1 style={{color: "#f1f1f1"}}>Please log in to upload a video</h1>);
+    if(!user) return (
+        <div className="edit-modal-container">
+            <img className="edit-modal-login-photo" 
+                src={noLoginImg} 
+                alt="not logged in"
+            >
+            </img>
+            <div className="edit-modal-no-login">Please <NavLink to="/login" onClick={() => closeModal()}>log in</NavLink> to upload a video</div>
+        </div>
+    );
     return (
-        <div className='edit-model'>
         <div className="edit-modal-container">
             <div className='edit-modal-header'>
                 <div>&nbsp;</div>
@@ -94,7 +104,6 @@ const UploadVideoModal = () => {
                     <i className="fa-solid fa-x"></i>
                 </button>
             </div>
-            <div className='edit-modal-tabs-menu'></div>
 
             <form onSubmit={handleSubmit} className="edit-modal-form">
 
@@ -127,10 +136,10 @@ const UploadVideoModal = () => {
                         placeholder="Add a video title"
                         onChange={(e) => setTitle(e.target.value)}
                     ></input>
-                    <div className="edit-modal-border"></div>
+
                     <label style={{ paddingLeft: "7px" }} htmlFor="description"> Video Description (Optional) </label>
                     <input
-                        type="text"
+                        type="textarea"
                         id="description"
                         placeholder="Add a video description!"
                         value={description}
@@ -154,7 +163,6 @@ const UploadVideoModal = () => {
 
 
             </form>
-        </div>
         </div>
     )
 

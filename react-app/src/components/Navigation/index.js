@@ -7,16 +7,15 @@ import UploadVideoModal from './UploadVideo';
 import './Navigation.css';
 
 // import ytlogo from './yt_icon_rgb.png';
-import ytlogo from './Youtube-cropped.svg';
+import ytlogo from './fitubelogo.svg';
 
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
-	const history = useHistory();
 	return (
 		<nav className='nav-container'>
 			<div className='nav-logo-container'>
-				<NavLink exact to="/">
-					<img id='nav-logo' src={ytlogo} alt="fitube logo" style={{ width: "100px", height: "30px" }}></img>
+				<NavLink exact to="/videos">
+					<img id='nav-logo' src={ytlogo} alt="fitube logo" style={{ width: "100px", height: "30px", marginBottom: "7px" }}></img>
 				</NavLink>
 			</div>
 			<div className='nav-search'>

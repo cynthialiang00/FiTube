@@ -5,9 +5,14 @@ import { thunkGetAllVideos } from "../../store/videos";
 import { NavLink } from "react-router-dom";
 import './home.css';
 
+
+
+import notFoundImg from '../Forbidden/404.svg';
+
 function HomePage() {
     const dispatch = useDispatch();
     const allVideos = useSelector((state) => state.videos.all_videos);
+    const moment = require('moment');
 
     useEffect(() => {
         dispatch(thunkGetAllVideos());
@@ -15,6 +20,19 @@ function HomePage() {
 
     const allVideosArr = Object.values(allVideos);
 
+    if (!Object.values(allVideos).length) return (
+        <>
+            <div className="video-not-found">
+                <img className="video-not-found-photo"
+                    src={notFoundImg}
+                    alt="not allowed"
+                >
+                </img>
+                <div> 404: Resource not found. Click <NavLink to="/">here</NavLink> to go to the home page.</div>
+
+            </div>
+        </>
+    );
     return (
         <div className="spots-content">
             <div className="spots-grid">
@@ -24,13 +42,19 @@ function HomePage() {
                             <img className="spot-image" src={`${video.thumbnail}`} alt={`Preview of ${video.title}`}></img>
                             <div className="spot-description">
                                 <div className="spot-info">
-                                    <div className="spot-title">{video.title}</div>
+                                    <div className="spot-title">
+                                        {video.title.length > 65 ?
+                                            `${video.title.substring(0,65)}...`
+                                        :
+                                            video.title
+                                        }
+                                    </div>
                                     <div className="spot-price">
                                         <div>
                                             {`${video.User.username}`}
                                         </div>
                                         <div>
-                                            {`${video.views} views · ${video.created_at}`}
+                                            {`Coming soon · ${moment(video.created_at).fromNow()}`}
                                         </div>
                                     </div>
                                 </div>

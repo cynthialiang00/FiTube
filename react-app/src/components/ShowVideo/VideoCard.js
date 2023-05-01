@@ -12,7 +12,7 @@ const VideoCard = ({ thumb, title, owner, views, date }) => {
                 <p className="video-views">{`${views} views · ${date}`}</p> */}
             </div>
             <div className="video-owner">{owner}</div>
-            <div className="video-views">{`${views} views · ${date}`}</div>
+            <div className="video-views">{`Coming soon · ${date}`}</div>
         </div>
     )
 
