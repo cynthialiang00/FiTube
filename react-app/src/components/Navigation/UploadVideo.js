@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkPostVideo } from "../../store/videos";
-import './ModalForm.css'
+import './UploadForm.css'
 
 const UploadVideoModal = () => {
     const user = useSelector(state => state.session.user);

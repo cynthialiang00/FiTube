@@ -5,7 +5,6 @@
     flex-direction: column;
     width: 80vw;
     max-width: 650px;
-    max-height: 750px;
     border-radius: 15px;
 
 }
@@ -148,7 +147,7 @@
     color: #f1f1f1;
     padding: 8px 16px;
     background-color:#3ea6ff;
-    border-color: #f1f1f1;
+    border-color: #3ea6ff;
 }
 
 /* Error handling */
