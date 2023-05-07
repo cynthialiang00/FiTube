@@ -2,6 +2,7 @@
 
 Fitube is a Youtube clone with a lofi theme. It strives to be a place where people can listen to relaxing lofi music for their relaxing and/or study needs!
 
+
 Check [FiTube](https://fitube.onrender.com/) out!
 
 <br/>
@@ -98,3 +99,15 @@ III. [Database Schema](https://github.com/cynthialiang00/FiTube/wiki/Schema)
 ### Playlists
 ### Subscriptions/Channels
 ### Search bar
+=======
+7. Run the react app
+      ```bash
+      cd react-app
+      ```
+      ```bash
+      npm install
+      ```
+      ```bash
+      npm start
+      ```
+
