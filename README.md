@@ -31,8 +31,15 @@ III. [Database Schema](https://github.com/cynthialiang00/FiTube/wiki/Schema)
 
 ## Overview
 ### Home page
+<img width="1467" alt="Screen Shot 2023-05-07 at 2 40 51 PM" src="https://user-images.githubusercontent.com/118590381/236704487-070cfc4f-70fc-4e3f-90b2-5e0b0b44bcf3.png">
+
 ### View video page
-### Navigate to User Management Pages
+![Screen_Recording_2023-05-07_at_2_44_09_PM_AdobeExpress](https://user-images.githubusercontent.com/118590381/236704628-3bc7ceee-5841-43f2-b11e-342640fa8c99.gif)
+
+
+### Navigate to User Management Pages (Navigation dropdown)
+<img width="1470" alt="Screen Shot 2023-05-07 at 3 03 15 PM" src="https://user-images.githubusercontent.com/118590381/236704659-1e19784f-f942-486e-85e5-31ba8e0beafe.png">
+
 
 ## Running FiTube Locally
 1. Clone this repository (main branch).
