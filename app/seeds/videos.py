@@ -33,7 +33,7 @@ def seed_videos(users):
         title="Eternal Wind(FFIII) Lo-Fi Chillhop Remix",
         description="Perfect for studying, concentrating at work, calming your baby to sleep, getting Crystal Tower in raid roulette yet again, and more!",
         user=marnie,
-        views=2500000000
+        views=2500000
     )
 
     video_5 = Video(
