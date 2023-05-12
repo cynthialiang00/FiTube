@@ -9,11 +9,11 @@ def seed_videos(users):
     bobbie = users[2]
 
     video_1 = Video(
-        url="https://liang-capstone-bucket.s3.amazonaws.com/videos/Animal+Crossing%EF%BC%9A+City+Folk++OST+-+10+PM+(Normal)+%5BgNPR2UHMgFA%5D.mp4",
-        thumbnail="https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/ac-rainy.jpeg",
-        title="Animal Crossing City Folk OST 10pm",
-        description ="Peaceful nostalgic AACF OST for your study needs :D",
-        user=demo
+    url="https://liang-capstone-bucket.s3.amazonaws.com/videos/Animal+Crossing%EF%BC%9A+City+Folk++OST+-+10+PM+(Normal)+%5BgNPR2UHMgFA%5D.mp4",
+    thumbnail="https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/ac-rainy.jpeg",
+    title="Animal Crossing City Folk OST 10pm",
+    description="Peaceful nostalgic AACF OST for your study needs :D",
+    user=demo
     )
 
     video_4 = Video(
@@ -21,9 +21,10 @@ def seed_videos(users):
         thumbnail="https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/pokemon-rain.jpeg",
         title="Pokemon Lake Verity Pokémon Brilliant Diamond & Shining Pearl",
         description="""RESPECT MY USAGE TERMS AND I'LL RESPECT YOURS:
-        1. You are able to use my themes as background music/streams/games, I only ask for you to put the link of the songs you used in the description of your video. (If it is a stream, make a reference to my channel, for games, credit me.)
-        2. DO NOT Re-Upload/Extend/Mashup any of my songs.""",
-        user=demo
+            1. You are able to use my themes as background music/streams/games, I only ask for you to put the link of the songs you used in the description of your video. (If it is a stream, make a reference to my channel, for games, credit me.)
+            2. DO NOT Re-Upload/Extend/Mashup any of my songs.""",
+        user=demo,
+        views=125000
     )
 
     video_2 = Video(
@@ -31,7 +32,8 @@ def seed_videos(users):
         thumbnail="https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/ff3-eternalwind.jpeg",
         title="Eternal Wind(FFIII) Lo-Fi Chillhop Remix",
         description="Perfect for studying, concentrating at work, calming your baby to sleep, getting Crystal Tower in raid roulette yet again, and more!",
-        user=marnie
+        user=marnie,
+        views=2500000000
     )
 
     video_5 = Video(
@@ -39,10 +41,11 @@ def seed_videos(users):
         thumbnail="https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/maple-piano.jpeg",
         title="Maplestory Raindrop Flower Remake (Lo-Fi)",
         description="""VGM Remaker, Maple Story - Raindrop Flower Remake (Lo-Fi) | Remix
-                    At VGM Remaker, we're all about celebrating the music that has touched our hearts and inspired our gaming adventures. We hope this track brings you joy and nostalgia, and inspires you to discover even more amazing video game music.
-                    All copyrights belong to the original publishers of the game. This is a non-profit project made for entertainment purposes only.
-                    Thank you for listening and don't forget to like and subscribe for more!""",
-        user=marnie
+                        At VGM Remaker, we're all about celebrating the music that has touched our hearts and inspired our gaming adventures. We hope this track brings you joy and nostalgia, and inspires you to discover even more amazing video game music.
+                        All copyrights belong to the original publishers of the game. This is a non-profit project made for entertainment purposes only.
+                        Thank you for listening and don't forget to like and subscribe for more!""",
+        user=marnie,
+        views=7500
     )
 
     video_3 = Video(
@@ -50,7 +53,8 @@ def seed_videos(users):
         thumbnail="https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/ac-thumb-1.jpeg",
         title="K.K. Cruisin",
         description="K.K. Cruisin' · Helynt",
-        user=bobbie
+        user=bobbie,
+        views=143
     )
 
     video_6 = Video(
@@ -58,9 +62,9 @@ def seed_videos(users):
         thumbnail="https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/maple-mush.jpeg",
         title="Maplestory Lofi Above The Treetops",
         description="""Enjoy the best Maple Story Soundtracks as Lo-Fi Remixes.
-        Study, Relax and Chill to these beautiful nostalgic background music tracks.
-        From Ellinia Missing You and Above the Treetops back to Sleepywood and Moonlight Shadow - this playlist features remixes 
-        of all the best classic Maple Story Music pieces. Now go out and hunt those snails Maplers!""",
+            Study, Relax and Chill to these beautiful nostalgic background music tracks.
+            From Ellinia Missing You and Above the Treetops back to Sleepywood and Moonlight Shadow - this playlist features remixes 
+            of all the best classic Maple Story Music pieces. Now go out and hunt those snails Maplers!""",
         user=bobbie
     )
 
@@ -69,11 +73,12 @@ def seed_videos(users):
         thumbnail="https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/bns.jpeg",
         title="Blade and Soul: Peasant Village",
         description="""It was a warm summer evening and the sun had just begun to set over the horizon.
-        The sky was a vibrant orange and pink color, creating a stunning backdrop for the silhouettes of
-        the trees in the distance. A gentle breeze blew through the air, carrying with it the sweet scent of blooming flowers. 
-        As I sat on my porch, sipping on a cold glass of lemonade, I couldn't help but feel grateful for moments like this. 
-        It was a reminder to slow down and appreciate the simple pleasures in life.""",
-        user=demo
+            The sky was a vibrant orange and pink color, creating a stunning backdrop for the silhouettes of
+            the trees in the distance. A gentle breeze blew through the air, carrying with it the sweet scent of blooming flowers. 
+            As I sat on my porch, sipping on a cold glass of lemonade, I couldn't help but feel grateful for moments like this. 
+            It was a reminder to slow down and appreciate the simple pleasures in life.""",
+        user=demo,
+        views=735000
     )
 
     video_8 = Video(
@@ -81,11 +86,12 @@ def seed_videos(users):
         thumbnail="https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/super-mario.jpeg",
         title="Mario: Continue LoFi Chillhop",
         description="""The city was bustling with energy as people rushed about their daily routines. 
-        Cars honked and buses roared as they made their way through the busy streets. 
-        The skyscrapers towered above, their shiny exteriors reflecting the bright sunlight. 
-        The sound of chatter and laughter filled the air as people hurried from one place to another. 
-        It was a stark contrast to the quietness of the countryside, but there was a certain charm to the chaos.""",
-        user=marnie
+            Cars honked and buses roared as they made their way through the busy streets. 
+            The skyscrapers towered above, their shiny exteriors reflecting the bright sunlight. 
+            The sound of chatter and laughter filled the air as people hurried from one place to another. 
+            It was a stark contrast to the quietness of the countryside, but there was a certain charm to the chaos.""",
+        user=marnie,
+        views=23000
     )
 
     video_9 = Video(
@@ -93,10 +99,11 @@ def seed_videos(users):
         thumbnail="https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/tavern.jpeg",
         title="Final Fantasy VII Aerith Theme (Flowers Blooming in the Church) Lofi Hip Hop Remix",
         description="""The waves crashed against the shore, creating a soothing melody that filled the air. 
-        The sun was high in the sky, casting a warm glow over the sandy beach. Seagulls soared overhead, 
-        their cries echoing in the distance. As I walked along the shoreline, I couldn't help but feel a 
-        sense of peace wash over me. The ocean had a way of making all of life's problems seem small and insignificant.""",
-        user=bobbie
+            The sun was high in the sky, casting a warm glow over the sandy beach. Seagulls soared overhead, 
+            their cries echoing in the distance. As I walked along the shoreline, I couldn't help but feel a 
+            sense of peace wash over me. The ocean had a way of making all of life's problems seem small and insignificant.""",
+        user=bobbie,
+        views=9
     )
 
     video_10 = Video(
@@ -104,10 +111,11 @@ def seed_videos(users):
         thumbnail="https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/morning-train.jpeg",
         title="Lonely Rolling Star",
         description="""The forest was dense and dark, with towering trees that seemed to stretch up to the sky. 
-        The air was thick with the scent of pine and damp earth. It was quiet, except for the occasional rustling 
-        of leaves and twigs underfoot. As I hiked deeper into the woods, I felt a sense of both awe and unease. 
-        It was a reminder of how vast and powerful nature can be.""",
-        user=demo
+            The air was thick with the scent of pine and damp earth. It was quiet, except for the occasional rustling 
+            of leaves and twigs underfoot. As I hiked deeper into the woods, I felt a sense of both awe and unease. 
+            It was a reminder of how vast and powerful nature can be.""",
+        user=demo,
+        views=258000
     )
 
     video_11 = Video(
@@ -115,9 +123,9 @@ def seed_videos(users):
         thumbnail="https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/bookstore.jpeg",
         title="Satorl The Shimmering Marsh, night",
         description="""The concert was in full swing, with the band playing their hearts out on stage. 
-        The crowd was packed tight, swaying and dancing to the beat. The music was loud, filling the air 
-        with an electrifying energy. I closed my eyes and let the rhythm wash over me, losing myself in the moment. 
-        It was a feeling of pure joy and liberation.""",
+            The crowd was packed tight, swaying and dancing to the beat. The music was loud, filling the air 
+            with an electrifying energy. I closed my eyes and let the rhythm wash over me, losing myself in the moment. 
+            It was a feeling of pure joy and liberation.""",
         user=marnie
     )
 
@@ -126,10 +134,11 @@ def seed_videos(users):
         thumbnail="https://liang-capstone-bucket.s3.amazonaws.com/thumbnails/nintendo-purphouse.jpeg",
         title="Faron Woods Lofi Ver",
         description="""The cafe was cozy and quaint, with a warm and inviting atmosphere. The smell of 
-        fresh coffee and baked goods wafted through the air. The chatter of customers filled the space, 
-        creating a lively hum. I sipped on my latte and nibbled on a croissant, enjoying the simple pleasures of life. 
-        It was a moment of calm amidst the chaos of the world.""",
-        user=bobbie
+            fresh coffee and baked goods wafted through the air. The chatter of customers filled the space, 
+            creating a lively hum. I sipped on my latte and nibbled on a croissant, enjoying the simple pleasures of life. 
+            It was a moment of calm amidst the chaos of the world.""",
+        user=bobbie,
+        views=8000
     )
 
     db.session.add(video_1)

@@ -28,12 +28,17 @@ def get_video(id):
     video = Video.query.get(id)
     if not video:
         return {'errors': ['Resource not found']}, 404
+
+    video.views += 1
+
+    db.session.commit()
     # includes other video recommendations on sidebar (all videos except for current)
-    videos = Video.query.filter(Video.id != id).all()
+    videos = Video.query.filter(Video.id != id).limit(6)
 
     video_data = video.to_dict()
     video_data['More'] = {vdo.id: vdo.preview_to_dict() for vdo in videos}
     return {'one_video': [video_data]}, 200
+
 
 @video_routes.route('/', methods=['POST'])
 @login_required

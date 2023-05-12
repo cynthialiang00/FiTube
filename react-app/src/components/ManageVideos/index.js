@@ -7,7 +7,7 @@ import OpenModalButton from "../OpenModalButton";
 import DeleteVideoModal from "./DeleteVideoModal";
 import UploadVideoModal from "../Navigation/UploadVideo";
 import './ManageVideos.css'
-
+import numberFormat from "../../helperFuncs/numberFormat";
 import noLoginImg from '../Navigation/emoji-tongue.svg';
 import noVideoImg from './upload-cloud.svg';
 
@@ -109,7 +109,16 @@ function ManageVideos() {
                         <div>{video.created_at}</div>
                         <div>Uploaded</div>
                     </div>
-                    <div className="manage-views">{video.views}</div>
+                    <div className="manage-views">
+                        {
+                            video.views === 0 ?
+                                `No views`
+                            : video.views === 1 ?
+                                `${numberFormat(video.views)} view`
+                            :
+                                `${numberFormat(video.views)} views`
+                        }
+                    </div>
                     <div className="manage-comments">{video.comments_num}</div>
                     <div className="manage-likes">{video.likes_num}</div>
                 </div>

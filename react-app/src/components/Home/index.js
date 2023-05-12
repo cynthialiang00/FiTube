@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import './home.css';
 
 
-
+import numberFormat from "../../helperFuncs/numberFormat";
 import notFoundImg from '../Forbidden/404.svg';
 
 function HomePage() {
@@ -54,7 +54,14 @@ function HomePage() {
                                             {`${video.User.username}`}
                                         </div>
                                         <div>
-                                            {`Coming soon · ${moment(video.created_at).fromNow()}`}
+                                            {
+                                                video.views === 0 ?
+                                                    `No views · ${moment(video.created_at).fromNow()}`
+                                                : video.views === 1 ?
+                                                    `${numberFormat(video.views)} view · ${moment(video.created_at).fromNow()}`
+                                                :
+                                                    `${numberFormat(video.views)} views · ${moment(video.created_at).fromNow()}`
+                                            }
                                         </div>
                                     </div>
                                 </div>
