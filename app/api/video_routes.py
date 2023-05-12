@@ -4,6 +4,7 @@ from app.models import db, Video, User, VideoReaction, Comment
 from app.s3_helpers import (
     upload_video_to_s3, upload_thumb_to_s3, remove_from_s3, get_unique_filename, allowed_video_file, allowed_thumbnail_file)
 
+import random
 video_routes = Blueprint('videos', __name__)
 
 
@@ -33,8 +34,8 @@ def get_video(id):
 
     db.session.commit()
     # includes other video recommendations on sidebar (all videos except for current)
-    videos = Video.query.filter(Video.id != id).limit(6)
-
+    allVideos = Video.query.filter(Video.id != id)
+    videos = random.sample(list(allVideos), 10)
     video_data = video.to_dict()
     video_data['More'] = {vdo.id: vdo.preview_to_dict() for vdo in videos}
     return {'one_video': [video_data]}, 200
