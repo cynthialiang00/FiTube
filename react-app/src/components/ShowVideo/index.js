@@ -10,8 +10,9 @@ import { thunkGetAllComments } from "../../store/comments";
 import CommentCard from "./CommentCard";
 import VideoCard from "./VideoCard";
 import CreateComment from "./CreateComment";
-
+import numberFormat from "../../helperFuncs/numberFormat";
 import notFoundImg from '../Forbidden/404.svg';
+
 
 const ShowVideo = () => {
     const { videoId } = useParams();
@@ -79,7 +80,16 @@ const ShowVideo = () => {
 
                 {video.description.length > 290 ?
                     (<div className="video-description-box">
-                        <span id="video-views">Coming soon...</span>
+                        <span id="video-views">
+                            {
+                                video.views === 0 ?
+                                    `No views`
+                                    : video.views === 1 ?
+                                        `${numberFormat(video.views)} view`
+                                        :
+                                        `${numberFormat(video.views)} views`
+                            }
+                        </span>
                         <span id="video-date">{`${moment(video.created_at).fromNow()}`}</span>
                         {showMore ?
                             <div id="video-description">{video.description}</div>
@@ -91,7 +101,16 @@ const ShowVideo = () => {
                     </div>)
                 :
                     (<div className="video-description-box">
-                        <span id="video-views">Coming soon...</span>
+                        <span id="video-views">
+                            {
+                                video.views === 0 ?
+                                `No views`
+                                : video.views === 1 ?
+                                    `${numberFormat(video.views)} view`
+                                :
+                                    `${numberFormat(video.views)} views`
+                            }
+                        </span>
                         <span id="video-date">{`${moment(video.created_at).fromNow()}`}</span>
                         <div id="video-description">{video.description}</div>
                     </div>)
