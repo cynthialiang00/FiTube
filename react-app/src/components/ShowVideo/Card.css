@@ -172,6 +172,7 @@
     grid-column: 1;
     grid-row: 1/3;
 }
+
 .comment-field {
     grid-column: 2/5;
     grid-row: 1;
@@ -180,6 +181,13 @@
     border-bottom: 1px solid #aaaaaa;
     outline: none;
     color: #f1f1f1;
+}
+.comment-field:hover {
+    border-bottom: 1px solid #ffffff;
+}
+
+.comment-field:focus {
+    border-bottom: 1px solid #ffffff;
 }
 
 .comment-characters {
