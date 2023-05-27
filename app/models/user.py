@@ -58,6 +58,7 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
+            'num_subscribers': self.num_subscribers,
             'avatar': self.avatar,
             'banner': self.banner,
             'description': self.description,
