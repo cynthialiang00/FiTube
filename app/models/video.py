@@ -25,6 +25,11 @@ class Video(db.Model):
     comments = db.relationship("Comment", back_populates="video", cascade="all, delete, delete-orphan")
     reactions = db.relationship("VideoReaction", back_populates="video", cascade="all, delete, delete-orphan")
 
+    playlist = db.relationship(
+        "Playlist",
+        secondary='playlists_videos',
+        back_populates="videos")
+
 
     def to_dict(self):
         return {

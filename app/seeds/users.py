@@ -10,10 +10,17 @@ def seed_users():
         username='marnie', email='marnie@aa.io', password='password', avatar="https://liang-capstone-bucket.s3.amazonaws.com/avatars/sailor-saturn.jpeg")
     bobbie = User(
         username='bobbie', email='bobbie@aa.io', password='password', avatar="https://liang-capstone-bucket.s3.amazonaws.com/avatars/killua.jpeg")
-
+    
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+
+    demo.subscriptions.append(marnie)
+    demo.subscriptions.append(bobbie)
+
+    marnie.subscriptions.append(demo)
+
+
     db.session.commit()
     return [demo, marnie, bobbie]
 
