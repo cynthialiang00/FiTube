@@ -27,6 +27,7 @@ class User(db.Model, UserMixin):
     banner = db.Column(db.Text, nullable=True)
     description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=db.func.now())
+    num_subscribers = db.Column(db.Integer, nullable=True)
     
     subscriptions = db.relationship('User', secondary='subscriptions',
                                     primaryjoin=id==subscription.c.user_id, 
