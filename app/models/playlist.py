@@ -24,6 +24,16 @@ class Playlist(db.Model):
         secondary='playlists_videos',
         back_populates="playlist")
 
+    def preview_to_dict(self):
+        return {
+            'id': self.id,
+            'user_id': self.user_id,
+            'name': self.name,
+            'is_private': self.is_private,
+            'description': self.description,
+            'updated_at': self.updated_at,
+            'video_preview': self.videos[0].preview_to_dict()
+        }
 
 
     

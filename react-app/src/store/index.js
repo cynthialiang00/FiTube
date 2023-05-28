@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import reducer from './session'
 import videoReducer from './videos';
 import commentReducer from './comments';
+import channelReducer from './channels';
 
 const rootReducer = combineReducers({
   session: reducer,
   videos: videoReducer,
-  comments: commentReducer
+  comments: commentReducer,
+  channel: channelReducer
 });
 
 
