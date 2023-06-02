@@ -4,6 +4,9 @@
     font-family: 'Roboto', Arial, sans-serif;
 }
 
+body {
+    margin: 0;
+}
 
 button { 
     cursor:pointer;

@@ -51,8 +51,8 @@ function App() {
           <Route path="/manage">
             <ManageVideos user={sessionUser}/>
           </Route>
-          <Route path="/profile">
-            <Channel />
+          <Route path="/channels/:userId">
+            <Channel user={sessionUser}/>
           </Route>
           
         </Switch>
