@@ -76,6 +76,9 @@ const ShowVideo = () => {
                         <img id="video-owner-img" src={video.User.avatar} alt="owner user avatar"></img>
                         <div id="video-owner-name">{video.User.username}</div>
                     </div>
+                    
+
+
                 </div>
 
                 {video.description.length > 290 ?

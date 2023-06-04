@@ -44,7 +44,8 @@ class Video(db.Model):
             'likes_num': len([reaction for reaction in self.reactions if reaction.reaction=="like"]),
             'dislikes_num': len([reaction for reaction in self.reactions if reaction.reaction=="dislike"]),
             'User': {'username': self.user.username,
-                     'avatar': self.user.avatar
+                     'avatar': self.user.avatar,
+                     'num_subscribers': self.user.num_subscribers
                      }
         }
     
