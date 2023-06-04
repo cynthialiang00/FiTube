@@ -8,14 +8,14 @@ const getChannel = (data) => ({
     payload: data
 });
 
-const subChannel = (num_subs) => ({
+const subChannel = (data) => ({
     type: SUBSCRIBE_CHANNEL,
-    payload: num_subs
+    payload: data
 });
 
-const unsubChannel = (num_subs) => ({
+const unsubChannel = (data) => ({
     type: UNSUBSCRIBE_CHANNEL,
-    payload: num_subs
+    payload: data
 })
 
 const initialState = { channelUser: {}, channelVideos: {}, channelPlaylists: {}};

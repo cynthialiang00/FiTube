@@ -15,10 +15,25 @@ def get_channel(user_id):
         userData = user.to_dict()
 
         if (user in this_user.subscriptions):
-                print('SUBSCRIBED TO THIS CHANNEL')
                 userData["is_subscribed_to"] = True
         
         return {'channel_user': userData,
                 'channel_videos': [video.preview_to_dict() for video in user.video],
                 'channel_playlists': [playlist.preview_to_dict() for playlist in user.playlists]}
     
+
+@channel_routes.route('/<int:user_id>', methods=['PUT'])
+@login_required
+def edit_channel(user_id):
+        user = User.query.get(user_id)
+
+        if not user:
+                return {'errors': ['Resource not found']}, 404
+        if current_user.id != user.id:
+                return {'errors': ['Unauthorized']}, 403
+        
+
+        if request.form.get('description'):
+                user.description=request.form.get('description')
+
+        return
