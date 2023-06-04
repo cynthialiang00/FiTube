@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { thunkGetChannel } from "../../store/channels";
+import { thunkGetChannel, thunkSubscribe, thunkUnSubscribe } from "../../store/channels";
 import { useParams } from "react-router-dom";
 import './channel.css'
 
@@ -21,6 +21,18 @@ function Channel({user}) {
     useEffect(() => {
         dispatch(thunkGetChannel(userId));
     }, [dispatch, userId]);
+
+    const clickSub = async (e) => {
+        e.preventDefault();
+        await dispatch(thunkSubscribe(userId));
+        return;
+    }
+
+    const clickUnSub = async (e) => {
+        e.preventDefault();
+        await dispatch(thunkUnSubscribe(userId));
+        return;
+    }
 
     console.log("USER DETAILS: ", userDetails);
     console.log("USER VIDEOS: ", userVideos);
@@ -71,12 +83,14 @@ function Channel({user}) {
                                     </div>
                                 :
                                 userDetails.is_subscribed_to ? 
-                                    <button id="unsubscribe-btn">
+                                    <button id="unsubscribe-btn"
+                                            onClick={clickUnSub}
+                                    >
                                         <i className="fa-regular fa-bell" style={{ color: "#ffffff" }}></i>
                                         Subscribed
                                     </button>
                                 :
-                                    <button id="subscribe-btn">Subscribe</button>
+                                    <button id="subscribe-btn" onClick={clickSub}>Subscribe</button>
                             }
                             
                             

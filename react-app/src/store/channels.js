@@ -87,14 +87,13 @@ export default function channelReducer(state = initialState, action) {
             return newState;
         case SUBSCRIBE_CHANNEL:
             newState = {...state};
-            newState.channelUser.num_subscribers = {};
-            newState.channelUser.is_subscribed_to = {};
+            newState.channelUser = {...state.channelUser};
             newState.channelUser.num_subscribers = action.payload.user.num_subscribers;
             newState.channelUser.is_subscribed_to = true;
             return newState;
         case UNSUBSCRIBE_CHANNEL:
             newState = { ...state };
-            newState.channelUser.num_subscribers = {};
+            newState.channelUser = { ...state.channelUser };
             delete newState.channelUser.is_subscribed_to;
             newState.channelUser.num_subscribers = action.payload.user.num_subscribers;
             return newState;
