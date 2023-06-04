@@ -34,6 +34,44 @@ export const thunkGetChannel = (userId) => async (dispatch) => {
     }
 };
 
+export const thunkSubscribe = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/subscribe/${userId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+
+        if (data.errors) {
+            return data;
+        }
+
+        dispatch(subChannel(data));
+    }
+};
+
+export const thunkUnSubscribe = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/subscribe/${userId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        });
+
+    if (response.ok) {
+        const data = await response.json();
+
+        if (data.errors) {
+            return data;
+        }
+
+        dispatch(unsubChannel(data));
+    }
+};
+
 export default function channelReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
@@ -46,6 +84,19 @@ export default function channelReducer(state = initialState, action) {
             action.payload.channel_videos.forEach((video) => {
                 newState.channelVideos[video.id] = video
             });
+            return newState;
+        case SUBSCRIBE_CHANNEL:
+            newState = {...state};
+            newState.channelUser.num_subscribers = {};
+            newState.channelUser.is_subscribed_to = {};
+            newState.channelUser.num_subscribers = action.payload.user.num_subscribers;
+            newState.channelUser.is_subscribed_to = true;
+            return newState;
+        case UNSUBSCRIBE_CHANNEL:
+            newState = { ...state };
+            newState.channelUser.num_subscribers = {};
+            delete newState.channelUser.is_subscribed_to;
+            newState.channelUser.num_subscribers = action.payload.user.num_subscribers;
             return newState;
         default:
             return state;
