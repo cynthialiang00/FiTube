@@ -6,6 +6,9 @@ const POST_VIDEO = "videos/POST_VIDEO";
 const EDIT_VIDEO = "videos/EDIT_VIDEO";
 const DELETE_VIDEO = "videos/DELETE_VIDEO";
 
+const SUBSCRIBE_VIDEO_USER = "videos/SUBSCRIBE_VIDEO_USER";
+const UNSUBSCRIBE_VIDEO_USER = "videos/UNSUBSCRIBE_VIDEO_USER";
+
 const getAllVideos = (data) => ({
     type: GET_ALL_VIDEOS,
     payload: data
@@ -29,12 +32,22 @@ const postVideo = (data) => ({
 const editVideo = (data) => ({
     type: EDIT_VIDEO,
     payload: data
-})
+});
 
 const deleteVideo = (id) => ({
     type: DELETE_VIDEO,
     id
-})
+});
+
+const subVideoUser = (data) => ({
+    type: SUBSCRIBE_VIDEO_USER,
+    payload: data
+});
+
+const unsubVideoUser = (data) => ({
+    type: UNSUBSCRIBE_VIDEO_USER,
+    payload: data
+});
 
 const initialState = { all_videos: {},  one_video: {}, user_videos:{}};
 
@@ -133,6 +146,44 @@ export const thunkDeleteVideo = (id) => async (dispatch) => {
     }
 };
 
+export const thunkSubscribeVideoUser = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/subscribe/${userId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+
+        if (data.errors) {
+            return data;
+        }
+
+        dispatch(subVideoUser(data));
+    }
+};
+
+export const thunkUnSubscribeVideoUser = (userId) => async (dispatch) => {
+    const response = await fetch(`/api/subscribe/${userId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+
+        if (data.errors) {
+            return data;
+        }
+
+        dispatch(unsubVideoUser(data));
+    }
+};
+
 
 
 export default function videoReducer(state = initialState, action) {
@@ -178,6 +229,24 @@ export default function videoReducer(state = initialState, action) {
             delete newState.user_videos[action.id];
             // newState.one_video = { ...state.one_video };
             // delete newState.one_video[action.id];
+            return newState;
+        case SUBSCRIBE_VIDEO_USER:
+            newState = { ...state };
+            newState.one_video = { ...state.one_video };
+
+            newState.one_video.User.num_subscribers = action.payload.user.num_subscribers;
+
+            newState.one_video.User.is_subscribed_to = true;
+
+            return newState;
+        case UNSUBSCRIBE_VIDEO_USER:
+            newState = { ...state };
+            newState.one_video = { ...state.one_video };
+
+            delete newState.one_video.User.is_subscribed_to;
+
+            newState.one_video.User.num_subscribers = action.payload.user.num_subscribers;
+
             return newState;
         default:
             return state;

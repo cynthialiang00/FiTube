@@ -1,0 +1,143 @@
+.channel-content-wrapper {
+    width: 100vw;
+    margin: 0;
+}
+
+.content-banner {
+    width: 100%;
+    height: 236px;
+    
+}
+
+.content-banner > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 10% 60%;
+}
+
+.content-about-wrapper {
+    width: 100%;
+    height: 168px;
+}
+
+.content-about {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 8%;
+    margin-top: 1.5%;
+}
+
+.content-about > *{
+    color:#aaaaaa;
+    font-size: 14px;
+}
+
+.content-about-avatar {
+    width: 128px;
+    height: 128px;
+}
+
+.content-about-avatar > img {
+    width: 128px;
+    height: 128px;
+    border-radius: 100%;
+    object-fit: cover;
+
+}
+.content-about-details {
+    width: 100%;
+    margin: 0 2%;
+}
+
+.content-about-details *{
+    margin-bottom: 5px;
+}
+
+.content-about-details > div:first-child{
+    font-size: 24px;
+    color: white;
+}
+
+.content-about-details > div:nth-child(2) {
+    display: flex;
+    flex-direction: row;
+}
+
+.content-about-details>div:nth-child(2) > span:first-child {
+    font-weight: bold;
+}
+
+.content-about-details>div:nth-child(2) * {
+    margin-right: 5px;
+}
+
+#subscribe-btn {
+    position: relative;
+    left: 97%;
+    bottom: 70px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: white;
+    border-radius: 20px;
+    border: none;
+    width: 95px;
+    height: 36px;
+}
+
+#unsubscribe-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 93%;
+    bottom: 60px;
+    border: none;
+    border-radius: 20px;
+    width: 151px;
+    height: 36px;
+    background-color: rgba(72,72,72,0.5);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#unsubscribe-btn>i {
+    font-size: 20px;
+    background-color: transparent;
+    margin-right: 10px;
+}
+
+#unsubscribe-btn:hover {
+    background-color: rgba(72, 72, 72, 1);
+}
+
+#customize-btns {
+    position: relative;
+    left: 78%;
+    bottom: 60px;
+}
+
+#customize-btns>button:first-child {
+    margin-right: 10px;
+}
+
+#customize-btns>button:nth-child(2) {
+    width: 130px;
+}
+#customize-btns * {
+    border: none;
+    border-radius: 20px;
+    width: 151px;
+    height: 36px;
+    background-color: rgba(72,72,72,0.5);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#customize-btns *:hover {
+    background-color: rgba(72, 72, 72, 1);
+}

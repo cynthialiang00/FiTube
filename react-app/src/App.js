@@ -13,6 +13,7 @@ import ManageVideos from "./components/ManageVideos";
 import EditVideoPage from "./components/EditVideo";
 import ShowVideo from "./components/ShowVideo";
 import SplashPage from "./components/SplashPage";
+import Channel from "./components/Channel";
 
 function App() {
   const dispatch = useDispatch();
@@ -49,6 +50,9 @@ function App() {
           </Route>
           <Route path="/manage">
             <ManageVideos user={sessionUser}/>
+          </Route>
+          <Route path="/channels/:userId">
+            <Channel user={sessionUser}/>
           </Route>
           
         </Switch>

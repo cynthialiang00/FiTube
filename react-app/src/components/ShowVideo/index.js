@@ -7,6 +7,9 @@ import ReactPlayer from 'react-player'
 import { useEditCommentContext } from "../../context/EditContext";
 import './ShowVideo.css';
 import { thunkGetAllComments } from "../../store/comments";
+import { thunkSubscribeVideoUser, thunkUnSubscribeVideoUser } from "../../store/videos";
+import OpenModalButton from "../OpenModalButton";
+import UnsubscribeModal from "./SubscribeModals/UnsubscribeModal";
 import CommentCard from "./CommentCard";
 import VideoCard from "./VideoCard";
 import CreateComment from "./CreateComment";
@@ -28,13 +31,17 @@ const ShowVideo = () => {
 
     let recommended;
 
-    // console.log("EDITING? ",isEditComment)
-    // console.log("EDIT ID ", editCommentId)
-
     useEffect(() => {
         dispatch(thunkGetOneVideo(videoId));
         dispatch(thunkGetAllComments(videoId));
     }, [dispatch, videoId]);
+
+    const clickSub = async (e, userId) => {
+        e.preventDefault();
+        await dispatch(thunkSubscribeVideoUser(userId));
+        return;
+    }
+
 
     if (Object.values(video).length) recommended = Object.values(video.More);
     const commentsArr = Object.values(comments).reverse();
@@ -72,25 +79,59 @@ const ShowVideo = () => {
                 
                 <div id="video-title">{video.title}</div>
                 <div className="video-utils">
-                    <div className="video-owner-box">
+                    <div className="video-owner-wrapper">
                         <img id="video-owner-img" src={video.User.avatar} alt="owner user avatar"></img>
-                        <div id="video-owner-name">{video.User.username}</div>
+                        <div className="video-owner-details">
+                            <div id="video-owner-name">{video.User.username}</div>
+                            <div id="video-owner-subs">
+                                {video.User.num_subscribers === 0 ?
+                                    `No subscribers`
+                                    : video.User.num_subscribers === 1 ?
+                                        `${video.User.num_subscribers} subscriber`
+                                    :
+                                        `${video.User.num_subscribers} subscribers`
+            
+                                }
+                            </div>
+                        </div>
+                        
                     </div>
+                    
+                    {   video.user_id === sessionUser.id?
+                            null
+                        :
+                        video.User.is_subscribed_to ?
+                            <OpenModalButton
+                                buttonText={<><i className="fa-regular fa-bell" style={{ color: "#ffffff" }}></i>Subscribed</>}
+                                className={"vid-unsubscribe-btn"}
+                                modalComponent={<UnsubscribeModal userId={video.user_id} username={video.User.username}/>}
+                            />
+                            :
+                            <button id="vid-subscribe-btn"
+                                onClick={(e) => clickSub(e, video.user_id)} 
+                            >
+                                    Subscribe
+                            </button>
+                    }
+
+
                 </div>
 
                 {video.description.length > 290 ?
                     (<div className="video-description-box">
-                        <span id="video-views">
-                            {
-                                video.views === 0 ?
-                                    `No views`
-                                    : video.views === 1 ?
-                                        `${numberFormat(video.views)} view`
-                                        :
-                                        `${numberFormat(video.views)} views`
-                            }
-                        </span>
-                        <span id="video-date">{`${moment(video.created_at).fromNow()}`}</span>
+                        <div id="video-description-stats">
+                            <p id="video-views">
+                                {
+                                    video.views === 0 ?
+                                        `No views`
+                                        : video.views === 1 ?
+                                            `${numberFormat(video.views)} view`
+                                            :
+                                            `${numberFormat(video.views)} views`
+                                }
+                            </p>
+                            <p id="video-date">{`${moment(video.created_at).fromNow()}`}</p>
+                        </div>
                         {showMore ?
                             <div id="video-description">{video.description}</div>
                             :

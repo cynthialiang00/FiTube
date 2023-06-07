@@ -5,15 +5,31 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password', avatar="https://liang-capstone-bucket.s3.amazonaws.com/avatars/cat.png")
+        username='Demo', email='demo@aa.io', password='password', num_subscribers=1,
+        description="I've got the best beats in this website!",
+        banner="https://liang-capstone-bucket.s3.amazonaws.com/banners/window-girl.gif", 
+        avatar="https://liang-capstone-bucket.s3.amazonaws.com/avatars/cat.png")
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', avatar="https://liang-capstone-bucket.s3.amazonaws.com/avatars/sailor-saturn.jpeg")
+        username='marnie', email='marnie@aa.io', password='password',
+        num_subscribers=2, 
+        avatar="https://liang-capstone-bucket.s3.amazonaws.com/avatars/sailor-saturn.jpeg")
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', avatar="https://liang-capstone-bucket.s3.amazonaws.com/avatars/killua.jpeg")
-
+        username='bobbie', email='bobbie@aa.io', password='password', 
+        num_subscribers=1,
+        avatar="https://liang-capstone-bucket.s3.amazonaws.com/avatars/killua.jpeg")
+    
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+
+    demo.subscriptions.append(marnie)
+    demo.subscriptions.append(bobbie)
+
+    marnie.subscriptions.append(demo)
+
+    bobbie.subscriptions.append(marnie)
+
+
     db.session.commit()
     return [demo, marnie, bobbie]
 
