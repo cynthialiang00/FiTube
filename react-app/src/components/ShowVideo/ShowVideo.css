@@ -48,18 +48,37 @@
     height: 380px;
     max-width: 674px;
 }
-/* Video owner details, likes */
+/* Video Utils */
 .video-utils {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     margin-top: 10px;
+    column-gap: 20px;
 }
 
-.video-owner-box {
-    display: grid;
-    grid-template-columns: 52px 114px;
+.video-owner-wrapper{
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
 }
+
+.video-owner-details {
+    display: flex;
+    flex-direction: column;
+}
+
+#video-owner-name {
+    font-size: 16px;
+    color: #f1f1f1;
+}
+
+#video-owner-subs {
+    font-size: 12px;
+    color: #aaaaaa;
+}
+
+
+
 
 #video-owner-img {
     width: 40px;
@@ -74,9 +93,40 @@
     grid-column: 2;
 }
 
+#vid-subscribe-btn {
+    font-size: 14px;
+    font-weight: 550;
+    background-color: white;
+    border-radius: 20px;
+    border: none;
+    width: 95px;
+    height: 36px;
+    color: #383838;
+}
+
+.vid-unsubscribe-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 20px;
+    width: 151px;
+    height: 36px;
+    background-color: rgba(72,72,72,0.5);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.vid-unsubscribe-btn>i {
+    font-size: 20px;
+    background-color: transparent;
+    margin-right: 10px;
+}
 /* Video description */
 .video-description-box * {
-    background-color: #383838;
+    background-color: transparent;
     color: #f1f1f1;
     margin-top: 5px;
     margin-left: 10px;
@@ -87,18 +137,28 @@
 }
 
 .video-description-box {
-    margin-top: 10px;
+    margin-top: 15px;
     width: 674px;
-    min-height: 100px;
     border: 1px solid #383838;
     border-radius: 15px;
     background-color: #383838;
 }
 
-.video-description-box > span {
+.video-description-box:hover {
+    background-color: #585858;
+}
+
+#video-description-stats {
+    display: flex;
+    flex-direction: row;
+}
+
+#video-description-stats p {
     font-weight: bold;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    color: #f1f1f1;
+    margin-left: 0;
+    padding: 0;
+    margin-bottom: 3px;
 }
 
 #video-description {
@@ -110,6 +170,7 @@
     border: none;
     margin-bottom: 5px;
 }
+
 /* Recommended section */
 
 .video-more-banner {

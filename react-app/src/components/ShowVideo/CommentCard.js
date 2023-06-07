@@ -24,20 +24,6 @@ const CommentCard = ({user,img, name, date, text, commentId}) => {
 
     const closeMenu = () => setShowMenu(false);
 
-    // useEffect(() => {
-    //     if (!showMenu) return;
-
-    //     // const closeMenu = (e) => {
-    //     //     if (!ulRef.current.contains(e.target)) {
-    //     //         setShowMenu(false);
-    //     //     }
-    //     // };
-
-
-    //     document.addEventListener("click", closeMenu);
-
-    //     return () => document.removeEventListener("click", closeMenu);
-    // }, [showMenu]);
 
     const settingEdit = (e) => {
         e.preventDefault();
@@ -97,10 +83,6 @@ const CommentCard = ({user,img, name, date, text, commentId}) => {
                                     buttonText={<><i className="fa-regular fa-trash-can"></i>{` DELETE`}</>}
                                     modalComponent={<DeleteCommentModal commentId={commentId}/>}
                                 />
-                                {/* <button>
-                                    <i class="fa-regular fa-trash-can"></i>
-                                    {` DELETE`}
-                                </button> */}
                                 
                             </li>
 
