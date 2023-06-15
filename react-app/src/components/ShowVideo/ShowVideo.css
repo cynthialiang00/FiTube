@@ -201,8 +201,10 @@
     margin-top: 15px;
 }
 
-.unlogged-video-post-comment > a {
+.unlogged-video-post-comment > button {
     text-decoration: none;
+    border: none;
+    font-size: 16px;
     color: #3ea6ff;
 }
 

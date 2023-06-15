@@ -49,6 +49,13 @@ const ShowVideo = () => {
         return;
     }
 
+    const clickLogIn = async (e) => {
+        e.preventDefault();
+        return history.push({
+            pathname: "/login",
+            state: { goBackURL: history.location.pathname }
+        });
+    }
 
     if (Object.values(video).length) recommended = Object.values(video.More);
     const commentsArr = Object.values(comments).reverse();
@@ -180,7 +187,10 @@ const ShowVideo = () => {
                         videoId={videoId}
                     />
                     :
-                    <div className="unlogged-video-post-comment"><NavLink to="/login">Log In</NavLink> to post a comment</div>
+                    <div className="unlogged-video-post-comment">
+                        <button onClick={clickLogIn}>Log In</button>
+                        to post a comment
+                    </div>
                 }
                 <div className="video-comments">
                     {commentsArr.length ?
