@@ -132,10 +132,11 @@
 }
 
 
-
-.manage-no-login> div > a {
-    color: #3ea6ff;
+.manage-no-login> div > button {
     text-decoration: none;
+    border: none;
+    font-size: 18px;
+    color: #3ea6ff;
 }
 
 /* Upload some videos */
