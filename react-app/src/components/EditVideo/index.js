@@ -33,8 +33,6 @@ const EditVideoPage = ({user}) => {
         setDescription(video.description);
     }, [dispatch, videoId, video.title, video.description]);
 
-
-
     useEffect(() => {
             setErrors({});
             const err = {};
@@ -45,7 +43,14 @@ const EditVideoPage = ({user}) => {
         
     }, [title, description])
 
-    // console.log("VIDEO", video)
+
+    const clickLogIn = async (e) => {
+        e.preventDefault();
+        return history.push({
+            pathname: "/login",
+            state: { goBackURL: history.location.pathname }
+        });
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -94,7 +99,7 @@ const EditVideoPage = ({user}) => {
                     alt="not logged in"
                 >
                 </img>
-                <div>You must <NavLink to="/login">log in</NavLink> to access this resource. </div>
+                <div>You must <button onClick={clickLogIn}>Log In</button> to access this resource. </div>
             </div>
         </>
     );
