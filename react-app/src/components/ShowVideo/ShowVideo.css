@@ -139,6 +139,7 @@
 .video-description-box {
     margin-top: 15px;
     width: 674px;
+    min-height: 100px;
     border: 1px solid #383838;
     border-radius: 15px;
     background-color: #383838;

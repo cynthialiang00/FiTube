@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useHistory, useParams, NavLink } from "react-router-dom";
+import { Redirect, useHistory, useParams, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { thunkGetOneVideo } from "../../store/videos";
 import { useSelector } from "react-redux";
@@ -7,7 +7,7 @@ import ReactPlayer from 'react-player'
 import { useEditCommentContext } from "../../context/EditContext";
 import './ShowVideo.css';
 import { thunkGetAllComments } from "../../store/comments";
-import { thunkSubscribeVideoUser, thunkUnSubscribeVideoUser } from "../../store/videos";
+import { thunkSubscribeVideoUser } from "../../store/videos";
 import OpenModalButton from "../OpenModalButton";
 import UnsubscribeModal from "./SubscribeModals/UnsubscribeModal";
 import CommentCard from "./CommentCard";
@@ -18,6 +18,7 @@ import notFoundImg from '../Forbidden/404.svg';
 
 
 const ShowVideo = () => {
+    const history = useHistory();
     const { videoId } = useParams();
     const dispatch = useDispatch();
     const moment = require('moment');
@@ -38,6 +39,12 @@ const ShowVideo = () => {
 
     const clickSub = async (e, userId) => {
         e.preventDefault();
+        if (!sessionUser) {
+            return history.push({
+                pathname: "/login",
+                state: {goBackURL: history.location.pathname}
+            });
+        }
         await dispatch(thunkSubscribeVideoUser(userId));
         return;
     }
@@ -97,7 +104,7 @@ const ShowVideo = () => {
                         
                     </div>
                     
-                    {   video.user_id === sessionUser.id?
+                    {   sessionUser && video.user_id === sessionUser.id ?
                             null
                         :
                         video.User.is_subscribed_to ?
