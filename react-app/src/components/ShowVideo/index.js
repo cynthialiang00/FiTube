@@ -93,7 +93,7 @@ const ShowVideo = () => {
                 
                 <div id="video-title">{video.title}</div>
                 <div className="video-utils">
-                    <div className="video-owner-wrapper">
+                    <NavLink className="video-owner-wrapper" to={`/channels/${video.user_id}`}>
                         <img id="video-owner-img" src={video.User.avatar} alt="owner user avatar"></img>
                         <div className="video-owner-details">
                             <div id="video-owner-name">{video.User.username}</div>
@@ -109,7 +109,7 @@ const ShowVideo = () => {
                             </div>
                         </div>
                         
-                    </div>
+                    </NavLink>
                     
                     {   sessionUser && video.user_id === sessionUser.id ?
                             null
@@ -156,17 +156,19 @@ const ShowVideo = () => {
                     </div>)
                 :
                     (<div className="video-description-box">
-                        <span id="video-views">
-                            {
-                                video.views === 0 ?
-                                `No views`
-                                : video.views === 1 ?
-                                    `${numberFormat(video.views)} view`
-                                :
-                                    `${numberFormat(video.views)} views`
-                            }
-                        </span>
-                        <span id="video-date">{`${moment(video.created_at).fromNow()}`}</span>
+                        <div id="video-description-stats">
+                            <p id="video-views">
+                                {
+                                    video.views === 0 ?
+                                    `No views`
+                                    : video.views === 1 ?
+                                        `${numberFormat(video.views)} view`
+                                    :
+                                        `${numberFormat(video.views)} views`
+                                }
+                            </p>
+                            <p id="video-date">{`${moment(video.created_at).fromNow()}`}</p>
+                        </div>
                         <div id="video-description">{video.description}</div>
                     </div>)
                 }
