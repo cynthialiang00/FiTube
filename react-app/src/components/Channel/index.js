@@ -23,19 +23,23 @@ function Channel({user}) {
         dispatch(thunkGetChannel(userId));
     }, [dispatch, userId]);
 
-    const clickLogIn = async (e) => {
+    const clickSub = async (e, userId) => {
         e.preventDefault();
-        return history.push({
-            pathname: "/login",
-            state: { goBackURL: history.location.pathname }
-        });
-    }
-
-    const clickSub = async (e) => {
-        e.preventDefault();
+        if (!user) {
+            return history.push({
+                pathname: "/login",
+                state: { goBackURL: history.location.pathname }
+            });
+        }
         await dispatch(thunkSubscribe(userId));
         return;
     }
+
+    // const clickSub = async (e) => {
+    //     e.preventDefault();
+    //     await dispatch(thunkSubscribe(userId));
+    //     return;
+    // }
 
     const clickUnSub = async (e) => {
         e.preventDefault();
@@ -101,7 +105,9 @@ function Channel({user}) {
                                         Subscribed
                                     </button>
                                 :
-                                    <button id="subscribe-btn" onClick={clickSub}>Subscribe</button>
+                                    <button id="subscribe-btn"
+                                        onClick={(e) => clickSub(e, userDetails.id)} 
+                                    >Subscribe</button>
                             }
                             
                             
