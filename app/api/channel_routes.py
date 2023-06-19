@@ -10,12 +10,12 @@ def get_channel(user_id):
         if not user:
                 return {'errors': ['User not found']}
         
-        this_user = User.query.get(current_user.id)
-
         userData = user.to_dict()
 
-        if (user in this_user.subscriptions):
-                userData["is_subscribed_to"] = True
+        if current_user.is_authenticated:
+                this_user = User.query.get(current_user.id)
+                if (user in this_user.subscriptions):
+                        userData["is_subscribed_to"] = True
         
         return {'channel_user': userData,
                 'channel_videos': [video.preview_to_dict() for video in user.video],

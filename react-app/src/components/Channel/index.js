@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { thunkGetChannel, thunkSubscribe, thunkUnSubscribe } from "../../store/channels";
 import { useParams } from "react-router-dom";
 import './channel.css'
@@ -11,6 +11,7 @@ import numberFormat from "../../helperFuncs/numberFormat";
 
 
 function Channel({user}) {
+    const history = useHistory();
     const dispatch = useDispatch();
     const { userId } = useParams();
 
@@ -21,6 +22,14 @@ function Channel({user}) {
     useEffect(() => {
         dispatch(thunkGetChannel(userId));
     }, [dispatch, userId]);
+
+    const clickLogIn = async (e) => {
+        e.preventDefault();
+        return history.push({
+            pathname: "/login",
+            state: { goBackURL: history.location.pathname }
+        });
+    }
 
     const clickSub = async (e) => {
         e.preventDefault();
@@ -33,6 +42,8 @@ function Channel({user}) {
         await dispatch(thunkUnSubscribe(userId));
         return;
     }
+
+    
 
     console.log("USER DETAILS: ", userDetails);
     console.log("USER VIDEOS: ", userVideos);
@@ -76,7 +87,7 @@ function Channel({user}) {
                             </div>
                             <div>{userDetails.description}</div>
                             
-                            {   userDetails.id === user.id ?
+                            {   user && userDetails.id === user.id ?
                                     <div id="customize-btns">
                                         <button>Customize channel</button>
                                         <button>Manage videos</button>
