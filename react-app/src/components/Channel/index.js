@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { thunkGetChannel, thunkSubscribe, thunkUnSubscribe } from "../../store/channels";
+import ChannelTabs from "../ChannelTabs";
 import { useParams } from "react-router-dom";
 import './channel.css'
 
@@ -34,12 +35,6 @@ function Channel({user}) {
         await dispatch(thunkSubscribe(userId));
         return;
     }
-
-    // const clickSub = async (e) => {
-    //     e.preventDefault();
-    //     await dispatch(thunkSubscribe(userId));
-    //     return;
-    // }
 
     const clickUnSub = async (e) => {
         e.preventDefault();
@@ -117,7 +112,11 @@ function Channel({user}) {
                     </div>
                     
                 </div>
-                <div className="content-featured"></div>
+                <ChannelTabs 
+                    userDetails={userDetails} 
+                    userVideos={userVideos} 
+                    userPlaylists={userPlaylists}
+                />
             </div>
             
         </>
