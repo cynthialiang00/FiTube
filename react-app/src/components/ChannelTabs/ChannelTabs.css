@@ -50,10 +50,10 @@
 .vid-slide {
     transition: 1s;
     position: relative;
-    width: 160px;
+    width: 120px;
     transition: 1s;
     top: -1px;
-    left: 18%;
+    left: 175px;
     height: 3px;
     background: rgba(241,241,241, .8);
 }
@@ -61,10 +61,10 @@
 .play-slide {
     transition: 1s;
     position: absolute;
-    width: 180px;
+    width: 160px;
     transition: 1s;
     top: -1px;
-    left: 310px;
+    left: 320px;
     height: 3px;
     background: rgba(241, 241, 241, .8);
 }
@@ -72,10 +72,10 @@
 .ab-slide {
     transition: 1s;
     position: absolute;
-    width: 150px;
+    width: 120px;
     transition: 1s;
     top: -1px;
-    left: 500px;
+    left: 510px;
     height: 3px;
     background: rgba(241, 241, 241, .8);
 }
