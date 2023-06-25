@@ -66,6 +66,39 @@ def upload_thumb_to_s3(file, acl="public-read"):
 
     return {"url": f"{S3_LOCATION}{'thumbnails/'+file.filename}"}
 
+def upload_avatar_to_s3(file, acl="public-read"):
+    try:
+        s3.upload_fileobj(
+            file,
+            BUCKET_NAME,
+            'avatars/' + file.filename,
+            ExtraArgs={
+                "ACL": acl,
+                "ContentType": file.content_type
+            }
+        )
+    except Exception as e:
+        # in case the our s3 upload fails
+        return {"errors": str(e)}
+
+    return {"url": f"{S3_LOCATION}{'avatars/'+file.filename}"}
+
+def upload_banner_to_s3(file, acl="public-read"):
+    try:
+        s3.upload_fileobj(
+            file,
+            BUCKET_NAME,
+            'banners/' + file.filename,
+            ExtraArgs={
+                "ACL": acl,
+                "ContentType": file.content_type
+            }
+        )
+    except Exception as e:
+        # in case the our s3 upload fails
+        return {"errors": str(e)}
+
+    return {"url": f"{S3_LOCATION}{'banners/'+file.filename}"}
 
 def remove_from_s3(image_url):
     # AWS needs the image file name, not the URL, 

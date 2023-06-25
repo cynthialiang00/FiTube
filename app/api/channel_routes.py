@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, Video, User, Playlist
+from app.s3_helpers import (upload_avatar_to_s3, upload_banner_to_s3, remove_from_s3, get_unique_filename, allowed_thumbnail_file)
 
 channel_routes = Blueprint('channels', __name__)
 
@@ -32,8 +33,44 @@ def edit_channel(user_id):
         if current_user.id != user.id:
                 return {'errors': ['Unauthorized']}, 403
         
-
         if request.form.get('description'):
-                user.description=request.form.get('description')
+                user.description = request.form.get('description')
 
-        return
+        
+        if "avatar" in request.files:
+                avatar = request.files["avatar"]
+                if not allowed_thumbnail_file(avatar.filename):
+                        return {"errors": ["avatar: file type must be pdf, png, jpg, or jpeg"]}, 400
+
+                avatar.filename = get_unique_filename(avatar.filename)
+                upload_avatar = upload_avatar_to_s3(avatar)
+
+                if "url" not in upload_avatar:
+                        return {'errors': ['Failed to upload to AWS']}, 400
+
+                remove_existing_avatar = remove_from_s3(user.avatar)
+                if not remove_existing_avatar:
+                        return {'errors': ['Failed to delete avatar from AWS']}, 400
+                
+                user.avatar = upload_avatar["url"]
+        
+        if "banner" in request.files:
+                banner = request.files["banner"]
+                if not allowed_thumbnail_file(banner.filename):
+                        return {"errors": ["banner: file type must be pdf, png, jpg, or jpeg"]}, 400
+
+                banner.filename = get_unique_filename(banner.filename)
+                upload_banner = upload_banner_to_s3(banner)
+
+                if "url" not in upload_banner:
+                        return {'errors': ['Failed to upload to AWS']}, 400
+
+                remove_existing_banner = remove_from_s3(user.banner)
+                if not remove_existing_banner:
+                        return {'errors': ['Failed to delete banner from AWS']}, 400
+                
+                user.banner = upload_banner["url"]
+
+
+
+        return {'edit_user': user.to_dict()}
