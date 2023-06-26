@@ -2,6 +2,7 @@
 const GET_CHANNEL = "channels/GET_CHANNEL";
 const SUBSCRIBE_CHANNEL = "channels/SUBSCRIBE_CHANNEL";
 const UNSUBSCRIBE_CHANNEL = "channels/UNSUBSCRIBE_CHANNEL";
+const EDIT_CHANNEL = "channels/EDIT_CHANNEL";
 
 const getChannel = (data) => ({
     type: GET_CHANNEL,
@@ -15,6 +16,11 @@ const subChannel = (data) => ({
 
 const unsubChannel = (data) => ({
     type: UNSUBSCRIBE_CHANNEL,
+    payload: data
+});
+
+const editChannel = (data) => ({
+    type: EDIT_CHANNEL,
     payload: data
 });
 
@@ -72,6 +78,24 @@ export const thunkUnSubscribe = (userId) => async (dispatch) => {
     }
 };
 
+export const thunkEditChannel = (userId, channelEditBody) => async (dispatch) => {
+    const response = await fetch(`/api/channels/${userId}`, {
+        method: 'PUT',
+        body: channelEditBody
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+
+        if (data.errors) {
+            return data;
+        }
+
+        dispatch(editChannel(data));
+        return data;
+    }
+};
+
 export default function channelReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
@@ -85,6 +109,7 @@ export default function channelReducer(state = initialState, action) {
                 newState.channelVideos[video.id] = video
             });
             return newState;
+
         case SUBSCRIBE_CHANNEL:
             newState = {...state};
             newState.channelUser = {...state.channelUser};
@@ -101,6 +126,24 @@ export default function channelReducer(state = initialState, action) {
             delete newState.channelUser.is_subscribed_to;
 
             newState.channelUser.num_subscribers = action.payload.user.num_subscribers;
+
+            return newState;
+        
+        case EDIT_CHANNEL:
+            newState = {...state};
+            newState.channelUser = {...state.channelUser};
+            
+            if (newState.channelUser.avatar !== action.payload.edit_user.avatar) {
+                newState.channelUser.avatar = action.payload.edit_user.avatar;
+            };
+
+            if (newState.channelUser.banner !== action.payload.edit_user.banner) {
+                newState.channelUser.banner = action.payload.edit_user.banner;
+            };
+
+            if (newState.channelUser.description !== action.payload.edit_user.description) {
+                newState.channelUser.description = action.payload.edit_user.description;
+            };
 
             return newState;
         default:

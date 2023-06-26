@@ -141,3 +141,11 @@
 #customize-btns *:hover {
     background-color: rgba(72, 72, 72, 1);
 }
+
+#customizing-btn {
+    background-color: rgba(62, 166, 255, .8);
+}
+
+#customizing-btn:hover {
+    background-color: rgba(62, 166, 255, 1);
+}

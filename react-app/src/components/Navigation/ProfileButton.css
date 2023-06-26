@@ -89,6 +89,24 @@
     border-bottom: 1px solid #aaaaaa;
 }
 
+.profile-dropdown>button {
+    margin: 0 auto;
+    margin-top: 15px;
+    padding-bottom: 5px;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+    color: #aaaaaa;
+    width: 70%;
+    border-bottom: 1px solid #383838;
+}
+
+.profile-dropdown>button:hover {
+    text-decoration: none;
+    color: #f1f1f1;
+    border-bottom: 1px solid #aaaaaa;
+}
+
 .hidden {
     display: none;
     width: 0;

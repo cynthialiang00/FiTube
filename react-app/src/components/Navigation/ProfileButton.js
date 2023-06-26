@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { logout } from "../../store/session";
 
 import './ProfileButton.css';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
@@ -28,6 +29,23 @@ function ProfileButton({ user }) {
 
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
+
+
+  const handleLogIn = (e) => {
+    e.preventDefault();
+    return history.push({
+        pathname: "/login",
+        state: { goBackURL: history.location.pathname }
+        });
+  }
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    return history.push({
+      pathname: "/signup",
+      state: { goBackURL: history.location.pathname }
+    });
+  }
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -83,9 +101,9 @@ function ProfileButton({ user }) {
           </>
         ) : (
           <>
-            <NavLink to="/login">Log In</NavLink>
+            <button onClick={handleLogIn}>Log In</button>
 
-            <NavLink to="/signup">Sign Up</NavLink>
+            <button onClick={handleSignUp}>Sign Up</button>
           </>
         )}
       </ul>

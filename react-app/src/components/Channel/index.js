@@ -1,10 +1,11 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { thunkGetChannel, thunkSubscribe, thunkUnSubscribe } from "../../store/channels";
 import ChannelTabs from "../ChannelTabs";
 import { useParams } from "react-router-dom";
+import OpenModalButton from "../OpenModalButton";
 import './channel.css'
 
 
@@ -19,6 +20,10 @@ function Channel({user}) {
     const userDetails = useSelector((state) => state.channel.channelUser);
     const userVideos = useSelector((state) => state.channel.channelVideos);
     const userPlaylists = useSelector((state) => state.channel.channelPlaylists);
+
+    const [isEditingChannel, setIsEditingChannel] = useState(false);
+
+    
 
     useEffect(() => {
         dispatch(thunkGetChannel(userId));
@@ -42,11 +47,18 @@ function Channel({user}) {
         return;
     }
 
+    const clickEditChannel = (e) => {
+        e.preventDefault();
+        setIsEditingChannel(!isEditingChannel);
+        return;
+    }
     
 
     console.log("USER DETAILS: ", userDetails);
     console.log("USER VIDEOS: ", userVideos);
     console.log("USER PLAYLIST: ", userPlaylists);
+
+    console.log("EDITING? ", isEditingChannel);
 
     const userVideosArr = Object.values(userVideos);
 
@@ -57,6 +69,13 @@ function Channel({user}) {
                 {   userDetails.banner ? 
                     <div className="content-banner">
                         <img src={userDetails.banner} alt="banner"></img>
+                        {user && userDetails.id === user.id && isEditingChannel ?
+                            <button>
+                                <i className="fa-solid fa-pen-to-square" style={{color: "#f1f1f1"}}></i>
+                            </button>
+                            :
+                            null
+                        }
                     </div>
                     :
                     null
@@ -86,9 +105,17 @@ function Channel({user}) {
                             </div>
                             <div>{userDetails.description}</div>
                             
-                            {   user && userDetails.id === user.id ?
+                            {   user && userDetails.id === user.id && isEditingChannel ?
                                     <div id="customize-btns">
-                                        <button>Customize channel</button>
+                                        <button onClick={clickEditChannel}
+                                                id="customizing-btn">
+                                                    Customizing...
+                                        </button>
+                                    </div>
+                                :
+                                user && userDetails.id === user.id ?
+                                    <div id="customize-btns">
+                                        <button onClick={clickEditChannel}>Customize channel</button>
                                         <button>Manage videos</button>
                                     </div>
                                 :
