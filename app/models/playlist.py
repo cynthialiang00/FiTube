@@ -32,7 +32,8 @@ class Playlist(db.Model):
             'is_private': self.is_private,
             'description': self.description,
             'updated_at': self.updated_at,
-            'video_preview': self.videos[0].preview_to_dict()
+            'video_preview': self.videos[0].preview_to_dict(),
+            'length': len(self.videos)
         }
 
 

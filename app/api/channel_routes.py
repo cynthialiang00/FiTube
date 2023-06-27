@@ -11,16 +11,28 @@ def get_channel(user_id):
         if not user:
                 return {'errors': ['User not found']}
         
-        userData = user.to_dict()
+        user_data = user.to_dict()
 
         if current_user.is_authenticated:
                 this_user = User.query.get(current_user.id)
                 if (user in this_user.subscriptions):
-                        userData["is_subscribed_to"] = True
+                        user_data["is_subscribed_to"] = True
         
-        return {'channel_user': userData,
+        
+        if current_user.is_authenticated and current_user.id == user_id:
+                playlist_data = [playlist.preview_to_dict() for playlist in user.playlists]
+        
+        else:
+                all_playlists = [playlist.preview_to_dict() for playlist in user.playlists]
+                print("*******ALL PLAYLISTS**********")
+                print(all_playlists)
+                playlist_data = list(filter(lambda p: p['is_private'] == False, all_playlists))
+        
+
+
+        return {'channel_user': user_data,
                 'channel_videos': [video.preview_to_dict() for video in user.video],
-                'channel_playlists': [playlist.preview_to_dict() for playlist in user.playlists]}
+                'channel_playlists': playlist_data}, 200
     
 
 @channel_routes.route('/<int:user_id>', methods=['PUT'])
