@@ -290,7 +290,15 @@ function Channel({user}) {
                                 user && userDetails.id === user.id ?
                                     <div id="customize-btns">
                                         <button onClick={clickEditChannel}>Customize channel</button>
-                                        <button>Manage videos</button>
+                                        <NavLink to="/manage">
+                                            <button>
+
+                                                Manage videos
+
+
+                                            </button>
+                                        </NavLink>
+                                        
                                     </div>
                                 :
                                 userDetails.is_subscribed_to ? 

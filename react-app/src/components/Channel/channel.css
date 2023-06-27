@@ -124,9 +124,15 @@
     margin-right: 10px;
 }
 
-#customize-btns>button:nth-child(2) {
+#customize-btns > a {
+    text-decoration: none;
+    background-color: transparent;
+}
+
+#customize-btns>a > button {
     width: 130px;
 }
+
 #customize-btns * {
     border: none;
     border-radius: 20px;
