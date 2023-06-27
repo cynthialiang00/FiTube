@@ -68,7 +68,8 @@ function ProfileButton({ user }) {
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li className="profile-user">
+            <li>
+              <NavLink className="profile-user" to={`/channels/${user.id}`}>
               <img src={user.avatar} alt="user avatar"></img>
               <div>
 
@@ -88,6 +89,7 @@ function ProfileButton({ user }) {
                 </div>
                 
               </div>
+              </NavLink>
             </li>
             
             <li>

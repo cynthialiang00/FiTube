@@ -5,7 +5,6 @@ import { NavLink, useHistory } from "react-router-dom";
 import { thunkGetChannel, thunkSubscribe, thunkUnSubscribe, thunkEditChannel } from "../../store/channels";
 import ChannelTabs from "../ChannelTabs";
 import { useParams } from "react-router-dom";
-import OpenModalButton from "../OpenModalButton";
 import loading from "./Rolling-1.3s-207px.svg";
 import './channel.css'
 

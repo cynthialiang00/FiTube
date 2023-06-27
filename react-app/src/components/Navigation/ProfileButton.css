@@ -19,6 +19,10 @@
     margin: 5px auto;
 }
 
+.profile-dropdown > li:first-child {
+    width: 100%;
+}
+
 .profile-user {
     display: grid;
     grid-template-columns: 40px 1fr;
@@ -26,6 +30,7 @@
     background-color: #181818;
     border-bottom: 1px solid #383838;
 }
+
 
 .profile-user > img {
     grid-column: 1;
@@ -40,6 +45,14 @@
 .profile-user > div {
     grid-column: 2;
     margin-left: 15%;
+}
+
+.profile-user:hover {
+    background-color: #383838;
+}
+
+.profile-user:hover * {
+    background-color: #383838;
 }
 
 #profile-email {
