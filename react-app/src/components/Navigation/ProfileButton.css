@@ -13,6 +13,7 @@
     max-width: 200px;
     min-height: 100px;
     max-height: 500px;
+    z-index: 2;
 }
 .profile-dropdown * {
     background-color: #181818;

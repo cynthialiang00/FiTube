@@ -101,6 +101,8 @@ export default function channelReducer(state = initialState, action) {
     switch (action.type) {
         case GET_CHANNEL:
             newState = {...state};
+            newState.channelVideos = {};
+            newState.channelPlaylists = {};
             newState.channelUser = action.payload.channel_user;
             action.payload.channel_playlists.forEach((playlist) => {
                 newState.channelPlaylists[playlist.id] = playlist
