@@ -1,9 +1,11 @@
 import React from "react";
 import { useState } from "react";
+import './playlistsTab.css'
 
 
+function PlaylistsTab({userPlaylists}) {
 
-function PlaylistsTab() {
+    const userPlaylistsArr = Object.values(userPlaylists);
 
     return (
         <>
