@@ -35,12 +35,12 @@ def edit_channel(user_id):
         
         if request.form.get('description'):
                 user.description = request.form.get('description')
-
+                db.session.commit()
         
         if "avatar" in request.files:
                 avatar = request.files["avatar"]
                 if not allowed_thumbnail_file(avatar.filename):
-                        return {"errors": ["avatar: file type must be pdf, png, jpg, or jpeg"]}, 400
+                        return {"errors": ["avatar: file type must be png, jpg, or jpeg"]}, 400
 
                 avatar.filename = get_unique_filename(avatar.filename)
                 upload_avatar = upload_avatar_to_s3(avatar)
@@ -48,16 +48,18 @@ def edit_channel(user_id):
                 if "url" not in upload_avatar:
                         return {'errors': ['Failed to upload to AWS']}, 400
 
-                remove_existing_avatar = remove_from_s3(user.avatar)
-                if not remove_existing_avatar:
-                        return {'errors': ['Failed to delete avatar from AWS']}, 400
+                if user.avatar:
+                        remove_existing_avatar = remove_from_s3(user.avatar)
+                        if not remove_existing_avatar:
+                                return {'errors': ['Failed to delete avatar from AWS']}, 400
                 
                 user.avatar = upload_avatar["url"]
+                db.session.commit()
         
         if "banner" in request.files:
                 banner = request.files["banner"]
                 if not allowed_thumbnail_file(banner.filename):
-                        return {"errors": ["banner: file type must be pdf, png, jpg, or jpeg"]}, 400
+                        return {"errors": ["banner: file type must be png, jpg, or jpeg"]}, 400
 
                 banner.filename = get_unique_filename(banner.filename)
                 upload_banner = upload_banner_to_s3(banner)
@@ -65,12 +67,14 @@ def edit_channel(user_id):
                 if "url" not in upload_banner:
                         return {'errors': ['Failed to upload to AWS']}, 400
 
-                remove_existing_banner = remove_from_s3(user.banner)
-                if not remove_existing_banner:
-                        return {'errors': ['Failed to delete banner from AWS']}, 400
+                if user.banner:
+                        remove_existing_banner = remove_from_s3(user.banner)
+                        if not remove_existing_banner:
+                                return {'errors': ['Failed to delete banner from AWS']}, 400
                 
                 user.banner = upload_banner["url"]
+                db.session.commit()
 
-
+        
 
         return {'edit_user': user.to_dict()}
