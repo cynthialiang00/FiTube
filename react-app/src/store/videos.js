@@ -9,6 +9,8 @@ const DELETE_VIDEO = "videos/DELETE_VIDEO";
 const SUBSCRIBE_VIDEO_USER = "videos/SUBSCRIBE_VIDEO_USER";
 const UNSUBSCRIBE_VIDEO_USER = "videos/UNSUBSCRIBE_VIDEO_USER";
 
+const GET_PLAYLIST_VIDEOS = "videos/GET_PLAYLIST_VIDEOS";
+
 const getAllVideos = (data) => ({
     type: GET_ALL_VIDEOS,
     payload: data
@@ -49,7 +51,12 @@ const unsubVideoUser = (data) => ({
     payload: data
 });
 
-const initialState = { all_videos: {},  one_video: {}, user_videos:{}};
+const getPlaylistVideos = (data) => ({
+    type: GET_PLAYLIST_VIDEOS,
+    payload: data
+});
+
+const initialState = { all_videos: {},  one_video: {}, user_videos:{}, playlist_videos:{}};
 
 export const thunkGetAllVideos = () => async (dispatch) => {
     const response = await fetch("/api/videos/");
@@ -184,6 +191,19 @@ export const thunkUnSubscribeVideoUser = (userId) => async (dispatch) => {
     }
 };
 
+export const thunkGetPlaylistVideos = (playlistId) => async (dispatch) => {
+    const response = await fetch(`/api/playlists/${playlistId}`);
+
+    if (response.ok) {
+        const data = await response.json();
+
+        if (data.errors) {
+            return data;
+        }
+
+        dispatch(getPlaylistVideos(data));
+    }
+};
 
 
 export default function videoReducer(state = initialState, action) {
@@ -204,9 +224,14 @@ export default function videoReducer(state = initialState, action) {
         case GET_USER_VIDEOS:
             newState = { ...state, user_videos: {} };
             newState.all_videos = {...state.all_videos};
-            newState.user_videos = {};
             action.payload.user_videos.forEach((video) => {
                 newState.user_videos[video.id] = video
+            });
+            return newState;
+        case GET_PLAYLIST_VIDEOS:
+            newState = {...state, playlist_videos: {}};
+            action.payload.playlist_videos.forEach((video) => {
+                newState.playlist_videos[video.id] = video
             });
             return newState;
         case POST_VIDEO:

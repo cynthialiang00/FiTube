@@ -13,7 +13,11 @@ function PlaylistsTab({userPlaylists}) {
                 {userPlaylistsArr.map((playlist) => (
                     
                     <NavLink key={playlist.id} 
-                            exact to={`/videos/${playlist.video_preview.id}`} className="playlist-container"
+                            to={{
+                                pathname: `/videos/${playlist.video_preview.id}`,
+                                playlistProps: {showPlaylistId: playlist.id}
+                            }}
+                            className="playlist-container"
                             onMouseEnter={() => { setHoverPlaylistId(playlist.id) }}
                             onMouseLeave={() => { setHoverPlaylistId(0) }}
                     >       

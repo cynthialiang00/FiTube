@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Redirect, useHistory, useParams, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { thunkGetOneVideo } from "../../store/videos";
+import { thunkGetOneVideo, thunkGetPlaylistVideos } from "../../store/videos";
 import { useSelector } from "react-redux";
 import ReactPlayer from 'react-player'
 import { useEditCommentContext } from "../../context/EditContext";
@@ -27,15 +27,24 @@ const ShowVideo = () => {
     const [showMore, setShowMore] = useState(false);
 
     const video = useSelector((state) => state.videos.one_video);
+    const playlistVideos = useSelector((state) => state.videos.playlist_videos);
     const comments = useSelector((state) => state.comments);
     const sessionUser = useSelector(state => state.session.user);
+
+
+    if(history.location.playlistProps) {
+        console.log('PLAYLIST PATH PROP: ',history.location.playlistProps.showPlaylistId);
+    }
 
     let recommended;
 
     useEffect(() => {
         dispatch(thunkGetOneVideo(videoId));
         dispatch(thunkGetAllComments(videoId));
-    }, [dispatch, videoId]);
+        if (history.location.playlistProps) {
+            dispatch(thunkGetPlaylistVideos(history.location.playlistProps.showPlaylistId));
+        }
+    }, [dispatch, videoId, history.location.playlistProps]);
 
     const clickSub = async (e, userId) => {
         e.preventDefault();
@@ -59,6 +68,7 @@ const ShowVideo = () => {
 
     if (Object.values(video).length) recommended = Object.values(video.More);
     const commentsArr = Object.values(comments).reverse();
+    const playlistVideosArr = Object.values(playlistVideos);
     // console.log("video:", video)
     // console.log("more: ", recommended)
     // console.log("commentsArr: ", commentsArr)
@@ -217,9 +227,17 @@ const ShowVideo = () => {
             </div>
             
             <div className="video-more">
-                <div className="video-more-banner">
-                    <img src="https://liang-capstone-bucket.s3.amazonaws.com/avatars/rooftopgirlblue_50.jpeg" alt="banner"></img>
-                </div>
+                {
+                    history.location.playlistProps && playlistVideosArr ?
+                        <div className="show-playlist-videos-wrapper">
+
+                        </div>
+                    :
+                        <div className="video-more-banner">
+                            <img src="https://liang-capstone-bucket.s3.amazonaws.com/avatars/rooftopgirlblue_50.jpeg" alt="banner"></img>
+                        </div>
+                }
+                
                 {Object.values(video).length &&
                   recommended.map((rec) => (
                     <NavLink key={rec.id} exact to={`/videos/${rec.id}`}>

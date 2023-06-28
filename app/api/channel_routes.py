@@ -9,7 +9,7 @@ channel_routes = Blueprint('channels', __name__)
 def get_channel(user_id):
         user = User.query.get(user_id)
         if not user:
-                return {'errors': ['User not found']}
+                return {'errors': ['User not found']}, 404
         
         user_data = user.to_dict()
 
