@@ -11,5 +11,7 @@ def get_playlist(playlist_id):
     if not playlist:
         return {'errors': ['Playlist not found']}, 404
 
-    return {'playlist_videos': [video.preview_to_dict() for video in playlist.videos]}
+    return {'playlist_title': playlist.name,
+            'playlist_owner': playlist.user.username,
+            'playlist_videos': [video.preview_to_dict() for video in playlist.videos]}
 

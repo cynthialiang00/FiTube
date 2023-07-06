@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Redirect, useHistory, useParams, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { thunkGetOneVideo, thunkGetPlaylistVideos } from "../../store/videos";
+import { thunkGetOneVideo } from "../../store/videos";
 import { useSelector } from "react-redux";
 import ReactPlayer from 'react-player'
 import { useEditCommentContext } from "../../context/EditContext";
@@ -13,8 +13,10 @@ import UnsubscribeModal from "./SubscribeModals/UnsubscribeModal";
 import CommentCard from "./CommentCard";
 import VideoCard from "./VideoCard";
 import CreateComment from "./CreateComment";
+import PlaylistSidebar from "./PlaylistSidebar/PlaylistSidebar";
 import numberFormat from "../../helperFuncs/numberFormat";
 import notFoundImg from '../Forbidden/404.svg';
+import { thunkGetPlaylistVideos } from "../../store/playlist";
 
 
 const ShowVideo = () => {
@@ -27,22 +29,24 @@ const ShowVideo = () => {
     const [showMore, setShowMore] = useState(false);
 
     const video = useSelector((state) => state.videos.one_video);
-    const playlistVideos = useSelector((state) => state.videos.playlist_videos);
+    const playlistVideos = useSelector((state) => state.playlist.playlist_videos);
+    const playlistTitle = useSelector((state) => state.playlist.playlist_title);
+    const playlistOwner = useSelector((state) => state.playlist.playlist_owner);
     const comments = useSelector((state) => state.comments);
     const sessionUser = useSelector(state => state.session.user);
 
 
     if(history.location.playlistProps) {
-        console.log('PLAYLIST PATH PROP: ',history.location.playlistProps.showPlaylistId);
+        console.log('PLAYLIST PATH PROP: ', history.location.playlistProps.currPlaylistId);
     }
 
     let recommended;
-
+    
     useEffect(() => {
         dispatch(thunkGetOneVideo(videoId));
         dispatch(thunkGetAllComments(videoId));
         if (history.location.playlistProps) {
-            dispatch(thunkGetPlaylistVideos(history.location.playlistProps.showPlaylistId));
+            dispatch(thunkGetPlaylistVideos(history.location.playlistProps.currPlaylistId));
         }
     }, [dispatch, videoId, history.location.playlistProps]);
 
@@ -69,9 +73,7 @@ const ShowVideo = () => {
     if (Object.values(video).length) recommended = Object.values(video.More);
     const commentsArr = Object.values(comments).reverse();
     const playlistVideosArr = Object.values(playlistVideos);
-    // console.log("video:", video)
-    // console.log("more: ", recommended)
-    // console.log("commentsArr: ", commentsArr)
+
 
     if(!Object.values(video).length) return(
         <>
@@ -229,9 +231,9 @@ const ShowVideo = () => {
             <div className="video-more">
                 {
                     history.location.playlistProps && playlistVideosArr ?
-                        <div className="show-playlist-videos-wrapper">
-
-                        </div>
+                        <PlaylistSidebar playlistTitle={playlistTitle}
+                                         playlistOwner={playlistOwner}
+                                         playlistVideosArr={playlistVideosArr}/>
                     :
                         <div className="video-more-banner">
                             <img src="https://liang-capstone-bucket.s3.amazonaws.com/avatars/rooftopgirlblue_50.jpeg" alt="banner"></img>

@@ -15,7 +15,7 @@ function PlaylistsTab({userPlaylists}) {
                     <NavLink key={playlist.id} 
                             to={{
                                 pathname: `/videos/${playlist.video_preview.id}`,
-                                playlistProps: {showPlaylistId: playlist.id}
+                                playlistProps: {currPlaylistId: playlist.id}
                             }}
                             className="playlist-container"
                             onMouseEnter={() => { setHoverPlaylistId(playlist.id) }}
