@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import { ModalProvider, Modal } from "./context/Modal";
 import { EditCommentProvider } from "./context/EditContext";
+import { ShowPlaylistProvider } from "./context/ShowPlaylist";
 import configureStore from "./store";
 import * as sessionActions from "./store/session";
 import App from "./App";
@@ -24,6 +25,7 @@ if (process.env.NODE_ENV !== "production") {
 function Root() {
 	return (
 		<ModalProvider>
+			<ShowPlaylistProvider>
 			<EditCommentProvider>
 				<Provider store={store}>
 					<BrowserRouter>
@@ -32,6 +34,7 @@ function Root() {
 					</BrowserRouter>
 				</Provider>
 			</EditCommentProvider>
+			</ShowPlaylistProvider>
 		</ModalProvider>
 	);
 }

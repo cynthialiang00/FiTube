@@ -3,11 +3,11 @@ import './PlaylistSidebar.css'
 import PlaylistVideoCard from './PlaylistVideoCard.js';
 
 const PlaylistVideos = ({playlistVideosArr}) => {
-
+    
     return (
         <div className="video-show-playlist-videos-wrapper">
             {playlistVideosArr.map((video, index) => (
-                <PlaylistVideoCard video={video} index={index} key={video.id}/>
+                <PlaylistVideoCard key={video.id} video={video} index={index} />
             ))}
 
         </div>

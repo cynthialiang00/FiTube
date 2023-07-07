@@ -17,6 +17,7 @@ import PlaylistSidebar from "./PlaylistSidebar/PlaylistSidebar";
 import numberFormat from "../../helperFuncs/numberFormat";
 import notFoundImg from '../Forbidden/404.svg';
 import { thunkGetPlaylistVideos } from "../../store/playlist";
+import { useShowPlaylistContext } from "../../context/ShowPlaylist";
 
 
 const ShowVideo = () => {
@@ -25,19 +26,23 @@ const ShowVideo = () => {
     const dispatch = useDispatch();
     const moment = require('moment');
 
-    const { isEditComment, editCommentId} = useEditCommentContext();
     const [showMore, setShowMore] = useState(false);
+    const { currPlaylistId, setCurrPlaylistId } = useShowPlaylistContext();
 
     const video = useSelector((state) => state.videos.one_video);
     const playlistVideos = useSelector((state) => state.playlist.playlist_videos);
-    const playlistTitle = useSelector((state) => state.playlist.playlist_title);
-    const playlistOwner = useSelector((state) => state.playlist.playlist_owner);
+    const playlist = useSelector((state) => state.playlist);
     const comments = useSelector((state) => state.comments);
     const sessionUser = useSelector(state => state.session.user);
 
 
-    if(history.location.playlistProps) {
-        console.log('PLAYLIST PATH PROP: ', history.location.playlistProps.currPlaylistId);
+    // if(history.location.playlistProps) {
+    //     console.log('PLAYLIST PATH PROP: ', history.location.playlistProps.currPlaylistId);
+    // }
+    
+
+    if (currPlaylistId) {
+        console.log('PLAYLIST CONTEXT ID: ', currPlaylistId);
     }
 
     let recommended;
@@ -45,10 +50,14 @@ const ShowVideo = () => {
     useEffect(() => {
         dispatch(thunkGetOneVideo(videoId));
         dispatch(thunkGetAllComments(videoId));
-        if (history.location.playlistProps) {
-            dispatch(thunkGetPlaylistVideos(history.location.playlistProps.currPlaylistId));
+        // if (history.location.playlistProps) {
+        //     dispatch(thunkGetPlaylistVideos(history.location.playlistProps.currPlaylistId));
+        // }
+
+        if (currPlaylistId) {
+            dispatch(thunkGetPlaylistVideos(currPlaylistId));
         }
-    }, [dispatch, videoId, history.location.playlistProps]);
+    }, [dispatch, videoId, currPlaylistId]);
 
     const clickSub = async (e, userId) => {
         e.preventDefault();
@@ -230,10 +239,8 @@ const ShowVideo = () => {
             
             <div className="video-more">
                 {
-                    history.location.playlistProps && playlistVideosArr ?
-                        <PlaylistSidebar playlistTitle={playlistTitle}
-                                         playlistOwner={playlistOwner}
-                                         playlistVideosArr={playlistVideosArr}/>
+                    currPlaylistId && playlistVideosArr ?
+                        <PlaylistSidebar playlist={playlist}/>
                     :
                         <div className="video-more-banner">
                             <img src="https://liang-capstone-bucket.s3.amazonaws.com/avatars/rooftopgirlblue_50.jpeg" alt="banner"></img>

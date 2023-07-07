@@ -4,10 +4,12 @@ import { NavLink } from "react-router-dom";
 
 const PlaylistVideoCard = ({video, index}) => {
 
+
     return (
         <NavLink 
                 exact to={`/videos/${video.id}`} 
                 className="video-show-playlist-video-card"
+
         >
             <div id="video-show-playlist-video-card-index">
                 {index+1}
