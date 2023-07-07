@@ -2,13 +2,16 @@ import React from "react";
 import './PlaylistSidebar.css'
 import { NavLink } from "react-router-dom";
 
-const PlaylistVideoCard = ({video, index}) => {
-
+const PlaylistVideoCard = ({video, index, currVideoId}) => {
 
     return (
         <NavLink 
                 exact to={`/videos/${video.id}`} 
-                className="video-show-playlist-video-card"
+                className={+currVideoId === video.id ? 
+                            "video-show-playlist-video-card-current"
+                            : 
+                            "video-show-playlist-video-card"
+                        }
 
         >
             <div id="video-show-playlist-video-card-index">

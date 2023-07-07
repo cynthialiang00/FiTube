@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { Redirect, useHistory, useParams, NavLink } from "react-router-dom";
+import { useHistory, useParams, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { thunkGetOneVideo } from "../../store/videos";
 import { useSelector } from "react-redux";
 import ReactPlayer from 'react-player'
-import { useEditCommentContext } from "../../context/EditContext";
 import './ShowVideo.css';
 import { thunkGetAllComments } from "../../store/comments";
 import { thunkSubscribeVideoUser } from "../../store/videos";
@@ -19,7 +18,6 @@ import notFoundImg from '../Forbidden/404.svg';
 import { thunkGetPlaylistVideos } from "../../store/playlist";
 import { useShowPlaylistContext } from "../../context/ShowPlaylist";
 
-
 const ShowVideo = () => {
     const history = useHistory();
     const { videoId } = useParams();
@@ -27,7 +25,7 @@ const ShowVideo = () => {
     const moment = require('moment');
 
     const [showMore, setShowMore] = useState(false);
-    const { currPlaylistId, setCurrPlaylistId } = useShowPlaylistContext();
+    const { currPlaylistId } = useShowPlaylistContext();
 
     const video = useSelector((state) => state.videos.one_video);
     const playlistVideos = useSelector((state) => state.playlist.playlist_videos);
@@ -35,10 +33,6 @@ const ShowVideo = () => {
     const comments = useSelector((state) => state.comments);
     const sessionUser = useSelector(state => state.session.user);
 
-
-    // if(history.location.playlistProps) {
-    //     console.log('PLAYLIST PATH PROP: ', history.location.playlistProps.currPlaylistId);
-    // }
     
 
     if (currPlaylistId) {
@@ -50,9 +44,6 @@ const ShowVideo = () => {
     useEffect(() => {
         dispatch(thunkGetOneVideo(videoId));
         dispatch(thunkGetAllComments(videoId));
-        // if (history.location.playlistProps) {
-        //     dispatch(thunkGetPlaylistVideos(history.location.playlistProps.currPlaylistId));
-        // }
 
         if (currPlaylistId) {
             dispatch(thunkGetPlaylistVideos(currPlaylistId));
@@ -79,10 +70,27 @@ const ShowVideo = () => {
         });
     }
 
+    
+
     if (Object.values(video).length) recommended = Object.values(video.More);
     const commentsArr = Object.values(comments).reverse();
-    const playlistVideosArr = Object.values(playlistVideos);
 
+    const playlistVideosArr = Object.values(playlistVideos);
+    const playlistVideosKeys = Object.keys(playlistVideos);
+    let currPlaylistVideoIndex = playlistVideosKeys.indexOf(videoId);
+
+    const handlePlaylistNext = () => {
+        
+        if (currPlaylistVideoIndex > playlistVideosKeys.length-1) {
+            currPlaylistVideoIndex = playlistVideosKeys[0];
+            return history.push(`/videos/${playlistVideosKeys[currPlaylistVideoIndex]}`);
+        }
+
+        currPlaylistVideoIndex += 1;
+        return history.push(`/videos/${playlistVideosKeys[currPlaylistVideoIndex]}`);
+        
+        
+    }
 
     if(!Object.values(video).length) return(
         <>
@@ -102,15 +110,30 @@ const ShowVideo = () => {
         <div className="video-page">
             <div className="video-page-left"></div>
             <div className="video-content">
-                <div className="video-player">
-                    <ReactPlayer
-                        width="100%"
-                        height="100%"
-                        controls={true}
-                        playing={true}
-                        url={video.url}
-                    />
-                </div>
+                {
+                    currPlaylistId ? 
+                        <div className="video-player">
+                            <ReactPlayer
+                                width="100%"
+                                height="100%"
+                                controls={true}
+                                playing={true}
+                                url={video.url}
+                                onEnded={handlePlaylistNext}
+                            />
+                        </div>
+                    :
+                        <div className="video-player">
+                            <ReactPlayer
+                                width="100%"
+                                height="100%"
+                                controls={true}
+                                playing={true}
+                                url={video.url}
+                            />
+                        </div>
+                }
+                
                 
                 <div id="video-title">{video.title}</div>
                 <div className="video-utils">
@@ -239,8 +262,8 @@ const ShowVideo = () => {
             
             <div className="video-more">
                 {
-                    currPlaylistId && playlistVideosArr ?
-                        <PlaylistSidebar playlist={playlist}/>
+                    currPlaylistId && playlistVideosArr.length > 0 ?
+                        <PlaylistSidebar playlist={playlist} currVideoId={videoId}/>
                     :
                         <div className="video-more-banner">
                             <img src="https://liang-capstone-bucket.s3.amazonaws.com/avatars/rooftopgirlblue_50.jpeg" alt="banner"></img>

@@ -2,7 +2,7 @@ import React from "react";
 import PlaylistVideos from "./PlaylistVideos";
 import './PlaylistSidebar.css'
 
-const PlaylistSidebar = ({playlist}) => {
+const PlaylistSidebar = ({playlist, currVideoId}) => {
     // console.log('PLAYLIST SIDEBAR PLAYLIST: ', playlist)
 
     const playlistVideosArr = Object.values(playlist.playlist_videos);
@@ -21,7 +21,7 @@ const PlaylistSidebar = ({playlist}) => {
                 </div>
                 
             </div>
-            <PlaylistVideos playlistVideosArr={playlistVideosArr}/>
+            <PlaylistVideos playlistVideosArr={playlistVideosArr} currVideoId={currVideoId}/>
         </div>
     )
 
