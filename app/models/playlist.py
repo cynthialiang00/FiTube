@@ -23,7 +23,7 @@ class Playlist(db.Model):
         "Video",
         secondary='playlists_videos',
         back_populates="playlist")
-
+    
     def preview_to_dict(self):
         return {
             'id': self.id,
