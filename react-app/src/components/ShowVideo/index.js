@@ -17,6 +17,7 @@ import numberFormat from "../../helperFuncs/numberFormat";
 import notFoundImg from '../Forbidden/404.svg';
 import { thunkGetPlaylistVideos } from "../../store/playlist";
 import { useShowPlaylistContext } from "../../context/ShowPlaylist";
+import findNextKey from "../../helperFuncs/findNextKey";
 
 const ShowVideo = () => {
     const history = useHistory();
@@ -76,19 +77,13 @@ const ShowVideo = () => {
     const commentsArr = Object.values(comments).reverse();
 
     const playlistVideosArr = Object.values(playlistVideos);
-    const playlistVideosKeys = Object.keys(playlistVideos);
-    let currPlaylistVideoIndex = playlistVideosKeys.indexOf(videoId);
+
+   
 
     const handlePlaylistNext = () => {
         
-        if (currPlaylistVideoIndex > playlistVideosKeys.length-1) {
-            currPlaylistVideoIndex = playlistVideosKeys[0];
-            return history.push(`/videos/${playlistVideosKeys[currPlaylistVideoIndex]}`);
-        }
-
-        currPlaylistVideoIndex += 1;
-        return history.push(`/videos/${playlistVideosKeys[currPlaylistVideoIndex]}`);
-        
+        const nextVideoId = findNextKey(playlistVideos, videoId);
+        return history.push(`/videos/${nextVideoId}`);
         
     }
 
