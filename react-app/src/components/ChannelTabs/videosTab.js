@@ -9,6 +9,16 @@ function VideosTab({userVideos}) {
     const moment = require('moment');
 
     const userVideosArr = Object.values(userVideos);
+
+    if (!userVideosArr.length) {
+        return (
+            <div className="no-content-channel-tab">
+                This user has no videos.
+            </div>
+        )
+
+    }
+
     return (
         <>
             <div className="videos-grid">

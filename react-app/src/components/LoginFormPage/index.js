@@ -12,7 +12,7 @@ function LoginFormPage() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to={history.location.state.goBackURL ?
+  if (sessionUser) return <Redirect to={history.location.state ?
                                       history.location.state.goBackURL
                                       :
                                       "/videos"}/>;

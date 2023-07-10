@@ -36,8 +36,12 @@ button:disabled {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    row-gap: 20px;
     font-size: 18px;
     color: #f1f1f1;
+    width: 500px;
+    text-align: center;
+    margin: 0 auto;
 }
 
 .video-not-found-photo {
@@ -55,4 +59,34 @@ button:disabled {
 .video-not-found>div>a {
     color: #3ea6ff;
     text-decoration: none;
+}
+
+/* Login required */
+
+.manage-no-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    width: 500px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.manage-login-photo {
+    opacity: .75;
+    width: 100px;
+    height: 100px;
+    margin-top: 10%;
+    margin-bottom: 2.5%;
+}
+
+
+.manage-no-login>div>button {
+    text-decoration: none;
+    border: none;
+    padding: 0;
+    font-size: 18px;
+    color: #3ea6ff;
 }

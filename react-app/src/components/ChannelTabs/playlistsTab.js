@@ -16,7 +16,7 @@ function PlaylistsTab({userPlaylists}) {
 
     if (!userPlaylistsArr.length) {
         return (
-            <div className="no-playlists">
+            <div className="no-content-channel-tab">
                 This user has no playlists.
             </div>
         )
