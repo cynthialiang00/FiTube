@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { login } from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect, NavLink } from "react-router-dom";
+import { useHistory, NavLink, Redirect } from "react-router-dom";
 import './LoginForm.css';
 
 function LoginFormPage() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to="/videos" />;
+  if (sessionUser) return <Redirect to={history.location.state ?
+                                      history.location.state.goBackURL
+                                      :
+                                      "/videos"}/>;
+
 
   const demoHandler = async (e) => {
     e.preventDefault();

@@ -1,0 +1,67 @@
+.list-playlists-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    row-gap: 10px;
+    width: 250px;
+    background-color: #383838;
+    border-radius: 10px;
+    padding-left: 25px;
+}
+
+.list-playlists-modal * {
+    background-color: transparent;
+}
+
+.list-playlists-modal-header {
+    display: flex;
+    flex-direction: row;
+}
+.list-playlists-modal-header > div:first-child {
+    background-color: transparent;
+    color: #f1f1f1;
+    font-size: 18px;
+    padding-top: 15px;
+}
+
+
+.list-playlists-modal-body * {
+    color: #f1f1f1;
+}
+
+.list-playlists-modal-body {
+    margin-bottom: 20px;
+}
+.list-playlists-modal-body {
+    color: #aaaaaa;
+}
+
+.list-playlists-modal-body-div {
+    padding-top: 7.5px;
+    padding-bottom: 7.5px;
+}
+
+.list-playlists-modal-labels {
+    font-size: 16px;
+    padding-left: 5px;
+    padding-bottom: 20px;
+}
+
+.list-playlists-modal-labels:hover {
+    cursor: pointer;
+}
+
+.list-playlists-modal-btns {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    padding-bottom: 10px;
+    margin-left: 110px;
+}
+
+.list-playlists-modal-btns * {
+    border: none;
+    color: #f1f1f1;
+    font-size: 16px;
+    padding: 3px;
+}

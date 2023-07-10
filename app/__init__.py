@@ -11,6 +11,7 @@ from .api.video_routes import video_routes
 from .api.comment_routes import comment_routes
 from .api.subscriber_routes import subscribe_routes
 from .api.channel_routes import channel_routes
+from .api.playlist_routes import playlist_routes
 from .seeds import seed_commands
 from .config import Config
 
@@ -36,6 +37,7 @@ app.register_blueprint(video_routes, url_prefix='/api/videos')
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
 app.register_blueprint(subscribe_routes, url_prefix='/api/subscribe')
 app.register_blueprint(channel_routes, url_prefix='/api/channels')
+app.register_blueprint(playlist_routes, url_prefix='/api/playlists')
 
 db.init_app(app)
 Migrate(app, db)

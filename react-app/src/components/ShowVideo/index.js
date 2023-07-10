@@ -4,50 +4,89 @@ import { useDispatch } from "react-redux";
 import { thunkGetOneVideo } from "../../store/videos";
 import { useSelector } from "react-redux";
 import ReactPlayer from 'react-player'
-import { useEditCommentContext } from "../../context/EditContext";
 import './ShowVideo.css';
 import { thunkGetAllComments } from "../../store/comments";
-import { thunkSubscribeVideoUser, thunkUnSubscribeVideoUser } from "../../store/videos";
+import { thunkSubscribeVideoUser } from "../../store/videos";
 import OpenModalButton from "../OpenModalButton";
 import UnsubscribeModal from "./SubscribeModals/UnsubscribeModal";
 import CommentCard from "./CommentCard";
 import VideoCard from "./VideoCard";
 import CreateComment from "./CreateComment";
+import PlaylistSidebar from "./PlaylistSidebar/PlaylistSidebar";
 import numberFormat from "../../helperFuncs/numberFormat";
 import notFoundImg from '../Forbidden/404.svg';
-
+import { thunkGetPlaylistVideos } from "../../store/playlist";
+import { useShowPlaylistContext } from "../../context/ShowPlaylist";
+import findNextKey from "../../helperFuncs/findNextKey";
+import ListPlaylistModal from "./PlaylistModal/ListPlaylistModal";
 
 const ShowVideo = () => {
+    const history = useHistory();
     const { videoId } = useParams();
     const dispatch = useDispatch();
     const moment = require('moment');
 
-    const { isEditComment, editCommentId} = useEditCommentContext();
     const [showMore, setShowMore] = useState(false);
+    const { currPlaylistId } = useShowPlaylistContext();
 
     const video = useSelector((state) => state.videos.one_video);
+    const playlistVideos = useSelector((state) => state.playlist.playlist_videos);
+    const playlist = useSelector((state) => state.playlist);
     const comments = useSelector((state) => state.comments);
     const sessionUser = useSelector(state => state.session.user);
 
-    let recommended;
+    
 
+    if (currPlaylistId) {
+        console.log('PLAYLIST CONTEXT ID: ', currPlaylistId);
+    }
+
+    let recommended;
+    
     useEffect(() => {
         dispatch(thunkGetOneVideo(videoId));
         dispatch(thunkGetAllComments(videoId));
-    }, [dispatch, videoId]);
+
+        if (currPlaylistId) {
+            dispatch(thunkGetPlaylistVideos(currPlaylistId));
+        }
+    }, [dispatch, videoId, currPlaylistId]);
 
     const clickSub = async (e, userId) => {
         e.preventDefault();
+        if (!sessionUser) {
+            return history.push({
+                pathname: "/login",
+                state: {goBackURL: history.location.pathname}
+            });
+        }
         await dispatch(thunkSubscribeVideoUser(userId));
         return;
     }
 
+    const clickLogIn = async (e) => {
+        e.preventDefault();
+        return history.push({
+            pathname: "/login",
+            state: { goBackURL: history.location.pathname }
+        });
+    }
+
+    
 
     if (Object.values(video).length) recommended = Object.values(video.More);
     const commentsArr = Object.values(comments).reverse();
-    // console.log("video:", video)
-    // console.log("more: ", recommended)
-    // console.log("commentsArr: ", commentsArr)
+
+    const playlistVideosArr = Object.values(playlistVideos);
+
+   
+
+    const handlePlaylistNext = () => {
+        
+        const nextVideoId = findNextKey(playlistVideos, videoId);
+        return history.push(`/videos/${nextVideoId}`);
+        
+    }
 
     if(!Object.values(video).length) return(
         <>
@@ -67,19 +106,34 @@ const ShowVideo = () => {
         <div className="video-page">
             <div className="video-page-left"></div>
             <div className="video-content">
-                <div className="video-player">
-                    <ReactPlayer
-                        width="100%"
-                        height="100%"
-                        controls={true}
-                        playing={true}
-                        url={video.url}
-                    />
-                </div>
+                {
+                    currPlaylistId ? 
+                        <div className="video-player">
+                            <ReactPlayer
+                                width="100%"
+                                height="100%"
+                                controls={true}
+                                playing={true}
+                                url={video.url}
+                                onEnded={handlePlaylistNext}
+                            />
+                        </div>
+                    :
+                        <div className="video-player">
+                            <ReactPlayer
+                                width="100%"
+                                height="100%"
+                                controls={true}
+                                playing={true}
+                                url={video.url}
+                            />
+                        </div>
+                }
+                
                 
                 <div id="video-title">{video.title}</div>
                 <div className="video-utils">
-                    <div className="video-owner-wrapper">
+                    <NavLink className="video-owner-wrapper" to={`/channels/${video.user_id}`}>
                         <img id="video-owner-img" src={video.User.avatar} alt="owner user avatar"></img>
                         <div className="video-owner-details">
                             <div id="video-owner-name">{video.User.username}</div>
@@ -95,9 +149,9 @@ const ShowVideo = () => {
                             </div>
                         </div>
                         
-                    </div>
+                    </NavLink>
                     
-                    {   video.user_id === sessionUser.id?
+                    {   sessionUser && video.user_id === sessionUser.id ?
                             null
                         :
                         video.User.is_subscribed_to ?
@@ -114,6 +168,19 @@ const ShowVideo = () => {
                             </button>
                     }
 
+                    {
+                        sessionUser ?
+                            <OpenModalButton
+                                buttonText={
+                                    <><i className="fa-solid fa-plus"></i></>
+                                }
+                                className={"vid-playlist-add-btn"}
+                                modalComponent={<ListPlaylistModal videoId={videoId}/>}
+                                
+                            />
+                        :
+                                null
+                    }
 
                 </div>
 
@@ -142,17 +209,19 @@ const ShowVideo = () => {
                     </div>)
                 :
                     (<div className="video-description-box">
-                        <span id="video-views">
-                            {
-                                video.views === 0 ?
-                                `No views`
-                                : video.views === 1 ?
-                                    `${numberFormat(video.views)} view`
-                                :
-                                    `${numberFormat(video.views)} views`
-                            }
-                        </span>
-                        <span id="video-date">{`${moment(video.created_at).fromNow()}`}</span>
+                        <div id="video-description-stats">
+                            <p id="video-views">
+                                {
+                                    video.views === 0 ?
+                                    `No views`
+                                    : video.views === 1 ?
+                                        `${numberFormat(video.views)} view`
+                                    :
+                                        `${numberFormat(video.views)} views`
+                                }
+                            </p>
+                            <p id="video-date">{`${moment(video.created_at).fromNow()}`}</p>
+                        </div>
                         <div id="video-description">{video.description}</div>
                     </div>)
                 }
@@ -173,7 +242,10 @@ const ShowVideo = () => {
                         videoId={videoId}
                     />
                     :
-                    <div className="unlogged-video-post-comment"><NavLink to="/login">Log In</NavLink> to post a comment</div>
+                    <div className="unlogged-video-post-comment">
+                        <button onClick={clickLogIn}>Log In</button>
+                        to post a comment
+                    </div>
                 }
                 <div className="video-comments">
                     {commentsArr.length ?
@@ -198,9 +270,15 @@ const ShowVideo = () => {
             </div>
             
             <div className="video-more">
-                <div className="video-more-banner">
-                    <img src="https://liang-capstone-bucket.s3.amazonaws.com/avatars/rooftopgirlblue_50.jpeg" alt="banner"></img>
-                </div>
+                {
+                    currPlaylistId && playlistVideosArr.length > 0 ?
+                        <PlaylistSidebar playlist={playlist} currVideoId={videoId}/>
+                    :
+                        <div className="video-more-banner">
+                            <img src="https://liang-capstone-bucket.s3.amazonaws.com/avatars/rooftopgirlblue_50.jpeg" alt="banner"></img>
+                        </div>
+                }
+                
                 {Object.values(video).length &&
                   recommended.map((rec) => (
                     <NavLink key={rec.id} exact to={`/videos/${rec.id}`}>

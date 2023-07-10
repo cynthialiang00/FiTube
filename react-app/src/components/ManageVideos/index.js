@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { thunkGetUserVideos } from "../../store/videos";
 import OpenModalButton from "../OpenModalButton";
 import DeleteVideoModal from "./DeleteVideoModal";
@@ -13,6 +13,7 @@ import noVideoImg from './upload-cloud.svg';
 
 function ManageVideos() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const userVideos = useSelector((state) => state.videos.user_videos);
     const user = useSelector(state => state.session.user);
 
@@ -21,6 +22,13 @@ function ManageVideos() {
        dispatch(thunkGetUserVideos())
     }, [dispatch]);
 
+    const clickLogIn = async (e) => {
+        e.preventDefault();
+        return history.push({
+            pathname: "/login",
+            state: { goBackURL: history.location.pathname }
+        });
+    }
     const userVideosArr = Object.values(userVideos);
 
     if (!user) return (
@@ -31,7 +39,7 @@ function ManageVideos() {
                     alt="not logged in"
                 >
                 </img>
-                <div>You must <NavLink to="/login">log in</NavLink> to access this resource. </div>
+                <div>You must <button onClick={clickLogIn}>Log In</button> to access this resource. </div>
             </div>
 
         </div>

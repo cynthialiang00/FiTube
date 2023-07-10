@@ -27,8 +27,7 @@ def get_all_user_videos():
 def get_video(id):
     # returns detailed information about a video
     video = Video.query.get(id)
-    this_user = User.query.get(current_user.id)
-    video_user = User.query.get(video.user_id)
+    
 
     if not video:
         return {'errors': ['Resource not found']}, 404
@@ -40,9 +39,12 @@ def get_video(id):
     allVideos = Video.query.filter(Video.id != id)
     videos = random.sample(list(allVideos), 10)
     video_data = video.to_dict()
-
-    if (video_user in this_user.subscriptions):
-                video_data["User"]["is_subscribed_to"] = True
+    
+    if current_user.is_authenticated:
+        this_user = User.query.get(current_user.id)
+        video_user = User.query.get(video.user_id)
+        if (video_user in this_user.subscriptions):
+                    video_data["User"]["is_subscribed_to"] = True
 
     video_data['More'] = {vdo.id: vdo.preview_to_dict() for vdo in videos}
 

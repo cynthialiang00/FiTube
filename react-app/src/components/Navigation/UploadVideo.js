@@ -24,7 +24,7 @@ const UploadVideoModal = () => {
     const [description, setDescription] = useState("");
     const [errors, setErrors] = useState({});
 
-    const allowedFileTypes = 'pngjpgjpeg';
+    const allowedFileTypes = 'PNGpngJPGjpgJPEGjpeg';
 
     useEffect(() => {
         setErrors({});

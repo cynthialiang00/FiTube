@@ -182,7 +182,10 @@
     color: #f1f1f1;
 }
 
-.edit-not-allowed > div > a {
-    color: #3ea6ff;
+.edit-not-allowed > div > button {
     text-decoration: none;
+    border: none;
+    font-size: 18px;
+    color: #3ea6ff;
+    padding: 0;
 }

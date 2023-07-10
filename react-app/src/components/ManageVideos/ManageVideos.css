@@ -113,30 +113,7 @@
 }
 
 
-/* Login required */
 
-.manage-no-login {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-}
-
-.manage-login-photo {
-   opacity: .75;
-    width: 100px;
-    height: 100px;
-    margin-top: 10%;
-    margin-bottom: 2.5%;
-}
-
-
-
-.manage-no-login> div > a {
-    color: #3ea6ff;
-    text-decoration: none;
-}
 
 /* Upload some videos */
 .upload-no-video {
