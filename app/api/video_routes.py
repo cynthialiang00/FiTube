@@ -37,7 +37,7 @@ def get_video(id):
     db.session.commit()
     # includes other video recommendations on sidebar (all videos except for current)
     allVideos = Video.query.filter(Video.id != id)
-    videos = random.sample(list(allVideos), 12)
+    videos = random.sample(list(allVideos), 11)
     video_data = video.to_dict()
     
     if current_user.is_authenticated:
