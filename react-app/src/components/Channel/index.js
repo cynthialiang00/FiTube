@@ -309,7 +309,7 @@ function Channel({user}) {
                                     <div id="customize-btns">
                                         <button onClick={clickEditChannel}
                                                 id="customizing-btn">
-                                                    Customizing...
+                                                    Stop Customizing
                                         </button>
                                     </div>
                                 :
