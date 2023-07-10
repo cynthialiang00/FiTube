@@ -1,12 +1,23 @@
-.video-page {
+/* .video-page {
     display: flex;
     flex-direction: row;
-}
+} */
 
 
 /* .video-page-left {
     width: 11.5%;
 } */
+
+/* .video-page-right {
+    width: 11.5%;
+} */
+
+.video-page-center {
+    display: flex;
+    flex-direction: row;
+    width: 1200px;
+    margin: 0 auto;
+}
 
 .video-content {
     display: flex;
@@ -31,9 +42,7 @@
     max-width: 402px;
 }
 
-/* .video-page-right {
-    width: 11.5%;
-} */
+
 /* Video title */
 #video-title {
     margin-top: 15px;

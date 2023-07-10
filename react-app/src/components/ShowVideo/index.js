@@ -104,7 +104,7 @@ const ShowVideo = () => {
 
     return(
         <div className="video-page">
-            <div className="video-page-left"></div>
+            <div className="video-page-center">
             <div className="video-content">
                 {
                     currPlaylistId ? 
@@ -292,6 +292,7 @@ const ShowVideo = () => {
                     </NavLink>
                   ))
                 }
+            </div>
             </div>
             <div className="video-page-right"></div>
         </div>
