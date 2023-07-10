@@ -259,3 +259,13 @@
     background-color: #3ea6ff;
 
 }
+
+@media (max-width: 1200px) {
+    #customize-btns {
+        display: flex;
+        flex-direction: column;
+        position: static;
+        right: 0;
+        bottom: 60px;
+    }
+}

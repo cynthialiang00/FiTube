@@ -14,6 +14,15 @@ function PlaylistsTab({userPlaylists}) {
         return;
     }
 
+    if (!userPlaylistsArr.length) {
+        return (
+            <div className="no-playlists">
+                This user has no playlists.
+            </div>
+        )
+        
+    }
+
     return (
         <>
             <div className="videos-grid">

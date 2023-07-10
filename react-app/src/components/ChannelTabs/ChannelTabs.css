@@ -80,3 +80,11 @@
     background: rgba(241, 241, 241, .8);
 }
 
+.no-playlists {
+    display: block;
+    width: 400px;
+    text-align: center;
+    color: #aaaaaa;
+    margin: 3% auto;
+    font-size: 18px;
+}

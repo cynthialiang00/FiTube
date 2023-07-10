@@ -29,7 +29,6 @@ const initialState = { channelUser: {}, channelVideos: {}, channelPlaylists: {}}
 export const thunkGetChannel = (userId) => async (dispatch) => {
     const response = await fetch(`/api/channels/${userId}`);
 
-    if (response.ok) {
         const data = await response.json();
 
         if (data.errors) {
@@ -37,7 +36,7 @@ export const thunkGetChannel = (userId) => async (dispatch) => {
         }
 
         dispatch(getChannel(data));
-    }
+
 };
 
 export const thunkSubscribe = (userId) => async (dispatch) => {

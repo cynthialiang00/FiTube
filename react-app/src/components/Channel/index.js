@@ -7,6 +7,8 @@ import ChannelTabs from "../ChannelTabs";
 import { useParams } from "react-router-dom";
 import loading from "./Rolling-1.3s-207px.svg";
 import './channel.css'
+import notFoundImg from '../Forbidden/404.svg';
+
 
 
 import numberFormat from "../../helperFuncs/numberFormat";
@@ -25,14 +27,24 @@ function Channel({user}) {
     const [isAvatarLoading, setIsAvatarLoading] = useState(false);
     const [isBannerLoading, setIsBannerLoading] = useState(false);
     const [isEditingDescr, setIsEditingDescr] = useState(false);
-
+    
     const [description, setDescription] = useState("");
 
     const [errors, setErrors] = useState({});
+    const [is404, setIs404] = useState(false);
     
 
     useEffect(() => {
-        dispatch(thunkGetChannel(userId));
+        const channelRes = dispatch(thunkGetChannel(userId))
+                            .then((res) => (res))
+                            .then((res) => {
+                                if (res && res.errors) {
+                                    return setIs404(true);
+                                }
+                                else
+                                    return;
+                            })
+
         setDescription(userDetails.description)
     }, [dispatch, userId, userDetails.description, user]);
 
@@ -133,15 +145,30 @@ function Channel({user}) {
         return;
     }
 
-    console.log("USER DETAILS: ", userDetails);
-    console.log("USER VIDEOS: ", userVideos);
-    console.log("USER PLAYLIST: ", userPlaylists);
+    // console.log("USER DETAILS: ", userDetails);
+    // console.log("USER VIDEOS: ", userVideos);
+    // console.log("USER PLAYLIST: ", userPlaylists);
 
-    console.log("EDITING? ", isEditingChannel);
-    console.log("EDITING DESCR?", isEditingDescr);
+    // console.log("EDITING? ", isEditingChannel);
+    // console.log("EDITING DESCR?", isEditingDescr);
 
     const userVideosArr = Object.values(userVideos);
 
+    if (is404) {
+        return (
+            <>
+                <div className="video-not-found">
+                    <img className="video-not-found-photo"
+                        src={notFoundImg}
+                        alt="not allowed"
+                    >
+                    </img>
+                    <div> 404: Resource not found. Click <NavLink to="/videos">here</NavLink> to go to the home page.</div>
+
+                </div>
+            </>
+        );
+    }
     return (
         <>  
             
