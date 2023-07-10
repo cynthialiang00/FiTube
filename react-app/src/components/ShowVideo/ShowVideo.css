@@ -126,6 +126,31 @@
     background-color: transparent;
     margin-right: 10px;
 }
+
+.vid-playlist-add-btn {
+    position:relative;
+    border: none;
+    border-radius: 100%;
+    background-color: #383838;
+    width: 36px;
+    height: 36px;
+
+}
+
+.vid-playlist-add-btn > i {
+    font-size: 14px;
+    background-color: transparent;
+    color: #aaaaaa;
+}
+
+.vid-playlist-add-btn:hover {
+    background-color: #aaaaaa;
+}
+
+.vid-playlist-add-btn:hover i {
+    color: #282828;
+}
+
 /* Video description */
 .video-description-box * {
     background-color: transparent;

@@ -21,7 +21,7 @@ const PlaylistSidebar = ({playlist, currVideoId}) => {
                 </div>
                 
             </div>
-            <PlaylistVideos playlistVideosArr={playlistVideosArr} currVideoId={currVideoId}/>
+            <PlaylistVideos playlistVideosArr={playlistVideosArr} playlist={playlist} currVideoId={currVideoId}/>
         </div>
     )
 

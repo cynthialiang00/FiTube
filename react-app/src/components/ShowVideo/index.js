@@ -18,6 +18,7 @@ import notFoundImg from '../Forbidden/404.svg';
 import { thunkGetPlaylistVideos } from "../../store/playlist";
 import { useShowPlaylistContext } from "../../context/ShowPlaylist";
 import findNextKey from "../../helperFuncs/findNextKey";
+import ListPlaylistModal from "./PlaylistModal/ListPlaylistModal";
 
 const ShowVideo = () => {
     const history = useHistory();
@@ -167,6 +168,19 @@ const ShowVideo = () => {
                             </button>
                     }
 
+                    {
+                        sessionUser ?
+                            <OpenModalButton
+                                buttonText={
+                                    <><i className="fa-solid fa-plus"></i></>
+                                }
+                                className={"vid-playlist-add-btn"}
+                                modalComponent={<ListPlaylistModal videoId={videoId}/>}
+                                
+                            />
+                        :
+                                null
+                    }
 
                 </div>
 

@@ -49,6 +49,7 @@
 /* Video Card */
 .video-show-playlist-video-card {
     display: flex;
+    position: relative;
     flex-direction: row;
     column-gap: 10px;
     width: 100%;
@@ -74,6 +75,7 @@
 
 .video-show-playlist-video-card-current {
     display: flex;
+    position: relative;
     flex-direction: row;
     column-gap: 10px;
     width: 100%;
@@ -132,4 +134,20 @@
     color: #aaaaaa;
     font-size: 10px;
 
+}
+
+.video-show-playlist-video-card-delete-btn {
+    border: none;
+    position: absolute;
+    right: 10px;
+    top: 25px;
+}
+
+.video-show-playlist-video-card-delete-btn > i {
+    font-size: 16px;
+    color: #aaaaaa;
+}
+
+.video-show-playlist-video-card-delete-btn:hover i {
+    color: #f1f1f1;
 }

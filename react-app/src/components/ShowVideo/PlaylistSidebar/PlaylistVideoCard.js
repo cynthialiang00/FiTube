@@ -1,8 +1,33 @@
 import React from "react";
 import './PlaylistSidebar.css'
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { thunkDeleteVideoFromPlaylist } from "../../../store/playlist";
 
-const PlaylistVideoCard = ({video, index, currVideoId}) => {
+const PlaylistVideoCard = ({video, index, currVideoId, playlist}) => {
+
+    const dispatch = useDispatch();
+
+    const sessionUser = useSelector(state => state.session.user);
+
+
+    const handleDeleteFromPlaylist = async (e, videoId) => {
+        e.preventDefault();
+
+            console.log('deleting from playlist id: ', playlist.playlist_id);
+            dispatch(thunkDeleteVideoFromPlaylist(playlist.playlist_id, videoId))
+                .then((res) => (res))
+                .then((res) => {
+                    if (res.errors) {
+                        return alert(`${res.errors[0]}`);
+                    }
+                    else {
+                        return alert('Success! Video deleted from playlist');
+                    }
+                })
+            return;
+
+    };
 
     return (
         <NavLink 
@@ -35,6 +60,17 @@ const PlaylistVideoCard = ({video, index, currVideoId}) => {
                     {video.User.username}
                 </div>
             </div>
+
+                {sessionUser.id === playlist.playlist_owner_id ?
+                    <button className="video-show-playlist-video-card-delete-btn"
+                        onClick={(e) => handleDeleteFromPlaylist(e, video.id)}
+                    >
+                        <i className="fa-solid fa-xmark"></i>
+                    </button>
+                :
+                    null
+                }
+                
 
         </NavLink>
 
