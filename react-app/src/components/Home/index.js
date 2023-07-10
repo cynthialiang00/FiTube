@@ -65,9 +65,9 @@ function HomePage() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="spot-owner">
+                                <NavLink className="spot-owner" to={`/channels/${video.user_id}`}>
                                     <img className="spot-owner-avatar" src={`${video.User.avatar}`} alt={`${video.User.username} avatar`}></img>
-                                </div>
+                                </NavLink>
                                 
                             </div>
                         </div>
