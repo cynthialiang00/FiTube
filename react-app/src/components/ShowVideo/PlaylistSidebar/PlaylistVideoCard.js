@@ -61,7 +61,7 @@ const PlaylistVideoCard = ({video, index, currVideoId, playlist}) => {
                 </div>
             </div>
 
-                {sessionUser.id === playlist.playlist_owner_id ?
+                {sessionUser && sessionUser.id === playlist.playlist_owner_id ?
                     <button className="video-show-playlist-video-card-delete-btn"
                         onClick={(e) => handleDeleteFromPlaylist(e, video.id)}
                     >
