@@ -8,6 +8,8 @@ import './Navigation.css';
 
 // import ytlogo from './yt_icon_rgb.png';
 import ytlogo from './fitubelogo.svg';
+import gitImg from '../SplashPage/github.svg';
+import linkImg from '../SplashPage/linkedin.svg';
 
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
@@ -17,9 +19,19 @@ function Navigation({ isLoaded }){
 				<NavLink exact to="/videos">
 					<img id='nav-logo' src={ytlogo} alt="fitube logo" style={{ width: "100px", height: "30px", marginBottom: "7px" }}></img>
 				</NavLink>
+
+				<div className="nav-about-links">
+					<a href="https://github.com/cynthialiang00/FiTube.git">
+						<img src={gitImg} alt="github logo"></img>
+					</a>
+					<a href="https://www.linkedin.com/in/cynthia-liang-1ab860243/">
+						<img src={linkImg} alt="linkedin logo"></img>
+					</a>
+				</div>
 			</div>
-			<div className='nav-search'>
-			</div>
+
+				
+
 			<ul className='nav-utils'>
 				<li>
 					<OpenModalButton 
