@@ -16,8 +16,11 @@
 }
 
 .nav-logo-container {
-    display: inline;
+    display: flex;
     margin-left: 25px;
+    flex-direction: row;
+    column-gap: 20px;
+    align-items: center;
 }
 
 #nav-logo {
@@ -72,4 +75,20 @@
   width: 32px;
   height: 32px;
   border-radius: 100%;
+}
+
+
+.nav-about-links {
+  display: flex;
+  flex-direction: row;
+  column-gap: 10px;
+}
+
+.nav-about-links>a {
+  text-decoration: none;
+}
+
+.nav-about-links>a>img {
+  width: 30px;
+  height: 30px;
 }
