@@ -8,11 +8,9 @@ import Navigation from "./components/Navigation";
 
 
 import HomePage from "./components/Home";
-import UploadVideoModal from "./components/Navigation/UploadVideo";
 import ManageVideos from "./components/ManageVideos";
 import EditVideoPage from "./components/EditVideo";
 import ShowVideo from "./components/ShowVideo";
-import SplashPage from "./components/SplashPage";
 import Channel from "./components/Channel";
 
 function App() {

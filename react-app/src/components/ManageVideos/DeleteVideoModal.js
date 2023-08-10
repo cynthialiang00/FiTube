@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkDeleteVideo } from "../../store/videos";
@@ -8,7 +7,6 @@ import './DeleteVideo.css'
 const DeleteVideoModal = ({videoId}) => {
 
     const dispatch = useDispatch();
-    const history = useHistory();
     const { closeModal } = useModal();
 
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { thunkGetAllVideos } from "../../store/videos";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import './home.css';
 
 import loadSpin from '../../assets/Pulse-1.3s-200px (1).svg'
@@ -12,6 +12,7 @@ import notFoundImg from '../Forbidden/404.svg';
 
 function HomePage() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const allVideos = useSelector((state) => state.videos.all_videos);
     const moment = require('moment');
     const [isContentLoading, setIsContentLoading] = useState(true);
@@ -22,6 +23,11 @@ function HomePage() {
     }, [dispatch]);
 
     const allVideosArr = Object.values(allVideos);
+
+    const handleClickAvatar = (e, userId) => {
+        e.preventDefault();
+        return history.push(`/channels/${userId}`)
+    };
 
     if (isContentLoading) {
         return (
@@ -80,9 +86,11 @@ function HomePage() {
                                         </div>
                                     </div>
                                 </div>
-                                <NavLink className="spot-owner" to={`/channels/${video.user_id}`}>
+                                <button className="spot-owner" 
+                                        onClick={(e) => handleClickAvatar(e, video.user_id)}
+                                >
                                     <img className="spot-owner-avatar" src={`${video.User.avatar}`} alt={`${video.User.username} avatar`}></img>
-                                </NavLink>
+                                </button>
                                 
                             </div>
                         </div>

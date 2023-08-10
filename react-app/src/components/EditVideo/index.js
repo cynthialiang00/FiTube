@@ -15,13 +15,10 @@ const EditVideoPage = ({user}) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // const userVideos = useSelector((state) => state.videos.user_videos);
-    // const video = userVideos[videoId];
-
     const video = useSelector((state) => state.videos.one_video);
 
     const [thumbnail, setThumbnail] = useState(null);
-    const [thumbnailIsLoading, setThumbnailIsLoading] = useState(false);
+    // const [thumbnailIsLoading, setThumbnailIsLoading] = useState(false);
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -68,7 +65,7 @@ const EditVideoPage = ({user}) => {
 
         if (thumbnail !== null) {
             formData.append("thumbnail", thumbnail);
-            setThumbnailIsLoading(true);
+            // setThumbnailIsLoading(true);
         };
         if (title !== null) formData.append("title", title);
         if (description !== null) formData.append("description", description);
@@ -80,7 +77,7 @@ const EditVideoPage = ({user}) => {
 
         const edited = dispatch(thunkEditVideo(videoId, formData));
         const editedInfo = await edited;
-        setThumbnailIsLoading(false);
+        // setThumbnailIsLoading(false);
 
         if (editedInfo.errors) return alert(`Oops, something went wrong with uploading. Please try again.`);
 

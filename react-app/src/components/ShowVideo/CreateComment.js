@@ -1,6 +1,5 @@
 import React from 'react';
-import { useState, useEffect, useRef } from 'react';
-import { useParams   } from 'react-router-dom/cjs/react-router-dom.min';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { thunkPostComment } from '../../store/comments';
 

@@ -11,8 +11,6 @@ import notFoundImg from '../Forbidden/404.svg';
 
 import loadSpin from '../../assets/Pulse-1.3s-200px (1).svg';
 
-import numberFormat from "../../helperFuncs/numberFormat";
-
 
 function Channel({user}) {
     const history = useHistory();
@@ -38,7 +36,7 @@ function Channel({user}) {
     
 
     useEffect(() => {
-        const channelRes = dispatch(thunkGetChannel(userId))
+        dispatch(thunkGetChannel(userId))
                             .then((res) => (res))
                             .then((res) => {
                                 if (res && res.errors) {
