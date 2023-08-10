@@ -8,6 +8,7 @@ import './EditPage.css';
 
 import forbiddenImg from '../Forbidden/forbidden.svg';
 import noLoginImg from '../Navigation/emoji-tongue.svg';
+import loadSpin from '../../assets/Pulse-1.3s-200px (1).svg';
 
 const EditVideoPage = ({user}) => {
     const { videoId } = useParams()
@@ -27,8 +28,11 @@ const EditVideoPage = ({user}) => {
     const [hasSubmit, setHasSubmit] = useState(false);
     const [errors, setErrors] = useState({});
 
+    const [isContentLoading, setIsContentLoading] = useState(true);
+
     useEffect(() => {
-        dispatch(thunkGetOneVideo(videoId));
+        dispatch(thunkGetOneVideo(videoId))
+                .then((res) => (setIsContentLoading(false)));
         setTitle(video.title);
         setDescription(video.description);
     }, [dispatch, videoId, video.title, video.description]);
@@ -91,6 +95,19 @@ const EditVideoPage = ({user}) => {
         const file = e.target.files[0];
         setThumbnail(file);
     }
+
+
+    if (isContentLoading) {
+        return (
+            <div className="loading-spinner">
+                <img src={loadSpin}
+                    alt="loading"
+                >
+                </img>
+            </div>
+        )
+    }
+
     if (!user) return (
         <>
             <div className="edit-not-allowed">

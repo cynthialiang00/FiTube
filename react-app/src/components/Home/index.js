@@ -7,7 +7,6 @@ import './home.css';
 
 import loadSpin from '../../assets/Pulse-1.3s-200px (1).svg'
 
-
 import numberFormat from "../../helperFuncs/numberFormat";
 import notFoundImg from '../Forbidden/404.svg';
 
@@ -15,12 +14,10 @@ function HomePage() {
     const dispatch = useDispatch();
     const allVideos = useSelector((state) => state.videos.all_videos);
     const moment = require('moment');
-    const [isContentLoading, setIsContentLoading] = useState(false);
-
+    const [isContentLoading, setIsContentLoading] = useState(true);
     useEffect(() => {
-
-        setIsContentLoading(true);
-        dispatch(thunkGetAllVideos()).then((res) => setIsContentLoading(false));
+        
+        dispatch(thunkGetAllVideos()).then((res) => (setIsContentLoading(false)));
 
     }, [dispatch]);
 
