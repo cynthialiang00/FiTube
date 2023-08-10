@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
 import { thunkGetUserVideos } from "../../store/videos";
@@ -10,6 +10,7 @@ import './ManageVideos.css'
 import numberFormat from "../../helperFuncs/numberFormat";
 import noLoginImg from '../Navigation/emoji-tongue.svg';
 import noVideoImg from './upload-cloud.svg';
+import loadSpin from '../../assets/Pulse-1.3s-200px (1).svg';
 
 function ManageVideos() {
     const dispatch = useDispatch();
@@ -17,9 +18,13 @@ function ManageVideos() {
     const userVideos = useSelector((state) => state.videos.user_videos);
     const user = useSelector(state => state.session.user);
 
+    const [isContentLoading, setIsContentLoading] = useState(true);
+
+
 
     useEffect(() => {
        dispatch(thunkGetUserVideos())
+            .then((res) => (setIsContentLoading(false)));
     }, [dispatch]);
 
     const clickLogIn = async (e) => {
@@ -31,6 +36,17 @@ function ManageVideos() {
     }
     const userVideosArr = Object.values(userVideos);
 
+    if (isContentLoading) {
+        return (
+            <div className="loading-spinner">
+                <img src={loadSpin}
+                    alt="loading"
+                >
+                </img>
+            </div>
+        )
+    }
+    
     if (!user) return (
         <div className="manage-content">
             <div className="manage-no-login"> 

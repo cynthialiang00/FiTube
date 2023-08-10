@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { thunkDeleteComment } from "../../../store/comments";

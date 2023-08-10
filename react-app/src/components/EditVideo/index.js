@@ -8,27 +8,28 @@ import './EditPage.css';
 
 import forbiddenImg from '../Forbidden/forbidden.svg';
 import noLoginImg from '../Navigation/emoji-tongue.svg';
+import loadSpin from '../../assets/Pulse-1.3s-200px (1).svg';
 
 const EditVideoPage = ({user}) => {
     const { videoId } = useParams()
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // const userVideos = useSelector((state) => state.videos.user_videos);
-    // const video = userVideos[videoId];
-
     const video = useSelector((state) => state.videos.one_video);
 
     const [thumbnail, setThumbnail] = useState(null);
-    const [thumbnailIsLoading, setThumbnailIsLoading] = useState(false);
+    // const [thumbnailIsLoading, setThumbnailIsLoading] = useState(false);
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [hasSubmit, setHasSubmit] = useState(false);
     const [errors, setErrors] = useState({});
 
+    const [isContentLoading, setIsContentLoading] = useState(true);
+
     useEffect(() => {
-        dispatch(thunkGetOneVideo(videoId));
+        dispatch(thunkGetOneVideo(videoId))
+                .then((res) => (setIsContentLoading(false)));
         setTitle(video.title);
         setDescription(video.description);
     }, [dispatch, videoId, video.title, video.description]);
@@ -64,7 +65,7 @@ const EditVideoPage = ({user}) => {
 
         if (thumbnail !== null) {
             formData.append("thumbnail", thumbnail);
-            setThumbnailIsLoading(true);
+            // setThumbnailIsLoading(true);
         };
         if (title !== null) formData.append("title", title);
         if (description !== null) formData.append("description", description);
@@ -76,7 +77,7 @@ const EditVideoPage = ({user}) => {
 
         const edited = dispatch(thunkEditVideo(videoId, formData));
         const editedInfo = await edited;
-        setThumbnailIsLoading(false);
+        // setThumbnailIsLoading(false);
 
         if (editedInfo.errors) return alert(`Oops, something went wrong with uploading. Please try again.`);
 
@@ -91,6 +92,19 @@ const EditVideoPage = ({user}) => {
         const file = e.target.files[0];
         setThumbnail(file);
     }
+
+
+    if (isContentLoading) {
+        return (
+            <div className="loading-spinner">
+                <img src={loadSpin}
+                    alt="loading"
+                >
+                </img>
+            </div>
+        )
+    }
+
     if (!user) return (
         <>
             <div className="edit-not-allowed">

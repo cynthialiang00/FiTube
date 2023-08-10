@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect , useRef} from 'react';
+import { useState } from 'react';
 import OpenModalButton from '../OpenModalButton';
 import DeleteCommentModal from './CommentModals/DeleteCommentModal';
 import { useEditCommentContext } from '../../context/EditContext';
@@ -21,8 +21,6 @@ const CommentCard = ({user,img, name, date, text, commentId}) => {
         if (showMenu) return;
         setShowMenu(true);
     };
-
-    const closeMenu = () => setShowMenu(false);
 
 
     const settingEdit = (e) => {

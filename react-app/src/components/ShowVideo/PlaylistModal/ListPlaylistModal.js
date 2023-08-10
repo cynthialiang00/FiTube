@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { thunkGetPlaylists } from "../../../store/playlist";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import './ListPlaylistModal.css';
 import { thunkAddVideoToPlaylist } from "../../../store/playlist";
 

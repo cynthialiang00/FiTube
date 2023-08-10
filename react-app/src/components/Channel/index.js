@@ -9,9 +9,7 @@ import loading from "./Rolling-1.3s-207px.svg";
 import './channel.css'
 import notFoundImg from '../Forbidden/404.svg';
 
-
-
-import numberFormat from "../../helperFuncs/numberFormat";
+import loadSpin from '../../assets/Pulse-1.3s-200px (1).svg';
 
 
 function Channel({user}) {
@@ -32,17 +30,21 @@ function Channel({user}) {
 
     const [errors, setErrors] = useState({});
     const [is404, setIs404] = useState(false);
+
+    const [isContentLoading, setIsContentLoading] = useState(true);
+
     
 
     useEffect(() => {
-        const channelRes = dispatch(thunkGetChannel(userId))
+        dispatch(thunkGetChannel(userId))
                             .then((res) => (res))
                             .then((res) => {
                                 if (res && res.errors) {
+                                    setIsContentLoading(false);
                                     return setIs404(true);
                                 }
                                 else
-                                    return;
+                                    return setIsContentLoading(false);
                             })
 
         setDescription(userDetails.description)
@@ -153,6 +155,17 @@ function Channel({user}) {
     // console.log("EDITING DESCR?", isEditingDescr);
 
     const userVideosArr = Object.values(userVideos);
+
+    if (isContentLoading) {
+        return (
+            <div className="loading-spinner">
+                <img src={loadSpin}
+                    alt="loading"
+                >
+                </img>
+            </div>
+        )
+    }
 
     if (is404) {
         return (

@@ -20,6 +20,8 @@ import { useShowPlaylistContext } from "../../context/ShowPlaylist";
 import findNextKey from "../../helperFuncs/findNextKey";
 import ListPlaylistModal from "./PlaylistModal/ListPlaylistModal";
 
+import loadSpin from '../../assets/Pulse-1.3s-200px (1).svg';
+
 const ShowVideo = () => {
     const history = useHistory();
     const { videoId } = useParams();
@@ -35,17 +37,20 @@ const ShowVideo = () => {
     const comments = useSelector((state) => state.comments);
     const sessionUser = useSelector(state => state.session.user);
 
-    
+    const [isContentLoading, setIsContentLoading] = useState(true);
 
-    if (currPlaylistId) {
-        console.log('PLAYLIST CONTEXT ID: ', currPlaylistId);
-    }
+
+    // if (currPlaylistId) {
+    //     console.log('PLAYLIST CONTEXT ID: ', currPlaylistId);
+    // }
 
     let recommended;
     
     useEffect(() => {
-        dispatch(thunkGetOneVideo(videoId));
-        dispatch(thunkGetAllComments(videoId));
+        dispatch(thunkGetOneVideo(videoId))
+            .then((res) => (dispatch(thunkGetAllComments(videoId))))
+            .then((res) => (setIsContentLoading(false)))
+        
 
         if (currPlaylistId) {
             dispatch(thunkGetPlaylistVideos(currPlaylistId));
@@ -86,6 +91,17 @@ const ShowVideo = () => {
         const nextVideoId = findNextKey(playlistVideos, videoId);
         return history.push(`/videos/${nextVideoId}`);
         
+    }
+
+    if (isContentLoading) {
+        return (
+            <div className="loading-spinner">
+                <img src={loadSpin}
+                    alt="loading"
+                >
+                </img>
+            </div>
+        )
     }
 
     if(!Object.values(video).length) return(

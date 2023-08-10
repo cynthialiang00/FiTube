@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
 import VideosTab from "./videosTab";
 import PlaylistsTab from "./playlistsTab";
 import AboutTab from "./aboutTab";
