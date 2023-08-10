@@ -1,9 +1,11 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { thunkGetAllVideos } from "../../store/videos";
 import { NavLink } from "react-router-dom";
 import './home.css';
+
+import loadSpin from '../../assets/Pulse-1.3s-200px (1).svg'
 
 
 import numberFormat from "../../helperFuncs/numberFormat";
@@ -13,12 +15,27 @@ function HomePage() {
     const dispatch = useDispatch();
     const allVideos = useSelector((state) => state.videos.all_videos);
     const moment = require('moment');
+    const [isContentLoading, setIsContentLoading] = useState(false);
 
     useEffect(() => {
-        dispatch(thunkGetAllVideos());
+
+        setIsContentLoading(true);
+        dispatch(thunkGetAllVideos()).then((res) => setIsContentLoading(false));
+
     }, [dispatch]);
 
     const allVideosArr = Object.values(allVideos);
+
+    if (isContentLoading) {
+        return (
+            <div className="loading-spinner">
+                <img src={loadSpin}
+                     alt="loading"
+                >
+                </img>
+            </div>
+        )
+    }
 
     if (!Object.values(allVideos).length) return (
         <>
@@ -33,6 +50,7 @@ function HomePage() {
             </div>
         </>
     );
+
     return (
         <div className="spots-content">
             <div className="spots-grid">
