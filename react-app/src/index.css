@@ -90,3 +90,20 @@ button:disabled {
     font-size: 18px;
     color: #3ea6ff;
 }
+
+/* Loading spinner */
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+    width: 500px;
+    margin: 0 auto;
+}
+
+.loading-spinner img {
+    width: 150px;
+    height: 150px;
+    opacity: .9;
+}
+
