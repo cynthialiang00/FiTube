@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton';
 import UploadVideoModal from './UploadVideo';
+import SearchBar from './SearchBar';
 import './Navigation.css';
 
 // import ytlogo from './yt_icon_rgb.png';
@@ -30,7 +31,7 @@ function Navigation({ isLoaded }){
 				</div>
 			</div>
 
-				
+			<SearchBar />
 
 			<ul className='nav-utils'>
 				<li>
