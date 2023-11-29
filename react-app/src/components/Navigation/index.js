@@ -46,16 +46,7 @@ function Navigation({ isLoaded }){
 
 			</ul>
 		</nav>
-		// <ul>
-		// 	<li>
-		// 		<NavLink exact to="/">Home</NavLink>
-		// 	</li>
-		// 	{isLoaded && (
-		// 		<li>
-		// 			<ProfileButton user={sessionUser} />
-		// 		</li>
-		// 	)}
-		// </ul>
+		
 	);
 }
 
