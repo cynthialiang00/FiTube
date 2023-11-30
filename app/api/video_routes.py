@@ -7,6 +7,11 @@ from app.s3_helpers import (
 import random
 video_routes = Blueprint('videos', __name__)
 
+@video_routes.route('/search/<string:query_str>')
+def search(query_str):
+
+    results = Video.query.filter(Video.title.startswith(query_str)).limit(10).all()
+    return {'search_results': [video.search_to_dict() for video in results]}
 
 @video_routes.route('/')
 def get_all_videos():
