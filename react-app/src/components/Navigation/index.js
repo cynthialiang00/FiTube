@@ -31,7 +31,7 @@ function Navigation({ isLoaded }){
 				</div>
 			</div>
 
-			<SearchBar />
+			{/* <SearchBar /> */}
 
 			<ul className='nav-utils'>
 				<li>
