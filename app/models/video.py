@@ -49,6 +49,11 @@ class Video(db.Model):
                      }
         }
     
+    def search_to_dict(self):
+        return {
+            'title': self.title
+        }
+    
     def preview_to_dict(self):
         return {
             'id': self.id,
